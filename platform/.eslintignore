@@ -1,0 +1,5 @@
+snapshot*
+dist
+lib
+node_modules
+static
