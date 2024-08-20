@@ -58,11 +58,13 @@
     </div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus'
-import Popup from '@/components/popup/index.vue'
 import { useDictOptions } from '@/hooks/useDictOptions'
-import { getModels } from '@/api/tools/code'
+
+import type { FormInstance } from 'element-plus'
 import type { PropType } from 'vue'
+
+import { getModels } from '@/api/tools/code'
+import Popup from '@/components/popup/index.vue'
 const props = defineProps({
     column: {
         type: Array as PropType<any[]>,

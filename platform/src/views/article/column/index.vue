@@ -66,10 +66,13 @@
     </div>
 </template>
 <script lang="ts" setup name="articleColumn">
-import { articleCateDelete, articleCateLists, articleCateStatus } from '@/api/article'
-import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
+
+import { usePaging } from '@/hooks/usePaging'
+
 import EditPopup from './edit.vue'
+
+import { articleCateDelete, articleCateLists, articleCateStatus } from '@/api/article'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const showEdit = ref(false)
 

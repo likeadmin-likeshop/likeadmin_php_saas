@@ -48,8 +48,9 @@
     </div>
 </template>
 <script lang="ts" setup name="notice">
-import { noticeLists } from '@/api/message'
 import { usePaging } from '@/hooks/usePaging'
+
+import { noticeLists } from '@/api/message'
 import { getRoutePath } from '@/router'
 
 enum NoticeEnums {

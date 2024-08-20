@@ -1,8 +1,11 @@
 import { ref } from 'vue'
+
 import feedback from '@/utils/feedback'
-import type { FormRules } from 'element-plus'
-import { setOaMenuSave, getOaMenu, setOaMenuPublish } from '@/api/channel/wx_oa'
+
 import type { Menu } from '@/api/channel/wx_oa'
+import type { FormRules } from 'element-plus'
+
+import { setOaMenuSave, getOaMenu, setOaMenuPublish } from '@/api/channel/wx_oa'
 
 // 菜单实例
 export const menuRef = shallowRef()

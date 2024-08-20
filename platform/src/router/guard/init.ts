@@ -1,4 +1,5 @@
 import useAppStore from '@/stores/modules/app'
+
 import type { Router } from 'vue-router'
 
 export default function createInitGuard(router: Router) {

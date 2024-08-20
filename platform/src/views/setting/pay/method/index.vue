@@ -93,8 +93,9 @@
 </template>
 
 <script lang="ts" setup>
-import { getPayWay, setPayWay } from '@/api/setting/pay'
 import { cloneDeep } from 'lodash'
+
+import { getPayWay, setPayWay } from '@/api/setting/pay'
 enum PaySceneEnum {
     MP_WEIXIN = 1,
     OA = 2,

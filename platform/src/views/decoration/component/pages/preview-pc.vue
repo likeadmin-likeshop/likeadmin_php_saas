@@ -79,9 +79,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-import widgets from '../widgets'
-import type { PropType } from 'vue'
 import { Setting, ArrowLeft, Hide, View } from '@element-plus/icons-vue'
+
+import widgets from '../widgets'
+
+import type { PropType } from 'vue'
 
 const commonComponentRef = shallowRef<any>()
 

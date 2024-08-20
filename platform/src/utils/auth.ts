@@ -1,8 +1,11 @@
-import { TOKEN_KEY } from '@/enums/cacheEnums'
-import { resetRouter } from '@/router'
 import useTabsStore from '@/stores/modules/multipleTabs'
 import useUserStore from '@/stores/modules/user'
+
+import { TOKEN_KEY } from '@/enums/cacheEnums'
+
 import cache from './cache'
+
+import { resetRouter } from '@/router'
 
 export function getToken() {
     return cache.get(TOKEN_KEY)

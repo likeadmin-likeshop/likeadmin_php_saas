@@ -149,6 +149,14 @@
 </template>
 
 <script lang="ts" setup name="codeGenerate">
+import { isProdMode } from '@/utils/env'
+import feedback from '@/utils/feedback'
+
+import { usePaging } from '@/hooks/usePaging'
+
+import CodePreview from '../components/code-preview.vue'
+import DataTable from '../components/data-table.vue'
+
 import {
     generateTable,
     syncColumn,
@@ -156,11 +164,6 @@ import {
     generatePreview,
     generateCode
 } from '@/api/tools/code'
-import { usePaging } from '@/hooks/usePaging'
-import DataTable from '../components/data-table.vue'
-import CodePreview from '../components/code-preview.vue'
-import feedback from '@/utils/feedback'
-import { isProdMode } from '@/utils/env'
 import { getRoutePath } from '@/router'
 
 const formData = reactive({

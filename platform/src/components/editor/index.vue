@@ -25,10 +25,13 @@
 <script setup lang="ts">
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { Editor as WEditor, Toolbar } from '@wangeditor/editor-for-vue'
-import type { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
-import MaterialPicker from '@/components/material/picker.vue'
+
 import { addUnit } from '@/utils/util'
+
+import type { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import type { CSSProperties } from 'vue'
+
+import MaterialPicker from '@/components/material/picker.vue'
 
 const props = withDefaults(
     defineProps<{

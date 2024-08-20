@@ -3,10 +3,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import type { CSSProperties } from 'vue'
-import { addUnit } from '@/utils/util'
 import { imageProps } from 'element-plus'
+import { computed } from 'vue'
+
+import { addUnit } from '@/utils/util'
+
+import type { CSSProperties } from 'vue'
 const props = defineProps({
     width: {
         type: [String, Number],

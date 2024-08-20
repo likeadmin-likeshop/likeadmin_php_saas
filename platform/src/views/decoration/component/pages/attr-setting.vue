@@ -20,8 +20,9 @@
     </div>
 </template>
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import widgets from '../widgets'
+
+import type { PropType } from 'vue'
 
 const props = defineProps({
     widget: {

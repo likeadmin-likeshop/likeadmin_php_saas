@@ -109,10 +109,12 @@
     </el-form>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
-import type { PropType } from 'vue'
-import type options from './options'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
+
+import type options from './options'
+import type { PropType } from 'vue'
 
 const limit = 5
 type OptionsType = ReturnType<typeof options>

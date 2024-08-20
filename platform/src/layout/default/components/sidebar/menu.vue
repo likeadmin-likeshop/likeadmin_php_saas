@@ -26,8 +26,9 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import MenuItem from './menu-item.vue'
+
+import type { PropType } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 
 const props = defineProps({

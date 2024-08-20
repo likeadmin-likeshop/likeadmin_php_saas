@@ -103,8 +103,9 @@
 
 <script lang="ts" setup name="loginRegister">
 import type { LoginSetup } from '@/api/setting/user'
-import { getLogin, setLogin } from '@/api/setting/user'
 import type { FormInstance, FormRules } from 'element-plus'
+
+import { getLogin, setLogin } from '@/api/setting/user'
 const formRef = ref<FormInstance>()
 
 // 表单数据

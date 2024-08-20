@@ -7,6 +7,7 @@
 </template>
 <script setup lang="ts">
 import { useWatchRoute } from '@/hooks/useWatchRoute'
+
 import type { RouteLocationMatched, RouteLocationNormalizedLoaded } from 'vue-router'
 const breadcrumbs = ref<RouteLocationMatched[]>([])
 const getBreadcrumb = (route: RouteLocationNormalizedLoaded) => {

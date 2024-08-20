@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import useSettingStore from '@/stores/modules/setting'
+
 import LayoutSetting from './drawer.vue'
 const settingStore = useSettingStore()
 

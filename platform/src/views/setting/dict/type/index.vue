@@ -122,11 +122,14 @@
 </template>
 
 <script lang="ts" setup name="dictType">
-import { dictTypeDelete, dictTypeLists } from '@/api/setting/dict'
-import { usePaging } from '@/hooks/usePaging'
-import { getRoutePath } from '@/router'
 import feedback from '@/utils/feedback'
+
+import { usePaging } from '@/hooks/usePaging'
+
 import EditPopup from './edit.vue'
+
+import { dictTypeDelete, dictTypeLists } from '@/api/setting/dict'
+import { getRoutePath } from '@/router'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const showEdit = ref(false)
 const queryParams = reactive({

@@ -66,10 +66,13 @@
 </template>
 
 <script setup lang="ts" name="userSetting">
-import { setUserInfo } from '@/api/user'
 import useUserStore from '@/stores/modules/user'
+
 import feedback from '@/utils/feedback'
+
 import type { FormInstance } from 'element-plus'
+
+import { setUserInfo } from '@/api/user'
 const formRef = ref<FormInstance>()
 const userStore = useUserStore()
 // 表单数据

@@ -162,11 +162,14 @@
     </div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus'
-import { menuLists, menuEdit, menuAdd, menuDetail } from '@/api/perms/menu'
-import { MenuEnum } from '@/enums/appEnums'
-import Popup from '@/components/popup/index.vue'
 import { arrayToTree, treeToArray } from '@/utils/util'
+
+import { MenuEnum } from '@/enums/appEnums'
+
+import type { FormInstance } from 'element-plus'
+
+import { menuLists, menuEdit, menuAdd, menuDetail } from '@/api/perms/menu'
+import Popup from '@/components/popup/index.vue'
 import { getModulesKey } from '@/router'
 
 const emit = defineEmits(['success', 'close'])

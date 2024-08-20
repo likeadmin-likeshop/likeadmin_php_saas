@@ -1,5 +1,9 @@
 import { defineStore } from 'pinia'
+
 import { isExternal } from '@/utils/validate'
+
+import { PageEnum } from '@/enums/pageEnum'
+
 import type {
     LocationQuery,
     RouteLocationNormalized,
@@ -7,7 +11,6 @@ import type {
     Router,
     RouteRecordName
 } from 'vue-router'
-import { PageEnum } from '@/enums/pageEnum'
 
 interface TabItem {
     name: RouteRecordName

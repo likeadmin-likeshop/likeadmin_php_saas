@@ -50,9 +50,11 @@
     </div>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
-import type { PropType } from 'vue'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
+
+import type { PropType } from 'vue'
 const props = defineProps({
     modelValue: {
         type: Array as PropType<any[]>,

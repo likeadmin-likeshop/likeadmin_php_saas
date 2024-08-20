@@ -1,6 +1,7 @@
 <script lang="ts">
-import { createVNode } from 'vue'
 import { ElIcon } from 'element-plus'
+import { createVNode } from 'vue'
+
 import { EL_ICON_PREFIX, LOCAL_ICON_PREFIX } from './index'
 import svgIcon from './svg-icon.vue'
 export default defineComponent({

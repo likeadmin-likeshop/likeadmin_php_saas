@@ -36,10 +36,12 @@
     </popup>
 </template>
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import type options from './options'
-import Popup from '@/components/popup/index.vue'
 import feedback from '@/utils/feedback'
+
+import type options from './options'
+import type { PropType } from 'vue'
+
+import Popup from '@/components/popup/index.vue'
 
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 

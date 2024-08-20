@@ -6,7 +6,7 @@ const defaultSetting = {
     sideTheme: 'light', //侧边栏主题
     sideDarkColor: '#1d2124', //侧边栏深色主题颜色
     openMultipleTabs: true, // 是否开启多标签tab栏
-    theme: '#4A5DFF', //主题色
+    theme: '#12100E', //主题色
     successTheme: '#67c23a', //成功主题色
     warningTheme: '#e6a23c', //警告主题色
     dangerTheme: '#f56c6c', //危险主题色

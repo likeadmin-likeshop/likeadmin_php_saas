@@ -13,9 +13,11 @@
   }
  */
 
-import type { RouteRecordRaw } from 'vue-router'
-import { PageEnum } from '@/enums/pageEnum'
 import Layout from '@/layout/default/index.vue'
+
+import { PageEnum } from '@/enums/pageEnum'
+
+import type { RouteRecordRaw } from 'vue-router'
 
 export const LAYOUT = () => Promise.resolve(Layout)
 

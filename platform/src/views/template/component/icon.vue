@@ -56,8 +56,8 @@
     </div>
 </template>
 <script lang="ts" setup>
-import Icon from '@/components/icon/index.vue'
 import { getElementPlusIconNames, getLocalIconNames } from '@/components/icon'
+import Icon from '@/components/icon/index.vue'
 const state = reactive({
     value: ''
 })

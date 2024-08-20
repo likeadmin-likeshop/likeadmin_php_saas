@@ -11,9 +11,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import type options from './options'
 import DecorationImg from '../../decoration-img.vue'
+
+import type options from './options'
+import type { PropType } from 'vue'
 type OptionsType = ReturnType<typeof options>
 const props = defineProps({
     content: {

@@ -112,10 +112,12 @@
 </template>
 
 <script lang="ts" setup name="articleListsEdit">
-import type { FormInstance } from 'element-plus'
 import { useDictOptions } from '@/hooks/useDictOptions'
-import { articleDetail, articleEdit, articleAdd, articleCateAll } from '@/api/article'
 import useMultipleTabs from '@/hooks/useMultipleTabs'
+
+import type { FormInstance } from 'element-plus'
+
+import { articleDetail, articleEdit, articleAdd, articleCateAll } from '@/api/article'
 
 const route = useRoute()
 const router = useRouter()

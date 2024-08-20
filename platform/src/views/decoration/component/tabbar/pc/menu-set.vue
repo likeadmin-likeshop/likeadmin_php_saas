@@ -69,9 +69,10 @@
 </template>
 
 <script setup lang="ts">
-import feedback from '@/utils/feedback'
 import { cloneDeep } from 'lodash-es'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
 const props = withDefaults(
     defineProps<{
         modelValue: any[]

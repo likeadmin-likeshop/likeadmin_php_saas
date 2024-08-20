@@ -56,7 +56,7 @@
                                             </template>
                                         </material-picker>
                                         <material-picker
-                                            v-if="content.style == 0 || content.bg_style == 1"
+                                            v-if="content.bg_style == 1"
                                             class="ml-[40px]"
                                             size="122px"
                                             v-model="item.bg"
@@ -114,10 +114,12 @@
     </el-form>
 </template>
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
-import type { PropType } from 'vue'
-import type options from './options'
 import Draggable from 'vuedraggable'
+
+import feedback from '@/utils/feedback'
+
+import type options from './options'
+import type { PropType } from 'vue'
 
 const limit = 5
 type OptionsType = ReturnType<typeof options>

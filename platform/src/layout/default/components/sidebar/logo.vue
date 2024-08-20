@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import useAppStore from '@/stores/modules/app'
+
 import { ThemeEnum } from '@/enums/appEnums'
 defineProps({
     szie: { type: Number, default: 34 },

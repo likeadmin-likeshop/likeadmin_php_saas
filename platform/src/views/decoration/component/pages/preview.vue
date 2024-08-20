@@ -75,10 +75,12 @@
     </el-scrollbar>
 </template>
 <script lang="ts" setup>
-import widgets from '../widgets'
-import type { PropType } from 'vue'
 import { Hide, View, ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
 import { computed } from 'vue'
+
+import widgets from '../widgets'
+
+import type { PropType } from 'vue'
 
 const props = defineProps({
     pageMeta: {

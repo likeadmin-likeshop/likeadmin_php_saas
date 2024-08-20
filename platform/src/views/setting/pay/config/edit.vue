@@ -170,6 +170,7 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
+
 import { getPayConfig, setPayConfig } from '@/api/setting/pay'
 import Popup from '@/components/popup/index.vue'
 const emit = defineEmits(['success', 'close'])

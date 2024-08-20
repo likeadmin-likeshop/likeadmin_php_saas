@@ -24,12 +24,14 @@
     </div>
 </template>
 <script lang="ts" setup name="decorationPages">
+import { getNonDuplicateID } from '@/utils/util'
+
+import AttrSetting from '../component/pages/attr-setting.vue'
 import Menu from '../component/pages/menu.vue'
 import Preview from '../component/pages/preview.vue'
-import AttrSetting from '../component/pages/attr-setting.vue'
 import widgets from '../component/widgets'
+
 import { getDecoratePages, setDecoratePages } from '@/api/decoration'
-import { getNonDuplicateID } from '@/utils/util'
 enum pagesTypeEnum {
     HOME = '1',
     USER = '2',

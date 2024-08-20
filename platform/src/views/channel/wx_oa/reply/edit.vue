@@ -84,10 +84,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
+
 import { oaReplyEdit, oaReplyAdd, getOaReplyDetail } from '@/api/channel/wx_oa'
 import Popup from '@/components/popup/index.vue'
-import type { FormRules } from 'element-plus'
 
 const emit = defineEmits(['success', 'close'])
 

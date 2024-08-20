@@ -95,8 +95,9 @@
     </el-form>
 </template>
 <script setup lang="ts">
-import ThemePicker from './theme-picker.vue'
 import { useVModel } from '@vueuse/core'
+
+import ThemePicker from './theme-picker.vue'
 const props = defineProps<{
     modelValue: Record<string, any>
 }>()

@@ -1,5 +1,6 @@
-import config from '@/config'
 import request from '@/utils/request'
+
+import config from '@/config'
 
 // 登录
 export function login(params: Record<string, any>) {

@@ -37,6 +37,7 @@
 <script lang="ts" setup>
 import { getNormalPath, objectToQuery } from '@/utils/util'
 import { isExternal } from '@/utils/validate'
+
 import type { RouteRecordRaw } from 'vue-router'
 interface Props {
     route: RouteRecordRaw

@@ -1,7 +1,7 @@
 <template>
     <div class="login flex flex-col">
         <div class="flex-1 flex items-center justify-center">
-            <div class="login-card flex rounded-md overflow-hidden">
+            <div class="login-card flex rounded-lg overflow-hidden">
                 <div class="flex-1 h-full hidden md:inline-block">
                     <image-contain :src="config.login_image" :width="400" height="100%" />
                 </div>
@@ -52,14 +52,19 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, reactive, ref, shallowRef } from 'vue'
+
 import LayoutFooter from '@/layout/components/footer.vue'
+
 import useAppStore from '@/stores/modules/app'
 import useUserStore from '@/stores/modules/user'
+
 import cache from '@/utils/cache'
 
 import { ACCOUNT_KEY } from '@/enums/cacheEnums'
 import { PageEnum } from '@/enums/pageEnum'
+
 import { useLockFn } from '@/hooks/useLockFn'
+
 import type { InputInstance, FormInstance } from 'element-plus'
 const passwordRef = shallowRef<InputInstance>()
 const formRef = shallowRef<FormInstance>()

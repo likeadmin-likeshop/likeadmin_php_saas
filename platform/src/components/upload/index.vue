@@ -42,11 +42,16 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, shallowRef } from 'vue'
+
 import useUserStore from '@/stores/modules/user'
-import config from '@/config'
+
 import feedback from '@/utils/feedback'
-import type { ElUpload } from 'element-plus'
+
 import { RequestCodeEnum } from '@/enums/requestEnums'
+
+import type { ElUpload } from 'element-plus'
+
+import config from '@/config'
 export default defineComponent({
     components: {},
     props: {

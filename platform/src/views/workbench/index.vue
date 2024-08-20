@@ -93,7 +93,7 @@
             </el-card>
         </div>
         <div class="md:flex">
-            <el-card class="flex-1 !border-none md:mr-4 mb-4" shadow="never">
+            <el-card class="flex-1 !border-none" shadow="never">
                 <template #header>
                     <span>访问量趋势图</span>
                 </template>
@@ -110,8 +110,9 @@
 </template>
 
 <script lang="ts" setup name="workbench">
-import { getWorkbench } from '@/api/app'
 import vCharts from 'vue-echarts'
+
+import { getWorkbench } from '@/api/app'
 // 表单数据
 const workbenchData: any = reactive({
     version: {

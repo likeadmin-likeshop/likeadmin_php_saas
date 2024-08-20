@@ -74,10 +74,12 @@
 </template>
 
 <script lang="ts" setup name="scheduledTask">
-import { crontabLists, crontabDel } from '@/api/setting/system'
-import { usePaging } from '@/hooks/usePaging'
-import { getRoutePath } from '@/router'
 import feedback from '@/utils/feedback'
+
+import { usePaging } from '@/hooks/usePaging'
+
+import { crontabLists, crontabDel } from '@/api/setting/system'
+import { getRoutePath } from '@/router'
 
 const { pager, getLists } = usePaging({
     fetchFun: crontabLists,

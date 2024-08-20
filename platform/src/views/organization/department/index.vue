@@ -93,10 +93,13 @@
     </div>
 </template>
 <script lang="ts" setup name="department">
-import type { ElTable, FormInstance } from 'element-plus'
-import EditPopup from './edit.vue'
-import { deptDelete, deptLists } from '@/api/org/department'
 import feedback from '@/utils/feedback'
+
+import EditPopup from './edit.vue'
+
+import type { ElTable, FormInstance } from 'element-plus'
+
+import { deptDelete, deptLists } from '@/api/org/department'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const formRef = shallowRef<FormInstance>()

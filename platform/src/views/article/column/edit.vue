@@ -27,6 +27,7 @@
 </template>
 <script lang="ts" setup name="articleColumnEdit">
 import type { FormInstance } from 'element-plus'
+
 import { articleCateEdit, articleCateAdd, articleCateDetail } from '@/api/article'
 import Popup from '@/components/popup/index.vue'
 const emit = defineEmits(['success', 'close'])

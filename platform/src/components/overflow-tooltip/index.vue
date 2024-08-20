@@ -15,6 +15,7 @@
 <script lang="ts" setup>
 import { useEventListener } from '@vueuse/core'
 import { useTooltipContentProps, type Placement } from 'element-plus'
+
 import type { PropType } from 'vue'
 
 const props = defineProps({

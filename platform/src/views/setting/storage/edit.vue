@@ -72,10 +72,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { storageSetup } from '@/api/setting/storage'
 import type { FormInstance } from 'element-plus'
+
+import { storageSetup, storageDetail } from '@/api/setting/storage'
 import Popup from '@/components/popup/index.vue'
-import { storageDetail } from '@/api/setting/storage'
 enum StorageEnum {
     LOCAL = 'local', // 本地
     QINIU = 'qiniu', // 七牛云

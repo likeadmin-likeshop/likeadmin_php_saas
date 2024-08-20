@@ -28,9 +28,10 @@
 </template>
 
 <script setup lang="ts">
+import useTabsStore, { getRouteParams } from '@/stores/modules/multipleTabs'
+
 import useMultipleTabs from '@/hooks/useMultipleTabs'
 import { useWatchRoute } from '@/hooks/useWatchRoute'
-import useTabsStore, { getRouteParams } from '@/stores/modules/multipleTabs'
 const router = useRouter()
 const tabsStore = useTabsStore()
 const { removeOtherTab, addTab, removeAllTab, removeTab, tabsLists, currentTab } = useMultipleTabs()

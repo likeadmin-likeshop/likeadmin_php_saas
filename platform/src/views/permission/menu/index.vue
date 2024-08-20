@@ -92,12 +92,17 @@
     </div>
 </template>
 <script lang="ts" setup name="menu">
-import { menuDelete, menuLists } from '@/api/perms/menu'
-import type { ElTable } from 'element-plus'
-import { usePaging } from '@/hooks/usePaging'
-import { MenuEnum } from '@/enums/appEnums'
-import EditPopup from './edit.vue'
 import feedback from '@/utils/feedback'
+
+import { MenuEnum } from '@/enums/appEnums'
+
+import { usePaging } from '@/hooks/usePaging'
+
+import EditPopup from './edit.vue'
+
+import type { ElTable } from 'element-plus'
+
+import { menuDelete, menuLists } from '@/api/perms/menu'
 const tableRef = shallowRef<InstanceType<typeof ElTable>>()
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 let isExpand = false

@@ -27,8 +27,9 @@
     </div>
 </template>
 <script lang="ts" setup name="shortLetter">
-import { smsLists } from '@/api/message'
 import EditPopup from './edit.vue'
+
+import { smsLists } from '@/api/message'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 
 // 列表数据

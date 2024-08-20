@@ -433,11 +433,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useCate, useFile } from './hook'
-import FileItem from './file.vue'
-import Preview from './preview.vue'
-import type { Ref } from 'vue'
 import { ElMessage } from 'element-plus'
+
+import FileItem from './file.vue'
+import { useCate, useFile } from './hook'
+import Preview from './preview.vue'
+
+import type { Ref } from 'vue'
 const props = defineProps({
     fileSize: {
         type: String,

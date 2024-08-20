@@ -78,8 +78,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
 import { LinkTypeEnum, type Link } from '.'
+
+import type { PropType } from 'vue'
 
 const props = defineProps({
     modelValue: {

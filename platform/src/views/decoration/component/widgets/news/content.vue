@@ -30,9 +30,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import { getDecorateArticle } from '@/api/decoration'
 import type options from './options'
+import type { PropType } from 'vue'
+
+import { getDecorateArticle } from '@/api/decoration'
 type OptionsType = ReturnType<typeof options>
 const props = defineProps({
     content: {
