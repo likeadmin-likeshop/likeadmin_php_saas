@@ -25,9 +25,8 @@
 </template>
 
 <script setup lang="ts" name="cache">
-import feedback from '@/utils/feedback'
-
 import { systemCacheClear } from '@/api/setting/system'
+import feedback from '@/utils/feedback'
 
 // 列表数据
 const cacheDate = ref<Array<object>>([

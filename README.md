@@ -2,7 +2,7 @@
 
 <a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
 
- <h1 align="center">likeadmin（PHP-SaaS）
+ <h1 align="center">likeadmin（PHP）
  通用管理后台</h1>
 <h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
 <p align="center">
@@ -40,7 +40,7 @@
 安装启动 [docker](https://www.docker.com/) 之后，在终端运行以下命令即可体验。<br>
 
 ```shell
- docker run -d --name likeadmin_php  -p 20221:80 -e MYSQL_ROOT_PASSWORD=root  likeshop/likeadmin_php:latest
+ docker run -d --name likeadmin_php  -p 20221:80 -e MYSQL_ROOT_PASSWORD=root  registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
 ```
 
 如果需要自定义参数永久挂载数据，在终端运行以下命令，其中"[]"改成自定义参数。
@@ -51,7 +51,7 @@ docker run -d --name likeadmin_php \
 -v 【主机存储项目代码文件路径】:/var/www/html/likeadmin_php \
 -p 【访问端口】:80 \
 -e MYSQL_ROOT_PASSWORD=【Mysql密码】 \
-likeshop/likeadmin_php:latest
+registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
 ```
 
 ### ⚠️ 注意
@@ -62,17 +62,11 @@ likeshop/likeadmin_php:latest
 ### 🛜 访问
 
 访问安装程序：http://127.0.0.1:20221
-<br>平台端管理后台：http://127.0.0.1:20221/platform/login
 <br>PC 端管理后台：http://127.0.0.1:20221/admin/login
 <br>PC 端前台：http://127.0.0.1:20221/pc/
-<br>移动端前台：http://127.0.0.1:20221/mobile/
+<br>手机端前台：http://127.0.0.1:20221/mobile/
 
 ## 👀 体验后台
-
-### 平台管理后台
-
-**地址：https://php.likeadmin.cn/platform <br>
-账号：superadmin 密码：123456**
 
 ### 管理后台
 

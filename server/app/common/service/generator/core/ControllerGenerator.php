@@ -17,6 +17,9 @@ declare(strict_types=1);
 namespace app\common\service\generator\core;
 
 
+use app\common\service\generator\core\BaseGenerator;
+use app\common\service\generator\core\GenerateInterface;
+
 /**
  * 控制器生成器
  * Class ControllerGenerator
@@ -93,7 +96,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getUseContent()
     {
-        if ($this->moduleName == 'adminapi') {
+        if ($this->moduleName == 'platform') {
             $tpl = "use app\\" . $this->moduleName . "\\controller\\BaseAdminController;" . PHP_EOL;
         } else {
             $tpl = "use app\\common\\controller\\BaseLikeAdminController;" . PHP_EOL;
@@ -151,7 +154,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     public function getExtendsControllerContent()
     {
         $tpl = 'BaseAdminController';
-        if ($this->moduleName != 'adminapi') {
+        if ($this->moduleName != 'platform') {
             $tpl = 'BaseLikeAdminController';
         }
         return $tpl;

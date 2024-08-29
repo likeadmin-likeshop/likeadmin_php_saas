@@ -15,6 +15,7 @@
 
 namespace app\common\cache;
 
+use app\common\cache\BaseCache;
 use app\common\model\user\User;
 use app\common\model\user\UserSession;
 

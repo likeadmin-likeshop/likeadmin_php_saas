@@ -1,5 +1,5 @@
 const cache = {
-    key: 'like_admin_',
+    key: '__like_admin_saas_platform__',
     //设置缓存(expire为缓存时效)
     set(key: string, value: any, expire?: string) {
         key = this.getKey(key)

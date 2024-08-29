@@ -26,10 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import MenuItem from './menu-item.vue'
-
 import type { PropType } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
+
+import MenuItem from './menu-item.vue'
 
 const props = defineProps({
     routes: {

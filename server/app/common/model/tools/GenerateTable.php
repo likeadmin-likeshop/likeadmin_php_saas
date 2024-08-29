@@ -16,6 +16,7 @@ namespace app\common\model\tools;
 
 use app\common\enum\GeneratorEnum;
 use app\common\model\BaseModel;
+use app\common\model\tools\GenerateColumn;
 
 
 /**

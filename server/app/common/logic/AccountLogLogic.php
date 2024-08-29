@@ -15,6 +15,7 @@
 namespace app\common\logic;
 
 use app\common\enum\user\AccountLogEnum;
+use app\common\logic\BaseLogic;
 use app\common\model\user\UserAccountLog;
 use app\common\model\user\User;
 

@@ -16,6 +16,8 @@
 namespace app\common\enum;
 
 
+use app\common\enum\PayEnum;
+
 class RefundEnum
 {
 

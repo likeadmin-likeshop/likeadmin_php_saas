@@ -88,13 +88,12 @@
     </div>
 </template>
 <script lang="ts" setup name="post">
-import feedback from '@/utils/feedback'
-
+import { jobsDelete, jobsLists } from '@/api/org/post'
 import { usePaging } from '@/hooks/usePaging'
+import feedback from '@/utils/feedback'
 
 import EditPopup from './edit.vue'
 
-import { jobsDelete, jobsLists } from '@/api/org/post'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const showEdit = ref(false)
 const queryParams = reactive({

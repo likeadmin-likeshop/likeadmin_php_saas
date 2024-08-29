@@ -18,6 +18,8 @@ namespace app\common\service\generator\core;
 
 
 use app\common\enum\GeneratorEnum;
+use app\common\service\generator\core\BaseGenerator;
+use app\common\service\generator\core\GenerateInterface;
 
 /**
  * 列表生成器
@@ -109,7 +111,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getUseContent()
     {
-        if ($this->moduleName == 'adminapi') {
+        if ($this->moduleName == 'platform') {
             $tpl = "use app\\" . $this->moduleName . "\\lists\\BaseAdminDataLists;" . PHP_EOL;
         } else {
             $tpl = "use app\\common\\lists\\BaseDataLists;" . PHP_EOL;
@@ -163,7 +165,7 @@ class ListsGenerator extends BaseGenerator implements GenerateInterface
     public function getExtendsListsContent()
     {
         $tpl = 'BaseAdminDataLists';
-        if ($this->moduleName != 'adminapi') {
+        if ($this->moduleName != 'platform') {
             $tpl = 'BaseDataLists';
         }
         return $tpl;

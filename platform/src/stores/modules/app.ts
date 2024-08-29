@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 import { getConfig } from '@/api/app'
+
 interface AppSate {
     config: Record<string, any>
     isMobile: boolean

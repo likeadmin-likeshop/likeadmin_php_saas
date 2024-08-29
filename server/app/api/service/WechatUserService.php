@@ -16,9 +16,11 @@ namespace app\api\service;
 
 
 use app\common\enum\YesNoEnum;
-use app\common\model\user\{User, UserAuth};
+use app\common\model\user\User;
+use app\common\service\storage\Driver as StorageDriver;
+use app\common\model\user\{UserAuth};
 use app\common\enum\user\UserTerminalEnum;
-use app\common\service\{ConfigService, storage\Driver as StorageDriver};
+use app\common\service\{app\platformapi\config\common\service\ConfigService};
 use think\Exception;
 
 
@@ -136,7 +138,7 @@ class WechatUserService
         if (empty($this->headimgurl)) {
             // 默认头像
             $defaultAvatar = config('project.default_image.user_avatar');
-            $avatar = ConfigService::get('default_image', 'user_avatar', $defaultAvatar);
+            $avatar = \app\common\service\ConfigService::get('default_image', 'user_avatar', $defaultAvatar);
         } else {
             // 微信获取到的头像信息
             $avatar = $this->getAvatarByWechat();
@@ -244,8 +246,8 @@ class WechatUserService
     {
         // 存储引擎
         $config = [
-            'default' => ConfigService::get('storage', 'default', 'local'),
-            'engine' => ConfigService::get('storage')
+            'default' => \app\common\service\ConfigService::get('storage', 'default', 'local'),
+            'engine' => \app\common\service\ConfigService::get('storage')
         ];
 
         $fileName = md5($this->openid . time()) . '.jpeg';

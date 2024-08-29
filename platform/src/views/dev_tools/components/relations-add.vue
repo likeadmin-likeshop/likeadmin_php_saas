@@ -58,14 +58,14 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { useDictOptions } from '@/hooks/useDictOptions'
-
 import type { FormInstance } from 'element-plus'
 import type { PropType } from 'vue'
 
 import { getModels } from '@/api/tools/code'
 import Popup from '@/components/popup/index.vue'
-const props = defineProps({
+import { useDictOptions } from '@/hooks/useDictOptions'
+
+defineProps({
     column: {
         type: Array as PropType<any[]>,
         default: () => []

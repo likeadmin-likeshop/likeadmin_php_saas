@@ -18,6 +18,8 @@ namespace app\common\service\generator\core;
 
 
 use app\common\enum\GeneratorEnum;
+use app\common\service\generator\core\BaseGenerator;
+use app\common\service\generator\core\GenerateInterface;
 
 /**
  * vue-edit生成器

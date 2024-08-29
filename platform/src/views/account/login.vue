@@ -1,16 +1,14 @@
 <template>
     <div class="login flex flex-col">
         <div class="flex-1 flex items-center justify-center">
-            <div class="login-card flex rounded-lg overflow-hidden">
+            <div class="login-card flex rounded-md overflow-hidden">
                 <div class="flex-1 h-full hidden md:inline-block">
                     <image-contain :src="config.login_image" :width="400" height="100%" />
                 </div>
                 <div
                     class="login-form bg-body flex flex-col justify-center px-10 py-10 md:w-[400px] w-[375px] flex-none mx-auto"
                 >
-                    <div class="text-center text-4xl font-medium mb-8">
-                        {{ config.web_name }}平台端
-                    </div>
+                    <div class="text-center text-3xl font-medium mb-8">{{ config.web_name }}</div>
                     <el-form ref="formRef" :model="formData" size="large" :rules="rules">
                         <el-form-item prop="account">
                             <el-input
@@ -19,7 +17,7 @@
                                 @keyup.enter="handleEnter"
                             >
                                 <template #prepend>
-                                    <icon name="el-icon-User" :size="16" />
+                                    <icon name="el-icon-User" size="16" />
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -32,7 +30,7 @@
                                 @keyup.enter="handleLogin"
                             >
                                 <template #prepend>
-                                    <icon name="el-icon-Lock" :size="16" />
+                                    <icon name="el-icon-Lock" size="16" />
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -51,21 +49,17 @@
 </template>
 
 <script lang="ts" setup>
+import type { FormInstance, InputInstance } from 'element-plus'
 import { computed, onMounted, reactive, ref, shallowRef } from 'vue'
-
-import LayoutFooter from '@/layout/components/footer.vue'
-
-import useAppStore from '@/stores/modules/app'
-import useUserStore from '@/stores/modules/user'
-
-import cache from '@/utils/cache'
 
 import { ACCOUNT_KEY } from '@/enums/cacheEnums'
 import { PageEnum } from '@/enums/pageEnum'
-
 import { useLockFn } from '@/hooks/useLockFn'
+import LayoutFooter from '@/layout/components/footer.vue'
+import useAppStore from '@/stores/modules/app'
+import useUserStore from '@/stores/modules/user'
+import cache from '@/utils/cache'
 
-import type { InputInstance, FormInstance } from 'element-plus'
 const passwordRef = shallowRef<InputInstance>()
 const formRef = shallowRef<FormInstance>()
 const appStore = useAppStore()

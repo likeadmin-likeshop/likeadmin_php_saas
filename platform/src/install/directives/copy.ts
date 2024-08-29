@@ -7,6 +7,7 @@
 import useClipboard from 'vue-clipboard3'
 
 import feedback from '@/utils/feedback'
+
 const clipboard = 'data-clipboard-text'
 export default {
     mounted: (el: HTMLElement, binding: any) => {

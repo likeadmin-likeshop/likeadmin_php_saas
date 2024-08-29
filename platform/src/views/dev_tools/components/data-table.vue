@@ -54,13 +54,11 @@
 </template>
 
 <script lang="ts" setup>
-import feedback from '@/utils/feedback'
-
-import { usePaging } from '@/hooks/usePaging'
-
 import { dataTable, selectTable } from '@/api/tools/code'
 import Pagination from '@/components/pagination/index.vue'
 import Popup from '@/components/popup/index.vue'
+import { usePaging } from '@/hooks/usePaging'
+import feedback from '@/utils/feedback'
 
 const emit = defineEmits<{
     (event: 'success'): void

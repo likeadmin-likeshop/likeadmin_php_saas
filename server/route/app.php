@@ -11,14 +11,14 @@
 use think\facade\Console;
 use think\facade\Route;
 
-// 管理后台
-Route::rule('admin/:any', function () {
-    return view(app()->getRootPath() . 'public/admin/index.html');
-})->pattern(['any' => '\w+']);
-
 // 平台管理后台
 Route::rule('platform/:any', function () {
     return view(app()->getRootPath() . 'public/platform/index.html');
+})->pattern(['any' => '\w+']);
+
+// 租户管理后台
+Route::rule('admin/:any', function () {
+    return view(app()->getRootPath() . 'public/admin/index.html');
 })->pattern(['any' => '\w+']);
 
 // 手机端

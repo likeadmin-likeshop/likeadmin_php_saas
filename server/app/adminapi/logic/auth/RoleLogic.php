@@ -14,11 +14,11 @@
 
 namespace app\adminapi\logic\auth;
 
+use app\common\logic\BaseLogic;
+use app\common\model\auth\SystemRole;
+use app\common\model\auth\SystemRoleMenu;
 use app\common\{
-    cache\AdminAuthCache,
-    model\auth\SystemRole,
-    logic\BaseLogic,
-    model\auth\SystemRoleMenu
+    cache\AdminAuthCache
 };
 use think\facade\Db;
 

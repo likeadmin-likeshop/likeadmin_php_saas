@@ -86,9 +86,8 @@
 </template>
 
 <script setup lang="ts" name="journal">
-import { usePaging } from '@/hooks/usePaging'
-
 import { systemLogLists } from '@/api/setting/system'
+import { usePaging } from '@/hooks/usePaging'
 
 interface formDataObj {
     admin_name?: string // 管理员

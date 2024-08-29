@@ -44,9 +44,10 @@
 </template>
 
 <script lang="ts" setup>
+import { getPayConfigLists } from '@/api/setting/pay'
+
 import EditPopup from './edit.vue'
 
-import { getPayConfigLists } from '@/api/setting/pay'
 const payConfigList = ref<any[]>([])
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 const showEdit = ref(false)

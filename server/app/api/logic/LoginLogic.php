@@ -16,17 +16,20 @@ namespace app\api\logic;
 
 use app\common\cache\WebScanLoginCache;
 use app\common\logic\BaseLogic;
+use app\common\enum\LoginEnum;
+use app\common\enum\user\UserTerminalEnum;
+use app\common\model\user\User;
+use app\common\service\ConfigService;
+use app\common\service\FileService;
+use app\common\service\wechat\WeChatConfigService;
+use app\common\service\wechat\WeChatOaService;
+use app\common\service\wechat\WeChatRequestService;
 use app\api\service\{UserTokenService, WechatUserService};
-use app\common\enum\{LoginEnum, user\UserTerminalEnum, YesNoEnum};
+use app\common\enum\{YesNoEnum};
 use app\common\service\{
-    ConfigService,
-    FileService,
-    wechat\WeChatConfigService,
-    wechat\WeChatMnpService,
-    wechat\WeChatOaService,
-    wechat\WeChatRequestService
+    wechat\WeChatMnpService
 };
-use app\common\model\user\{User, UserAuth};
+use app\common\model\user\{UserAuth};
 use think\facade\{Db, Config};
 
 /**

@@ -15,7 +15,8 @@
 namespace app\adminapi\lists\auth;
 
 use app\adminapi\lists\BaseAdminDataLists;
-use app\common\model\auth\SystemMenu;
+use app\common\model\auth\TenantMenu;
+use think\db\exception\DbException;
 
 
 /**
@@ -37,7 +38,7 @@ class MenuLists extends BaseAdminDataLists
      */
     public function lists(): array
     {
-        $lists = SystemMenu::order(['sort' => 'desc', 'id' => 'asc'])
+        $lists = TenantMenu::order(['sort' => 'desc', 'id' => 'asc'])
             ->select()
             ->toArray();
         return linear_to_tree($lists, 'children');
@@ -47,12 +48,13 @@ class MenuLists extends BaseAdminDataLists
     /**
      * @notes 获取菜单数量
      * @return int
+     * @throws DbException
      * @author 段誉
      * @date 2022/6/29 16:41
      */
     public function count(): int
     {
-        return SystemMenu::count();
+        return TenantMenu::count();
     }
 
 }

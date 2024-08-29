@@ -108,7 +108,7 @@ trait ListsExcelTrait
         $writer->save($src . $this->fileName);
         //设置本地excel缓存并返回下载地址
         $vars = ['file' => $exportCache->setFile($this->fileName)];
-        return (string)(url('adminapi/download/export', $vars, true, true));
+        return (string)(url('platformapi/download/export', $vars, true, true));
     }
 
 

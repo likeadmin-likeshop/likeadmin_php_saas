@@ -21,6 +21,7 @@ use app\common\logic\PayNotifyLogic;
 use app\common\model\member\MemberOrder;
 use app\common\model\pay\PayConfig;
 use app\common\model\recharge\RechargeOrder;
+use app\common\service\pay\BasePayService;
 use think\facade\Log;
 
 /**

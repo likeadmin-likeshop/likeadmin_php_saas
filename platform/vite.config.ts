@@ -1,10 +1,9 @@
-import { fileURLToPath, URL } from 'url'
-
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+import { fileURLToPath, URL } from 'url'
 import { defineConfig } from 'vite'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
@@ -14,7 +13,8 @@ import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 export default defineConfig({
     base: '/platform/',
     server: {
-        host: '0.0.0.0'
+        host: '0.0.0.0',
+        open: true
     },
     plugins: [
         vue(),
@@ -56,5 +56,11 @@ export default defineConfig({
                 }
             }
         }
+    },
+    define: {
+        __VUE_PROD_DEVTOOLS__: false,
+        __VUE_OPTIONS_API__: true,
+        __VUE_PROD_HYDRATION__: true,
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false
     }
 })

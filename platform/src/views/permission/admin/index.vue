@@ -116,15 +116,14 @@
 </template>
 
 <script lang="ts" setup name="admin">
-import feedback from '@/utils/feedback'
-
+import { adminDelete, adminEdit, adminLists } from '@/api/perms/admin'
+import { roleAll } from '@/api/perms/role'
 import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
+import feedback from '@/utils/feedback'
 
 import EditPopup from './edit.vue'
 
-import { adminEdit, adminLists, adminDelete } from '@/api/perms/admin'
-import { roleAll } from '@/api/perms/role'
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 // 表单数据
 const formData = reactive({

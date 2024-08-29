@@ -16,6 +16,7 @@
 namespace app\common\cache;
 
 
+use app\common\cache\BaseCache;
 use app\common\model\auth\Admin;
 use app\common\model\auth\AdminSession;
 use app\common\model\auth\SystemRole;

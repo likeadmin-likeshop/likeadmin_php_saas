@@ -16,6 +16,8 @@
 namespace app\common\cache;
 
 
+use app\common\cache\BaseCache;
+
 class WebScanLoginCache extends BaseCache
 {
 

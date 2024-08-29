@@ -41,17 +41,14 @@
 </template>
 
 <script lang="ts">
+import type { ElUpload } from 'element-plus'
 import { computed, defineComponent, ref, shallowRef } from 'vue'
 
+import config from '@/config'
+import { RequestCodeEnum } from '@/enums/requestEnums'
 import useUserStore from '@/stores/modules/user'
-
 import feedback from '@/utils/feedback'
 
-import { RequestCodeEnum } from '@/enums/requestEnums'
-
-import type { ElUpload } from 'element-plus'
-
-import config from '@/config'
 export default defineComponent({
     components: {},
     props: {
@@ -93,11 +90,11 @@ export default defineComponent({
         const visible = ref(false)
         const fileList = ref<any[]>([])
 
-        const handleProgress = (event: any, file: any, fileLists: any[]) => {
+        const handleProgress = () => {
             visible.value = true
         }
         let uploadLen = 0
-        const handleSuccess = (response: any, file: any, fileLists: any[]) => {
+        const handleSuccess = (response: any, file: any) => {
             uploadLen++
             if (uploadLen == fileList.value.length) {
                 uploadLen = 0

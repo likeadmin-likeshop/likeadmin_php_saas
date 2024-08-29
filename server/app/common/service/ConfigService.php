@@ -96,5 +96,6 @@ class ConfigService
         if ($data) {
             return $data;
         }
+        return null;
     }
 }

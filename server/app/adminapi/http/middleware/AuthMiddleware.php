@@ -16,9 +16,9 @@ declare (strict_types=1);
 
 namespace app\adminapi\http\middleware;
 
+use app\common\service\JsonService;
 use app\common\{
-    cache\AdminAuthCache,
-    service\JsonService
+    cache\AdminAuthCache
 };
 use think\helper\Str;
 

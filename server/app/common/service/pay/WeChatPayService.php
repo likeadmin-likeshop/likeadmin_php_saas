@@ -21,6 +21,7 @@ use app\common\enum\user\UserTerminalEnum;
 use app\common\logic\PayNotifyLogic;
 use app\common\model\recharge\RechargeOrder;
 use app\common\model\user\UserAuth;
+use app\common\service\pay\BasePayService;
 use app\common\service\wechat\WeChatConfigService;
 use EasyWeChat\Pay\Application;
 use EasyWeChat\Pay\Message;

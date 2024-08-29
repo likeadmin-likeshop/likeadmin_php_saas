@@ -16,6 +16,8 @@
 namespace app\common\cache;
 
 
+use app\common\cache\BaseCache;
+
 /**
  * //后台账号安全机制，连续输错后锁定，防止账号密码暴力破解
  * Class AdminAccountSafeCache

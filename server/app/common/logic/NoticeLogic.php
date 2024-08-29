@@ -17,6 +17,7 @@ namespace app\common\logic;
 use app\common\enum\notice\NoticeEnum;
 use app\common\enum\YesNoEnum;
 use app\common\model\notice\NoticeRecord;
+use app\common\logic\BaseLogic;
 use app\common\model\notice\NoticeSetting;
 use app\common\model\user\User;
 use app\common\service\sms\SmsMessageService;

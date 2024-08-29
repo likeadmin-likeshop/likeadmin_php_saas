@@ -13,11 +13,10 @@
   }
  */
 
-import Layout from '@/layout/default/index.vue'
+import type { RouteRecordRaw } from 'vue-router'
 
 import { PageEnum } from '@/enums/pageEnum'
-
-import type { RouteRecordRaw } from 'vue-router'
+import Layout from '@/layout/default/index.vue'
 
 export const LAYOUT = () => Promise.resolve(Layout)
 
@@ -49,11 +48,11 @@ export const constantRoutes: Array<RouteRecordRaw> = [
                 }
             }
         ]
-    },
-    {
-        path: '/decoration/pc_details',
-        component: () => import('@/views/decoration/pc_details.vue')
     }
+    // {
+    //     path: '/decoration/pc_details',
+    //     component: () => import('@/views/decoration/pc_details.vue')
+    // }
     // {
     //     path: '/dev_tools',
     //     component: LAYOUT,

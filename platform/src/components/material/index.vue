@@ -8,7 +8,7 @@
                             ref="treeRef"
                             node-key="id"
                             :data="cateLists"
-                            empty-text="''"
+                            empty-text=""
                             :highlight-current="true"
                             :expand-on-click-node="false"
                             :current-node-key="cateId"
@@ -434,12 +434,12 @@
 
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus'
+import type { Ref } from 'vue'
 
 import FileItem from './file.vue'
 import { useCate, useFile } from './hook'
 import Preview from './preview.vue'
 
-import type { Ref } from 'vue'
 const props = defineProps({
     fileSize: {
         type: String,
@@ -487,7 +487,7 @@ const options = [
     }
 ]
 
-const visible: Ref<boolean> = inject('visible')!
+const visible: Ref<boolean> = inject('visible', ref<boolean>(false))!
 const previewUrl = ref('')
 const showPreview = ref(false)
 const {
@@ -534,7 +534,7 @@ const handlePreview = (url: string) => {
     showPreview.value = true
 }
 watch(
-    visible,
+    () => visible.value,
     async (val: boolean) => {
         if (val) {
             getData()

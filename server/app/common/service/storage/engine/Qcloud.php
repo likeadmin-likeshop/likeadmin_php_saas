@@ -2,6 +2,7 @@
 
 namespace app\common\service\storage\engine;
 
+use app\common\service\storage\engine\Server;
 use Exception;
 use Qcloud\Cos\Client;
 

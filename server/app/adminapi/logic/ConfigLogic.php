@@ -28,7 +28,8 @@ use app\common\model\dept\Dept;
 use app\common\model\dept\Jobs;
 use app\common\model\dict\DictData;
 use app\common\model\dict\DictType;
-use app\common\service\{FileService, ConfigService};
+use app\common\service\ConfigService;
+use app\common\service\{FileService};
 
 /**
  * 配置类逻辑层

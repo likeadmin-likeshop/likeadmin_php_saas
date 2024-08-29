@@ -14,6 +14,7 @@
 
 namespace app\common\service;
 
+use app\common\service\ConfigService;
 use think\facade\Cache;
 
 class FileService

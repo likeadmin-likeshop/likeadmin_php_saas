@@ -82,13 +82,12 @@
 import { useThrottleFn } from '@vueuse/core'
 import Draggable from 'vuedraggable'
 
+import Popup from '@/components/popup/index.vue'
 import useAppStore from '@/stores/modules/app'
 
 import FileItem from './file.vue'
 import Material from './index.vue'
 import Preview from './preview.vue'
-
-import Popup from '@/components/popup/index.vue'
 export default defineComponent({
     components: {
         Popup,

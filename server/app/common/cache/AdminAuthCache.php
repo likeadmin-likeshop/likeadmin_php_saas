@@ -14,7 +14,8 @@
 
 namespace app\common\cache;
 
-use app\adminapi\logic\auth\AuthLogic;
+use app\platformapi\logic\auth\AuthLogic;
+use app\common\cache\BaseCache;
 
 
 /**

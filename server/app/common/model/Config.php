@@ -14,6 +14,8 @@
 
 namespace app\common\model;
 
+use app\common\model\BaseModel;
+
 class Config extends BaseModel
 {
 }

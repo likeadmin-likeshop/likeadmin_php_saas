@@ -16,7 +16,8 @@ namespace app\adminapi\validate\auth;
 
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\{SystemRole,SystemMenu};
+use app\common\model\auth\{app\platformapi\config\common\model\auth\SystemRole,
+    app\platformapi\config\common\model\auth\SystemMenu};
 
 
 /**
@@ -139,7 +140,7 @@ class MenuValidate extends BaseValidate
             $where[] = ['id', '<>', $data['id']];
         }
 
-        $check = SystemMenu::where($where)->findOrEmpty();
+        $check = \app\common\model\auth\SystemMenu::where($where)->findOrEmpty();
 
         if (!$check->isEmpty()) {
             return '菜单名称已存在';
@@ -160,13 +161,13 @@ class MenuValidate extends BaseValidate
      */
     protected function checkAbleDelete($value, $rule, $data)
     {
-        $hasChild = SystemMenu::where(['pid' => $value])->findOrEmpty();
+        $hasChild = \app\common\model\auth\SystemMenu::where(['pid' => $value])->findOrEmpty();
         if (!$hasChild->isEmpty()) {
             return '存在子菜单,不允许删除';
         }
 
         // 已绑定角色菜单不可以删除
-        $isBindRole = SystemRole::hasWhere('roleMenuIndex', ['menu_id' => $value])->findOrEmpty();
+        $isBindRole = \app\common\model\auth\SystemRole::hasWhere('roleMenuIndex', ['menu_id' => $value])->findOrEmpty();
         if (!$isBindRole->isEmpty()) {
             return '已分配菜单不可删除';
         }

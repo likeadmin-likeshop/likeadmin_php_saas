@@ -19,6 +19,7 @@ use app\common\logic\NoticeLogic;
 use app\common\model\notice\NoticeSetting;
 use app\common\model\notice\SmsLog;
 use app\common\service\ConfigService;
+use app\common\service\sms\SmsDriver;
 
 /**
  * 短信服务

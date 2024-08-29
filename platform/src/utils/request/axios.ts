@@ -4,12 +4,11 @@ import axios, {
     type AxiosRequestConfig,
     type AxiosResponse
 } from 'axios'
-import { isFunction, merge, cloneDeep } from 'lodash'
+import { cloneDeep, isFunction, merge } from 'lodash'
 
 import { RequestMethodsEnum } from '@/enums/requestEnums'
 
 import axiosCancel from './cancel'
-
 import type { RequestData, RequestOptions } from './type'
 
 export class Axios {

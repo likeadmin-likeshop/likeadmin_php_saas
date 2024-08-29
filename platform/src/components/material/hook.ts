@@ -1,9 +1,5 @@
-import { ElMessage, ElTree, type CheckboxValueType } from 'element-plus'
-import { shallowRef, type Ref } from 'vue'
-
-import feedback from '@/utils/feedback'
-
-import { usePaging } from '@/hooks/usePaging'
+import { type CheckboxValueType, ElMessage, ElTree } from 'element-plus'
+import { type Ref, shallowRef } from 'vue'
 
 import {
     fileCateAdd,
@@ -15,6 +11,8 @@ import {
     fileMove,
     fileRename
 } from '@/api/file'
+import { usePaging } from '@/hooks/usePaging'
+import feedback from '@/utils/feedback'
 
 // 左侧分组的钩子函数
 export function useCate(type: number) {

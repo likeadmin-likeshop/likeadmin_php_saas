@@ -19,11 +19,10 @@
 </template>
 
 <script setup lang="ts">
+import { systemCacheClear } from '@/api/setting/system'
 import useUserStore from '@/stores/modules/user'
-
 import feedback from '@/utils/feedback'
 
-import { systemCacheClear } from '@/api/setting/system'
 const userStore = useUserStore()
 
 const userInfo = computed(() => userStore.userInfo)

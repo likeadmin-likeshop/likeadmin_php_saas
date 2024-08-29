@@ -14,6 +14,8 @@
 
 namespace app\common\model;
 
+use app\common\model\BaseModel;
+
 class HotSearch extends BaseModel
 {
 

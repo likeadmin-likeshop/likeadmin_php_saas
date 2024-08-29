@@ -1,7 +1,7 @@
 <?php
 return [
     // 系统版本号
-    'version' => '1.9.0',
+    'version' => '1.9.1',
 
     // 官网
     'website' => [
@@ -16,6 +16,16 @@ return [
         'pc_ico' => 'resource/image/adminapi/default/web_favicon.ico', // pc_ico
         'pc_title' => 'likeadmin', // PC网站标题
         'h5_favicon' => 'resource/image/adminapi/default/web_favicon.ico', // 网站图标
+    ],
+
+    // 官网
+    'platform' => [
+        'admin_avatar' => 'resource/image/platformapi/default/avatar.png',
+        'name' => env('project.web_name', 'likeadmin平台端'), // 网站名称
+        'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
+        'login_image' => 'resource/image/platformapi/default/login_image.png',
+        'web_logo' => 'resource/image/platformapi/default/web_logo.jpg', // 网站logo
+        'web_favicon' => 'resource/image/platformapi/default/web_favicon.ico', // 网站图标
     ],
 
     // 后台登录
@@ -65,6 +75,22 @@ return [
         'menu_file' => 'resource/image/adminapi/default/menu_file.png',// 首页快捷菜单-素材中心
     ],
 
+    // 各种默认图片
+    'platform_default_image' => [
+        'admin_avatar' => 'resource/image/platformapi/default/avatar.png',
+        'user_avatar' => 'resource/image/platformapi/default/default_avatar.png',
+        'qq_group' => 'resource/image/platformapi/default/qq_group.png', // qq群
+        'customer_service' => 'resource/image/platformapi/default/customer_service.jpg', // 客服
+        'menu_admin' => 'resource/image/platformapi/default/menu_admin.png',// 首页快捷菜单-管理员
+        'menu_role' => 'resource/image/platformapi/default/menu_role.png', // 首页快捷菜单-角色
+        'menu_dept' => 'resource/image/platformapi/default/menu_dept.png',// 首页快捷菜单-部门
+        'menu_dict' => 'resource/image/platformapi/default/menu_dict.png',// 首页快捷菜单-字典
+        'menu_generator' => 'resource/image/platformapi/default/menu_generator.png',// 首页快捷菜单-代码生成器
+        'menu_auth' => 'resource/image/platformapi/default/menu_auth.png',// 首页快捷菜单-菜单权限
+        'menu_web' => 'resource/image/platformapi/default/menu_web.png',// 首页快捷菜单-网站信息
+        'menu_file' => 'resource/image/platformapi/default/menu_file.png',// 首页快捷菜单-素材中心
+    ],
+
     // 文件上传限制 (图片)
     'file_image' => [
         'jpg', 'png', 'gif', 'jpeg', 'webp', 'ico'
@@ -99,7 +125,7 @@ return [
     // 后台装修
     'decorate' => [
         // 底部导航栏样式设置
-        'tabbar_style' => ['default_color' => '#999999', 'selected_color' => '#4173ff'],
+        'tabbar_style' => ['default_color' => '#999999', 'selected_color' => '#c455ff'],
     ]
 
 ];

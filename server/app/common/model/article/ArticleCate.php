@@ -14,6 +14,7 @@
 
 namespace app\common\model\article;
 
+use app\common\model\article\Article;
 use app\common\model\BaseModel;
 use think\model\concern\SoftDelete;
 

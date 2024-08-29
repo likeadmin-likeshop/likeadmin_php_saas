@@ -18,6 +18,7 @@ namespace app\common\logic;
 
 use app\common\enum\PayEnum;
 use app\common\enum\RefundEnum;
+use app\common\logic\BaseLogic;
 use app\common\model\recharge\RechargeOrder;
 use app\common\model\refund\RefundLog;
 use app\common\model\refund\RefundRecord;

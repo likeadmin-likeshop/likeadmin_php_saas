@@ -16,7 +16,8 @@ namespace app\adminapi\validate\auth;
 
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\{AdminRole, SystemRole, Admin};
+use app\common\model\auth\{
+    app\platformapi\config\common\model\auth\AdminRole, app\platformapi\config\common\model\auth\SystemRole, app\platformapi\config\common\model\auth\Admin};
 
 /**
  * 角色验证器
@@ -27,7 +28,7 @@ class RoleValidate extends BaseValidate
 {
     protected $rule = [
         'id' => 'require|checkRole',
-        'name' => 'require|max:64|unique:' . SystemRole::class . ',name',
+        'name' => 'require|max:64|unique:' . \app\common\model\auth\SystemRole::class . ',name',
         'menu_id' => 'array',
     ];
 
@@ -88,7 +89,7 @@ class RoleValidate extends BaseValidate
      */
     public function checkRole($value, $rule, $data)
     {
-        if (!SystemRole::find($value)) {
+        if (!\app\common\model\auth\SystemRole::find($value)) {
             return '角色不存在';
         }
         return true;
@@ -110,7 +111,7 @@ class RoleValidate extends BaseValidate
      */
     public function checkAdmin($value, $rule, $data)
     {
-        if (AdminRole::where(['role_id' => $value])->find()) {
+        if (\app\common\model\auth\AdminRole::where(['role_id' => $value])->find()) {
             return '有管理员在使用该角色，不允许删除';
         }
         return true;

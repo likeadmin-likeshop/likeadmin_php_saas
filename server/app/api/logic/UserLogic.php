@@ -15,15 +15,15 @@
 namespace app\api\logic;
 
 
-use app\common\{enum\notice\NoticeEnum,
-    enum\user\UserTerminalEnum,
-    enum\YesNoEnum,
-    logic\BaseLogic,
-    model\user\User,
-    model\user\UserAuth,
-    service\FileService,
-    service\sms\SmsDriver,
-    service\wechat\WeChatMnpService};
+use app\common\enum\notice\NoticeEnum;
+use app\common\enum\user\UserTerminalEnum;
+use app\common\logic\BaseLogic;
+use app\common\model\user\User;
+use app\common\model\user\UserAuth;
+use app\common\service\FileService;
+use app\common\service\sms\SmsDriver;
+use app\common\service\wechat\WeChatMnpService;
+use app\common\{enum\YesNoEnum};
 use think\facade\Config;
 
 /**

@@ -149,22 +149,20 @@
 </template>
 
 <script lang="ts" setup name="codeGenerate">
+import {
+    generateCode,
+    generateDelete,
+    generatePreview,
+    generateTable,
+    syncColumn
+} from '@/api/tools/code'
+import { usePaging } from '@/hooks/usePaging'
+import { getRoutePath } from '@/router'
 import { isProdMode } from '@/utils/env'
 import feedback from '@/utils/feedback'
 
-import { usePaging } from '@/hooks/usePaging'
-
 import CodePreview from '../components/code-preview.vue'
 import DataTable from '../components/data-table.vue'
-
-import {
-    generateTable,
-    syncColumn,
-    generateDelete,
-    generatePreview,
-    generateCode
-} from '@/api/tools/code'
-import { getRoutePath } from '@/router'
 
 const formData = reactive({
     table_name: '',

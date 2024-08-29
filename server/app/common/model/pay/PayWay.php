@@ -16,6 +16,7 @@ namespace app\common\model\pay;
 
 
 use app\common\model\BaseModel;
+use app\common\model\pay\PayConfig;
 use app\common\service\FileService;
 
 

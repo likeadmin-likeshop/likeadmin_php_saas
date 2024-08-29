@@ -1,10 +1,8 @@
-import { createRouter, createWebHistory, RouterView, type RouteRecordRaw } from 'vue-router'
-
-import useUserStore from '@/stores/modules/user'
-
-import { isExternal } from '@/utils/validate'
+import { createRouter, createWebHistory, type RouteRecordRaw, RouterView } from 'vue-router'
 
 import { MenuEnum } from '@/enums/appEnums'
+import useUserStore from '@/stores/modules/user'
+import { isExternal } from '@/utils/validate'
 
 import { constantRoutes, INDEX_ROUTE_NAME, LAYOUT } from './routes'
 

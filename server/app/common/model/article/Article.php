@@ -16,6 +16,7 @@ namespace app\common\model\article;
 
 use app\common\enum\YesNoEnum;
 use app\common\model\BaseModel;
+use app\common\model\article\ArticleCate;
 use think\model\concern\SoftDelete;
 
 /**

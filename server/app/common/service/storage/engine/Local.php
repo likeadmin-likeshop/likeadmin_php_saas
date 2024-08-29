@@ -3,6 +3,8 @@
 namespace app\common\service\storage\engine;
 
 
+use app\common\service\storage\engine\Server;
+
 /**
  * 本地文件驱动
  * Class Local

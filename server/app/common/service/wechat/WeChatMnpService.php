@@ -14,6 +14,7 @@
 namespace app\common\service\wechat;
 
 
+use app\common\service\wechat\WeChatConfigService;
 use EasyWeChat\Kernel\Exceptions\Exception;
 use EasyWeChat\MiniApp\Application;
 

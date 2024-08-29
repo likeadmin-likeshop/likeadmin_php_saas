@@ -15,6 +15,7 @@
 namespace app\common\model\auth;
 
 use app\common\model\BaseModel;
+use app\common\model\auth\Admin;
 
 class AdminSession extends BaseModel
 {

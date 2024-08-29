@@ -15,6 +15,7 @@
 namespace app\common\model;
 
 use app\common\enum\CrontabEnum;
+use app\common\model\BaseModel;
 use think\model\concern\SoftDelete;
 
 /**

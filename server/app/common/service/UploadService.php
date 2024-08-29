@@ -17,6 +17,8 @@ namespace app\common\service;
 
 use app\common\enum\FileEnum;
 use app\common\model\file\File;
+use app\common\service\ConfigService;
+use app\common\service\FileService;
 use app\common\service\storage\Driver as StorageDriver;
 use Exception;
 

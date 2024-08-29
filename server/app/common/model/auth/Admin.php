@@ -15,8 +15,11 @@
 namespace app\common\model\auth;
 
 use app\common\enum\YesNoEnum;
+use app\common\model\auth\AdminJobs;
 use app\common\model\BaseModel;
 use app\common\model\dept\Dept;
+use app\common\model\auth\AdminDept;
+use app\common\model\auth\AdminRole;
 use think\model\concern\SoftDelete;
 use app\common\service\FileService;
 
@@ -110,7 +113,7 @@ class Admin extends BaseModel
      */
     public function getAvatarAttr($value)
     {
-        return empty($value) ? FileService::getFileUrl(config('project.default_image.admin_avatar')) : FileService::getFileUrl(trim($value, '/'));
+        return empty($value) ? FileService::getFileUrl(config('project.platform.admin_avatar')) : FileService::getFileUrl(trim($value, '/'));
     }
 
 }

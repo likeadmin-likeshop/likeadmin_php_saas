@@ -46,6 +46,7 @@ import type { FormInstance } from 'element-plus'
 
 import { dictTypeAdd, dictTypeEdit } from '@/api/setting/dict'
 import Popup from '@/components/popup/index.vue'
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()

@@ -15,6 +15,7 @@
 
 namespace app\common\validate;
 
+use app\common\validate\BaseValidate;
 use think\facade\Config;
 
 /**

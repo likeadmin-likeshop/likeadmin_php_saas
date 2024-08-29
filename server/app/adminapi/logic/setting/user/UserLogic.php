@@ -13,7 +13,8 @@
 // +----------------------------------------------------------------------
 namespace app\adminapi\logic\setting\user;
 
-use app\common\service\{ConfigService, FileService};
+use app\common\service\ConfigService;
+use app\common\service\{FileService};
 
 /**
  * 设置-用户设置逻辑层
