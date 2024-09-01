@@ -18,7 +18,7 @@ use app\common\service\{FileService};
 
 /**
  * 设置-用户设置逻辑层
- * Class UserLogic
+ * Class TenantLogic
  * @package app\adminapi\logic\config
  */
 class UserLogic

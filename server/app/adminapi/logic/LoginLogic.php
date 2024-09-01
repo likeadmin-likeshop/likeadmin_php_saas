@@ -15,15 +15,15 @@
 namespace app\adminapi\logic;
 
 use app\common\logic\BaseLogic;
-use app\common\model\auth\Admin;
-use app\adminapi\service\AdminTokenService;
+use app\common\model\auth\TenantAdmin;
+use app\adminapi\service\TenantTokenService;
 use app\common\service\FileService;
 use think\facade\Config;
 
 /**
  * 登录逻辑
  * Class LoginLogic
- * @package app\adminapi\logic
+ * @package app\platformapi\logic
  */
 class LoginLogic extends BaseLogic
 {
@@ -40,16 +40,14 @@ class LoginLogic extends BaseLogic
     public function login($params)
     {
         $time = time();
-        $admin = Admin::where('account', '=', $params['account'])->find();
-
+        $admin = TenantAdmin::where('account', '=', $params['account'])->find();
         //用户表登录信息更新
         $admin->login_time = $time;
         $admin->login_ip = request()->ip();
         $admin->save();
 
         //设置token
-        $adminInfo = AdminTokenService::setToken($admin->id, $params['terminal'], $admin->multipoint_login);
-
+        $adminInfo = TenantTokenService::setToken($admin->id, $params['terminal'], $admin->multipoint_login);
         //返回登录信息
         $avatar = $admin->avatar ? $admin->avatar : Config::get('project.default_image.admin_avatar');
         $avatar = FileService::getFileUrl($avatar);
@@ -79,6 +77,6 @@ class LoginLogic extends BaseLogic
             return false;
         }
         //设置token过期
-        return AdminTokenService::expireToken($adminInfo['token']);
+        return TenantTokenService::expireToken($adminInfo['token']);
     }
 }

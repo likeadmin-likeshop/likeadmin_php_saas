@@ -96,7 +96,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
      */
     public function getUseContent()
     {
-        if ($this->moduleName == 'platform') {
+        if ($this->moduleName == 'platformapi' || $this->moduleName == 'adminapi') {
             $tpl = "use app\\" . $this->moduleName . "\\controller\\BaseAdminController;" . PHP_EOL;
         } else {
             $tpl = "use app\\common\\controller\\BaseLikeAdminController;" . PHP_EOL;
@@ -154,7 +154,7 @@ class ControllerGenerator extends BaseGenerator implements GenerateInterface
     public function getExtendsControllerContent()
     {
         $tpl = 'BaseAdminController';
-        if ($this->moduleName != 'platform') {
+        if ($this->moduleName != 'platformapi' || $this->moduleName != 'adminapi') {
             $tpl = 'BaseLikeAdminController';
         }
         return $tpl;

@@ -14,15 +14,15 @@
 
 namespace app\adminapi\logic\auth;
 
-use app\common\cache\AdminAuthCache;
+use app\common\cache\TenantAuthCache;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\auth\Admin;
-use app\common\model\auth\AdminDept;
-use app\common\model\auth\AdminJobs;
-use app\common\model\auth\AdminRole;
-use app\common\model\auth\AdminSession;
-use app\common\cache\AdminTokenCache;
+use app\common\model\auth\TenantAdmin;
+use app\common\model\auth\TenantAdminDept;
+use app\common\model\auth\TenantAdminJobs;
+use app\common\model\auth\TenantAdminRole;
+use app\common\model\auth\TenantAdminSession;
+use app\common\cache\TenantTokenCache;
 use app\common\service\FileService;
 use think\facade\Config;
 use think\facade\Db;
@@ -50,7 +50,7 @@ class AdminLogic extends BaseLogic
             $defaultAvatar = config('project.default_image.admin_avatar');
             $avatar = !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : $defaultAvatar;
 
-            $admin = Admin::create([
+            $admin = TenantAdmin::create([
                 'name' => $params['name'],
                 'account' => $params['account'],
                 'avatar' => $avatar,
@@ -107,26 +107,26 @@ class AdminLogic extends BaseLogic
             }
 
             // 禁用或更换角色后.设置token过期
-            $roleId = AdminRole::where('admin_id', $params['id'])->column('role_id');
+            $roleId = TenantAdminRole::where('admin_id', $params['id'])->column('role_id');
             $editRole = false;
             if (!empty(array_diff_assoc($roleId, $params['role_id']))) {
                 $editRole = true;
             }
 
             if ($params['disable'] == 1 || $editRole) {
-                $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
+                $tokenArr = TenantAdminSession::where('admin_id', $params['id'])->select()->toArray();
                 foreach ($tokenArr as $token) {
                     self::expireToken($token['token']);
                 }
             }
 
-            Admin::update($data);
-            (new AdminAuthCache($params['id']))->clearAuthCache();
+            TenantAdmin::update($data);
+            (new TenantAuthCache($params['id']))->clearAuthCache();
 
             // 删除旧的关联信息
-            AdminRole::delByUserId($params['id']);
-            AdminDept::delByUserId($params['id']);
-            AdminJobs::delByUserId($params['id']);
+            TenantAdminRole::delByUserId($params['id']);
+            TenantAdminDept::delByUserId($params['id']);
+            TenantAdminJobs::delByUserId($params['id']);
             // 角色
             self::insertRole($params['id'], $params['role_id']);
             // 部门
@@ -155,23 +155,23 @@ class AdminLogic extends BaseLogic
     {
         Db::startTrans();
         try {
-            $admin = Admin::findOrEmpty($params['id']);
+            $admin = TenantAdmin::findOrEmpty($params['id']);
             if ($admin->root == YesNoEnum::YES) {
                 throw new \Exception("超级管理员不允许被删除");
             }
-            Admin::destroy($params['id']);
+            TenantAdmin::destroy($params['id']);
 
             //设置token过期
-            $tokenArr = AdminSession::where('admin_id', $params['id'])->select()->toArray();
+            $tokenArr = TenantAdminSession::where('admin_id', $params['id'])->select()->toArray();
             foreach ($tokenArr as $token) {
                 self::expireToken($token['token']);
             }
-            (new AdminAuthCache($params['id']))->clearAuthCache();
+            (new TenantAuthCache($params['id']))->clearAuthCache();
 
             // 删除旧的关联信息
-            AdminRole::delByUserId($params['id']);
-            AdminDept::delByUserId($params['id']);
-            AdminJobs::delByUserId($params['id']);
+            TenantAdminRole::delByUserId($params['id']);
+            TenantAdminDept::delByUserId($params['id']);
+            TenantAdminJobs::delByUserId($params['id']);
 
             Db::commit();
             return true;
@@ -195,7 +195,7 @@ class AdminLogic extends BaseLogic
      */
     public static function expireToken($token): bool
     {
-        $adminSession = AdminSession::where('token', '=', $token)
+        $adminSession = TenantAdminSession::where('token', '=', $token)
             ->with('admin')
             ->find();
 
@@ -208,7 +208,7 @@ class AdminLogic extends BaseLogic
         $adminSession->update_time = $time;
         $adminSession->save();
 
-        return (new AdminTokenCache())->deleteAdminInfo($token);
+        return (new TenantTokenCache())->deleteAdminInfo($token);
     }
 
 
@@ -221,7 +221,7 @@ class AdminLogic extends BaseLogic
      */
     public static function detail($params, $action = 'detail'): array
     {
-        $admin = Admin::field([
+        $admin = TenantAdmin::field([
             'id', 'account', 'name', 'disable', 'root',
             'multipoint_login', 'avatar',
         ])->findOrEmpty($params['id'])->toArray();
@@ -242,7 +242,6 @@ class AdminLogic extends BaseLogic
     /**
      * @notes 编辑超级管理员
      * @param $params
-     * @return Admin
      * @author 段誉
      * @date 2022/4/8 17:54
      */
@@ -259,7 +258,7 @@ class AdminLogic extends BaseLogic
             $data['password'] = create_password($params['password'], $passwordSalt);
         }
 
-        return Admin::update($data);
+        return TenantAdmin::update($data);
     }
 
 
@@ -282,7 +281,7 @@ class AdminLogic extends BaseLogic
                     'role_id' => $roleId,
                 ];
             }
-            (new AdminRole())->saveAll($roleData);
+            (new TenantAdminRole())->saveAll($roleData);
         }
     }
 
@@ -306,7 +305,7 @@ class AdminLogic extends BaseLogic
                     'dept_id' => $deptId
                 ];
             }
-            (new AdminDept())->saveAll($deptData);
+            (new TenantAdminDept())->saveAll($deptData);
         }
     }
 
@@ -330,7 +329,7 @@ class AdminLogic extends BaseLogic
                     'jobs_id' => $jobsId
                 ];
             }
-            (new AdminJobs())->saveAll($jobsData);
+            (new TenantAdminJobs())->saveAll($jobsData);
         }
     }
 

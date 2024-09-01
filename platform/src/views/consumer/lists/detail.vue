@@ -7,29 +7,18 @@
             <el-form ref="formRef" class="ls-form" :model="formData" label-width="120px">
                 <div class="bg-page flex py-5 mb-10 items-center">
                     <div class="basis-40 flex flex-col justify-center items-center">
-                        <div class="mb-2 text-tx-regular">用户头像</div>
+                        <div class="mb-2 text-tx-regular">租户头像</div>
                         <el-avatar :src="formData.avatar" :size="58" />
                     </div>
-                    <div class="basis-40 flex flex-col justify-center items-center">
-                        <div class="text-tx-regular">账户余额</div>
-                        <div class="mt-2 flex items-center">
-                            ¥{{ formData.user_money }}
-                            <el-button
-                                v-perms="['user.user/adjustMoney']"
-                                type="primary"
-                                link
-                                @click="handleAdjust(formData.user_money)"
-                            >
-                                调整
-                            </el-button>
-                        </div>
-                    </div>
                 </div>
-                <el-form-item label="用户昵称：">
-                    {{ formData.nickname }}
+                <el-form-item label="租户ID：">
+                    {{ formData.id }}
                 </el-form-item>
-                <el-form-item label="账号：">
-                    {{ formData.account }}
+                <el-form-item label="租户编号：">
+                    {{ formData.sn }}
+                </el-form-item>
+                <el-form-item label="租户名称：">
+                    {{ formData.name }}
                     <popover-input
                         class="ml-[10px]"
                         @confirm="handleEdit($event, 'account')"
@@ -41,62 +30,17 @@
                         </el-button>
                     </popover-input>
                 </el-form-item>
-                <el-form-item label="真实姓名：">
-                    {{ formData.real_name || '-' }}
-                    <popover-input
-                        class="ml-[10px]"
-                        @confirm="handleEdit($event, 'real_name')"
-                        :limit="32"
-                        v-perms="['user.user/edit']"
-                    >
-                        <el-button type="primary" link>
-                            <icon name="el-icon-EditPen" />
-                        </el-button>
-                    </popover-input>
+                <el-form-item label="租户状态：">
+                    <el-switch
+                        v-model="formData.disable"
+                        inline-prompt
+                        :active-value="0"
+                        :inactive-value="1"
+                        active-text="正常"
+                        inactive-text="禁用"
+                    />
                 </el-form-item>
-                <el-form-item label="性别：">
-                    {{ formData.sex }}
-                    <popover-input
-                        class="ml-[10px]"
-                        type="select"
-                        :options="[
-                            {
-                                label: '未知',
-                                value: 0
-                            },
-                            {
-                                label: '男',
-                                value: 1
-                            },
-                            {
-                                label: '女',
-                                value: 2
-                            }
-                        ]"
-                        @confirm="handleEdit($event, 'sex')"
-                        v-perms="['user.user/edit']"
-                    >
-                        <el-button type="primary" link>
-                            <icon name="el-icon-EditPen" />
-                        </el-button>
-                    </popover-input>
-                </el-form-item>
-                <el-form-item label="联系电话：">
-                    {{ formData.mobile || '-' }}
-                    <popover-input
-                        class="ml-[10px]"
-                        type="number"
-                        @confirm="handleEdit($event, 'mobile')"
-                        v-perms="['user.user/edit']"
-                    >
-                        <el-button type="primary" link>
-                            <icon name="el-icon-EditPen" />
-                        </el-button>
-                    </popover-input>
-                </el-form-item>
-                <el-form-item label="注册来源："> {{ formData.channel }} </el-form-item>
-                <el-form-item label="注册时间："> {{ formData.create_time }} </el-form-item>
-                <el-form-item label="最近登录时间："> {{ formData.login_time }} </el-form-item>
+                <el-form-item label="创建时间："> {{ formData.create_time }} </el-form-item>
             </el-form>
         </el-card>
 
@@ -119,16 +63,11 @@ import AccountAdjust from '../components/account-adjust.vue'
 const route = useRoute()
 const formData = reactive({
     avatar: '',
-    channel: '',
     create_time: '',
-    login_time: '',
-    mobile: '',
-    nickname: '',
-    real_name: 0,
-    sex: 0,
+    name: '',
     sn: '',
-    account: '',
-    user_money: ''
+    id: '',
+    disable: 0
 })
 
 const adjustState = reactive({
@@ -157,10 +96,6 @@ const handleEdit = async (value: string, field: string) => {
     getDetails()
 }
 
-const handleAdjust = (value: string) => {
-    adjustState.show = true
-    adjustState.value = value
-}
 const handleConfirmAdjust = async (value: any) => {
     await adjustMoney({ user_id: route.query.id, ...value })
     adjustState.show = false

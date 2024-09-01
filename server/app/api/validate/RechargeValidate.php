@@ -20,7 +20,7 @@ use app\common\validate\BaseValidate;
 
 /**
  * 用户验证器
- * Class UserValidate
+ * Class TenantValidate
  * @package app\shopapi\validate
  */
 class RechargeValidate extends BaseValidate

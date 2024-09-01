@@ -21,7 +21,7 @@ use think\facade\Config;
 
 /**
  * 管理员token
- * Class AdminTokenService
+ * Class TenantTokenService
  * @package app\platformapi\service
  */
 class AdminTokenService

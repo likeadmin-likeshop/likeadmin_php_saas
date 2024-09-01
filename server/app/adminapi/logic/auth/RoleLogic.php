@@ -15,8 +15,8 @@
 namespace app\adminapi\logic\auth;
 
 use app\common\logic\BaseLogic;
-use app\common\model\auth\SystemRole;
-use app\common\model\auth\SystemRoleMenu;
+use app\common\model\auth\TenantSystemRole;
+use app\common\model\auth\TenantSystemRoleMenu;
 use app\common\{
     cache\AdminAuthCache
 };
@@ -44,7 +44,7 @@ class RoleLogic extends BaseLogic
         try {
             $menuId = !empty($params['menu_id']) ? $params['menu_id'] : [];
 
-            $role = SystemRole::create([
+            $role = TenantSystemRole::create([
                 'name' => $params['name'],
                 'desc' => $params['desc'] ?? '',
                 'sort' => $params['sort'] ?? 0,
@@ -60,7 +60,7 @@ class RoleLogic extends BaseLogic
                     'menu_id' => $item,
                 ];
             }
-            (new SystemRoleMenu)->insertAll($data);
+            (new TenantSystemRoleMenu)->insertAll($data);
 
             Db::commit();
             return true;
@@ -85,7 +85,7 @@ class RoleLogic extends BaseLogic
         try {
             $menuId = !empty($params['menu_id']) ? $params['menu_id'] : [];
 
-            SystemRole::update([
+            TenantSystemRole::update([
                 'id' => $params['id'],
                 'name' => $params['name'],
                 'desc' => $params['desc'] ?? '',
@@ -93,7 +93,7 @@ class RoleLogic extends BaseLogic
             ]);
 
             if (!empty($menuId)) {
-                SystemRoleMenu::where(['role_id' => $params['id']])->delete();
+                TenantSystemRoleMenu::where(['role_id' => $params['id']])->delete();
                 $data = [];
                 foreach ($menuId as $item) {
                     $data[] = [
@@ -101,7 +101,7 @@ class RoleLogic extends BaseLogic
                         'menu_id' => $item,
                     ];
                 }
-                (new SystemRoleMenu)->insertAll($data);
+                (new TenantSystemRoleMenu)->insertAll($data);
             }
 
             (new AdminAuthCache())->deleteTag();
@@ -124,7 +124,7 @@ class RoleLogic extends BaseLogic
      */
     public static function delete(int $id)
     {
-        SystemRole::destroy(['id' => $id]);
+        TenantSystemRole::destroy(['id' => $id]);
         (new AdminAuthCache())->deleteTag();
         return true;
     }
@@ -142,7 +142,7 @@ class RoleLogic extends BaseLogic
      */
     public static function detail(int $id): array
     {
-        $detail = SystemRole::field('id,name,desc,sort')->find($id);
+        $detail = TenantSystemRole::field('id,name,desc,sort')->find($id);
         $authList = $detail->roleMenuIndex()->select()->toArray();
         $menuId = array_column($authList, 'menu_id');
         $detail['menu_id'] = $menuId;
@@ -161,7 +161,7 @@ class RoleLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        return SystemRole::order(['sort' => 'desc', 'id' => 'desc'])
+        return TenantSystemRole::order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
     }

@@ -28,7 +28,7 @@ use think\facade\Config;
 
 /**
  * 会员逻辑层
- * Class UserLogic
+ * Class TenantLogic
  * @package app\shopapi\logic
  */
 class UserLogic extends BaseLogic

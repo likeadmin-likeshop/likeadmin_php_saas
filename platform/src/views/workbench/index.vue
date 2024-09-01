@@ -153,10 +153,6 @@ const workbenchData: any = reactive({
         legend: {
             data: ['访问量']
         },
-        itemStyle: {
-            // 点的颜色。
-            color: 'red'
-        },
         tooltip: {
             trigger: 'axis'
         },
@@ -166,6 +162,7 @@ const workbenchData: any = reactive({
                 data: [],
                 type: 'line',
                 smooth: true,
+                color: '#4A5DFF',
                 lineStyle: {
                     color: '#4A5DFF',
                     width: 2
@@ -208,6 +205,7 @@ const workbenchData: any = reactive({
         },
         series: [
             {
+                name: '销售量',
                 data: [],
                 type: 'bar',
                 showBackground: true,

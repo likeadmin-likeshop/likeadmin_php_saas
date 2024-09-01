@@ -50,9 +50,9 @@
                 />
                 <el-table-column label="部门状态" prop="status" min-width="100">
                     <template #default="{ row }">
-                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">{{
-                            row.status_desc
-                        }}</el-tag>
+                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">
+                            {{ row.status_desc }}
+                        </el-tag>
                     </template>
                 </el-table-column>
 

@@ -17,8 +17,8 @@ namespace app\adminapi\logic\auth;
 
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\auth\Admin;
-use app\common\model\auth\TenantMenu;
+use app\common\model\auth\TenantAdmin;
+use app\common\model\auth\TenantSystemMenu;
 use app\common\model\auth\SystemRoleMenu;
 
 
@@ -43,7 +43,7 @@ class MenuLogic extends BaseLogic
      */
     public static function getMenuByAdminId($adminId)
     {
-        $admin = Admin::findOrEmpty($adminId);
+        $admin = TenantAdmin::findOrEmpty($adminId);
 
         $where = [];
         $where[] = ['type', 'in', ['M', 'C']];
@@ -54,7 +54,7 @@ class MenuLogic extends BaseLogic
             $where[] = ['id', 'in', $roleMenu];
         }
 
-        $menu = TenantMenu::where($where)
+        $menu = TenantSystemMenu::where($where)
             ->order(['sort' => 'desc', 'id' => 'asc'])
             ->select();
 
@@ -65,13 +65,13 @@ class MenuLogic extends BaseLogic
     /**
      * @notes 添加菜单
      * @param array $params
-     * @return TenantMenu|\think\Model
+     * @return TenantSystemMenu|\think\Model
      * @author 段誉
      * @date 2022/6/30 10:06
      */
     public static function add(array $params)
     {
-        return TenantMenu::create([
+        return TenantSystemMenu::create([
             'pid' => $params['pid'],
             'type' => $params['type'],
             'name' => $params['name'],
@@ -92,13 +92,13 @@ class MenuLogic extends BaseLogic
     /**
      * @notes 编辑菜单
      * @param array $params
-     * @return TenantMenu
+     * @return TenantSystemMenu
      * @author 段誉
      * @date 2022/6/30 10:07
      */
     public static function edit(array $params)
     {
-        return TenantMenu::update([
+        return TenantSystemMenu::update([
             'id' => $params['id'],
             'pid' => $params['pid'],
             'type' => $params['type'],
@@ -126,7 +126,7 @@ class MenuLogic extends BaseLogic
      */
     public static function detail($params)
     {
-        return TenantMenu::findOrEmpty($params['id'])->toArray();
+        return TenantSystemMenu::findOrEmpty($params['id'])->toArray();
     }
 
 
@@ -139,7 +139,7 @@ class MenuLogic extends BaseLogic
     public static function delete($params)
     {
         // 删除菜单
-        TenantMenu::destroy($params['id']);
+        TenantSystemMenu::destroy($params['id']);
         // 删除角色-菜单表中 与该菜单关联的记录
         SystemRoleMenu::where(['menu_id' => $params['id']])->delete();
     }
@@ -148,13 +148,13 @@ class MenuLogic extends BaseLogic
     /**
      * @notes 更新状态
      * @param array $params
-     * @return TenantMenu
+     * @return TenantSystemMenu
      * @author 段誉
      * @date 2022/7/6 17:02
      */
     public static function updateStatus(array $params)
     {
-        return TenantMenu::update([
+        return TenantSystemMenu::update([
             'id' => $params['id'],
             'is_disable' => $params['is_disable']
         ]);
@@ -172,7 +172,7 @@ class MenuLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        $data = TenantMenu::where(['is_disable' => YesNoEnum::NO])
+        $data = TenantSystemMenu::where(['is_disable' => YesNoEnum::NO])
             ->field('id,pid,name')
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()

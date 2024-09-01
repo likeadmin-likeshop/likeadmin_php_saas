@@ -14,7 +14,6 @@
 
 namespace app\platformapi\logic\auth;
 
-use app\common\model\auth\Admin;
 use app\common\model\auth\AdminRole;
 use app\common\model\auth\SystemMenu;
 use app\common\model\auth\SystemRoleMenu;

@@ -15,7 +15,6 @@
 namespace app\common\cache;
 
 use app\platformapi\logic\auth\AuthLogic;
-use app\common\cache\BaseCache;
 
 
 /**
@@ -26,13 +25,13 @@ use app\common\cache\BaseCache;
 class AdminAuthCache extends BaseCache
 {
 
-    private $prefix = 'admin_auth_';
-    private $authConfigList = [];
-    private $cacheMd5Key = '';      //权限文件MD5的key
-    private $cacheAllKey = '';      //全部权限的key
-    private $cacheUrlKey = '';       //管理员的url缓存key
-    private $authMd5 = '';          //权限文件MD5的值
-    private $adminId = '';
+    private string $prefix         = 'admin_auth_';
+    private mixed  $authConfigList = [];
+    private string $cacheMd5Key    = '';          //权限文件MD5的key
+    private string $cacheAllKey    = '';          //全部权限的key
+    private string $cacheUrlKey    = '';          //管理员的url缓存key
+    private string $authMd5        = '';          //权限文件MD5的值
+    private mixed $adminId         = '';
 
 
     public function __construct($adminId = '')

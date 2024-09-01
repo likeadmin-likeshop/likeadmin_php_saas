@@ -19,7 +19,7 @@ use app\common\validate\BaseValidate;
 
 /**
  * 用户验证
- * Class UserValidate
+ * Class TenantValidate
  * @package app\adminapi\validate\user
  */
 class UserValidate extends BaseValidate

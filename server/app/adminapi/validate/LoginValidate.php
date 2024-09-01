@@ -17,8 +17,8 @@ namespace app\adminapi\validate;
 
 
 use app\common\enum\AdminTerminalEnum;
-use app\common\model\auth\Admin;
-use app\common\cache\AdminAccountSafeCache;
+use app\common\model\auth\TenantAdmin;
+use app\common\cache\TenantAccountSafeCache;
 use app\common\service\ConfigService;
 use app\common\validate\BaseValidate;
 use think\facade\Config;
@@ -62,7 +62,7 @@ class LoginValidate extends BaseValidate
             'limit_login_time' => ConfigService::get('admin_login', 'limit_login_time'),
         ];
 
-        $adminAccountSafeCache = new AdminAccountSafeCache();
+        $adminAccountSafeCache = new TenantAccountSafeCache();
         if ($config['login_restrictions'] == 1) {
             $adminAccountSafeCache->count = $config['password_error_times'];
             $adminAccountSafeCache->minute = $config['limit_login_time'];
@@ -73,7 +73,7 @@ class LoginValidate extends BaseValidate
             return '密码连续' . $adminAccountSafeCache->count . '次输入错误，请' . $adminAccountSafeCache->minute . '分钟后重试';
         }
 
-        $adminInfo = Admin::where('account', '=', $data['account'])
+        $adminInfo = TenantAdmin::where('account', '=', $data['account'])
             ->field(['password,disable'])
             ->findOrEmpty();
 

@@ -21,7 +21,7 @@ use app\common\model\user\User;
 
 /**
  * 用户列表
- * Class UserLists
+ * Class TenantLists
  * @package app\adminapi\lists\user
  */
 class UserLists extends BaseAdminDataLists implements ListsExcelInterface

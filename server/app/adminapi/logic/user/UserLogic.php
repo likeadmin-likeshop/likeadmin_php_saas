@@ -22,7 +22,7 @@ use think\facade\Db;
 
 /**
  * 用户逻辑层
- * Class UserLogic
+ * Class TenantLogic
  * @package app\adminapi\logic\user
  */
 class UserLogic extends BaseLogic

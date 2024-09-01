@@ -19,8 +19,18 @@ return [
     ],
 
     // 官网
+    'tenant' => [
+        'admin_avatar' => 'resource/image/platformapi/default/shop_logo.png',
+        'name' => env('project.web_name', 'likeadmin平台端'), // 网站名称
+        'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
+        'login_image' => 'resource/image/platformapi/default/login_image.png',
+        'web_logo' => 'resource/image/platformapi/default/web_logo.jpg', // 网站logo
+        'web_favicon' => 'resource/image/platformapi/default/web_favicon.ico', // 网站图标
+    ],
+
+    // 官网
     'platform' => [
-        'admin_avatar' => 'resource/image/platformapi/default/avatar.png',
+        'admin_avatar' => 'resource/image/platformapi/default/avatar03.png',
         'name' => env('project.web_name', 'likeadmin平台端'), // 网站名称
         'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
         'login_image' => 'resource/image/platformapi/default/login_image.png',
@@ -41,8 +51,14 @@ return [
     // 唯一标识，密码盐、路径加密等
     'unique_identification' => env('project.unique_identification', 'likeadmin'),
 
-    // 后台管理员token（登录令牌）配置
+    // 平台管理员token（登录令牌）配置
     'admin_token' => [
+        'expire_duration' => 3600 * 8,//管理后台token过期时长(单位秒）
+        'be_expire_duration' => 3600,//管理后台token临时过期前时长，自动续期
+    ],
+
+    // 租户后台管理员token（登录令牌）配置
+    'tenant_token' => [
         'expire_duration' => 3600 * 8,//管理后台token过期时长(单位秒）
         'be_expire_duration' => 3600,//管理后台token临时过期前时长，自动续期
     ],

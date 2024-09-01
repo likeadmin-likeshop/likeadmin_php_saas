@@ -22,7 +22,7 @@ use app\adminapi\{
 
 /**
  * 设置-用户设置控制器
- * Class UserController
+ * Class TenantController
  * @package app\adminapi\controller\config
  */
 class UserController extends BaseAdminController

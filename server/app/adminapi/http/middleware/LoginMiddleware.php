@@ -17,7 +17,7 @@ declare (strict_types=1);
 namespace app\adminapi\http\middleware;
 
 use app\common\cache\AdminTokenCache;
-use app\adminapi\service\AdminTokenService;
+use app\adminapi\service\TenantTokenService;
 use app\common\service\JsonService;
 use think\facade\Config;
 
@@ -60,7 +60,7 @@ class LoginMiddleware
             $beExpireDuration = Config::get('project.admin_token.be_expire_duration');
             //token续期
             if (time() > ($adminInfo['expire_time'] - $beExpireDuration)) {
-                $result = AdminTokenService::overtimeToken($token);
+                $result = TenantTokenService::overtimeToken($token);
                 //续期失败（数据表被删除导致）
                 if (empty($result)) {
                     return JsonService::fail('登录过期', [], -1);

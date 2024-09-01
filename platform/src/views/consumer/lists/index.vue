@@ -6,26 +6,16 @@
                     <el-input
                         class="w-[280px]"
                         v-model="queryParams.keyword"
-                        placeholder="账号/昵称/手机号码"
+                        placeholder="账号/租户名"
                         clearable
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="注册时间">
+                <el-form-item label="创建时间">
                     <daterange-picker
                         v-model:startTime="queryParams.create_time_start"
                         v-model:endTime="queryParams.create_time_end"
                     />
-                </el-form-item>
-                <el-form-item label="注册来源">
-                    <el-select class="w-[280px]" v-model="queryParams.channel">
-                        <el-option
-                            v-for="(item, key) in ClientMap"
-                            :key="key"
-                            :label="item"
-                            :value="key"
-                        />
-                    </el-select>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
@@ -40,19 +30,36 @@
             </el-form>
         </el-card>
         <el-card class="!border-none mt-4" shadow="never">
-            <el-table size="large" v-loading="pager.loading" :data="pager.lists">
-                <el-table-column label="头像" min-width="100">
+            <div>
+                <el-button v-perms="['tenant.tenant/add']" type="primary">
+                    <template #icon>
+                        <icon name="el-icon-Plus" />
+                    </template>
+                    新增
+                </el-button>
+            </div>
+            <el-table class="mt-4" size="large" v-loading="pager.loading" :data="pager.lists">
+                <el-table-column label="编号" prop="sn" width="80" />
+                <el-table-column label="头像" width="90" align="center">
                     <template #default="{ row }">
                         <el-avatar :src="row.avatar" :size="50" />
                     </template>
                 </el-table-column>
-                <el-table-column label="昵称" prop="nickname" min-width="100" />
-                <el-table-column label="账号" prop="account" min-width="120" />
-                <el-table-column label="手机号码" prop="mobile" min-width="100" />
-                <el-table-column label="注册来源" prop="channel" min-width="100" />
-                <el-table-column label="注册时间" prop="create_time" min-width="120" />
-                <el-table-column label="操作" width="120" fixed="right">
+                <el-table-column label="租户名称" prop="name" min-width="100" />
+                <el-table-column label="用户数量" prop="name" min-width="100" />
+                <el-table-column label="状态" min-width="50">
                     <template #default="{ row }">
+                        <el-tag :type="row.disable === 0 ? '' : 'danger'">{{
+                            row.disable === 0 ? '启用' : '禁用'
+                        }}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column label="创建时间" prop="create_time" min-width="120" />
+                <el-table-column label="操作" width="260" fixed="right">
+                    <template #default="{ row }">
+                        <el-button v-perms="['user.user/detail']" type="primary" link>
+                            <a href="http://localhost:5174/admin/login" target="_blank">进入后台</a>
+                        </el-button>
                         <el-button v-perms="['user.user/detail']" type="primary" link>
                             <router-link
                                 :to="{
@@ -65,6 +72,40 @@
                                 详情
                             </router-link>
                         </el-button>
+                        <el-button v-perms="['user.user/detail']" type="primary" link>
+                            <router-link
+                                :to="{
+                                    path: getRoutePath('user.user/detail'),
+                                    query: {
+                                        id: row.id
+                                    }
+                                }"
+                            >
+                                编辑
+                            </router-link>
+                        </el-button>
+
+                        <el-button v-perms="['user.user/detail']" type="primary" link>
+                            <el-dropdown>
+                                <el-button v-perms="['user.user/detail']" type="primary" link>
+                                    <span class="flex items-center gap-1">
+                                        <span>更多</span>
+                                        <el-icon>
+                                            <arrow-down />
+                                        </el-icon>
+                                    </span>
+                                </el-button>
+
+                                <template #dropdown>
+                                    <el-dropdown-menu>
+                                        <el-dropdown-item>套餐</el-dropdown-item>
+                                        <el-dropdown-item divided>
+                                            <span class="text-danger">删除</span>
+                                        </el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </template>
+                            </el-dropdown>
+                        </el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -76,7 +117,6 @@
 </template>
 <script lang="ts" setup name="consumerLists">
 import { getUserList } from '@/api/consumer'
-import { ClientMap } from '@/enums/appEnums'
 import { usePaging } from '@/hooks/usePaging'
 import { getRoutePath } from '@/router'
 

@@ -14,16 +14,15 @@
 
 namespace app\adminapi\logic\auth;
 
-use app\common\model\auth\Admin;
-use app\common\model\auth\AdminRole;
-use app\common\model\auth\SystemMenu;
-use app\common\model\auth\SystemRoleMenu;
+use app\common\model\auth\TenantAdminRole;
+use app\common\model\auth\TenantSystemMenu;
+use app\common\model\auth\TenantSystemRoleMenu;
 
 
 /**
  * 权限功能类
  * Class AuthLogic
- * @package app\adminapi\logic\auth
+ * @package app\platformapi\logic\auth
  */
 class AuthLogic
 {
@@ -36,7 +35,7 @@ class AuthLogic
      */
     public static function getAllAuth()
     {
-        return SystemMenu::distinct(true)
+        return TenantSystemMenu::distinct(true)
             ->where([
                 ['is_disable', '=', 0],
                 ['perms', '<>', '']
@@ -58,18 +57,18 @@ class AuthLogic
             return ['*'];
         }
 
-        $menuId = SystemRoleMenu::whereIn('role_id', $admin['role_id'])
+        $menuId = TenantSystemRoleMenu::whereIn('role_id', $admin['role_id'])
             ->column('menu_id');
 
         $where[] = ['is_disable', '=', 0];
         $where[] = ['perms', '<>', ''];
 
-        $roleAuth = SystemMenu::distinct(true)
+        $roleAuth = TenantSystemMenu::distinct(true)
             ->where('id', 'in', $menuId)
             ->where($where)
             ->column('perms');
 
-        $allAuth = SystemMenu::distinct(true)
+        $allAuth = TenantSystemMenu::distinct(true)
             ->where($where)
             ->column('perms');
 
@@ -91,10 +90,10 @@ class AuthLogic
      */
     public static function getAuthByAdminId(int $adminId): array
     {
-        $roleIds = AdminRole::where('admin_id', $adminId)->column('role_id');
-        $menuId = SystemRoleMenu::whereIn('role_id', $roleIds)->column('menu_id');
+        $roleIds = TenantAdminRole::where('admin_id', $adminId)->column('role_id');
+        $menuId = TenantSystemRoleMenu::whereIn('role_id', $roleIds)->column('menu_id');
 
-        return SystemMenu::distinct(true)
+        return TenantSystemMenu::distinct(true)
             ->where([
                 ['is_disable', '=', 0],
                 ['perms', '<>', ''],

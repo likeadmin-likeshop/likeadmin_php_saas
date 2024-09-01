@@ -21,7 +21,7 @@ use app\api\validate\UserValidate;
 
 /**
  * 用户控制器
- * Class UserController
+ * Class TenantController
  * @package app\api\controller
  */
 class UserController extends BaseApiController
