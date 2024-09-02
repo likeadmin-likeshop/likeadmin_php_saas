@@ -70,7 +70,7 @@ class BaseLikeAdminController extends BaseController
     protected function dataLists(BaseDataLists $lists = null)
     {
         //列表类和控制器一一对应，"app/应用/controller/控制器的方法" =》"app\应用\lists\"目录下
-        //（例如："app/adminapi/controller/auth/AdminController.php的lists()方法" =》 "app/adminapi/lists/auth/AminLists.php")
+        //（例如："app/tenantapi/controller/auth/AdminController.php的lists()方法" =》 "app/tenantapi/lists/auth/AminLists.php")
         //当对象为空时，自动创建列表对象
         if (is_null($lists)) {
             $listName = str_replace('.', '\\', App::getNamespace() . '\\lists\\' . $this->request->controller() . ucwords($this->request->action()));

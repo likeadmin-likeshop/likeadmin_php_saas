@@ -13,7 +13,7 @@
 // +----------------------------------------------------------------------
 namespace app\platformapi\lists\tenant;
 
-use app\adminapi\lists\BaseAdminDataLists;
+use app\tenantapi\lists\BaseAdminDataLists;
 use app\common\enum\user\UserTerminalEnum;
 use app\common\lists\ListsExcelInterface;
 use app\common\model\tenant\Tenant;
@@ -22,7 +22,7 @@ use app\common\model\tenant\Tenant;
 /**
  * 用户列表
  * Class TenantLists
- * @package app\adminapi\lists\user
+ * @package app\tenantapi\lists\user
  */
 class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
 {

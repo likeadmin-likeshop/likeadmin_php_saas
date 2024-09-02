@@ -117,11 +117,11 @@ class WorkbenchLogic extends BaseLogic
         return [
             'version' => config('project.version'),
             'website' => config('project.website.url'),
-            'name' => ConfigService::get('website', 'name'),
+            'name' => ConfigService::get('platform', 'name'),
             'based' => 'vue3.x、ElementUI、MySQL',
             'channel' => [
                 'website' => 'https://www.likeadmin.cn',
-                'gitee' => 'https://gitee.com/likeadmin/likeadmin_php',
+                'gitee' => 'https://gitee.com/likeadmin/likeadmin_php_saas',
             ]
         ];
     }

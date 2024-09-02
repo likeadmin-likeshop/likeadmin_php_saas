@@ -27,6 +27,6 @@ class TenantAdminJobs extends BaseModel
      */
     public static function delByUserId($adminId)
     {
-        return self::where(['tenant_id' => $adminId])->delete();
+        return self::where(['admin_id' => $adminId])->delete();
     }
 }

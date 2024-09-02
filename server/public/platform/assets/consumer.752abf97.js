@@ -1,1 +1,0 @@
-import{r as n}from"./index.dda1a596.js";function r(t){return n.get({url:"/tenant.tenant/lists",params:t},{ignoreCancelToken:!0})}function a(t){return n.get({url:"/tenant.tenant/detail",params:t})}function u(t){return n.post({url:"/tenant.tenant/edit",params:t})}function s(t){return n.post({url:"/tenant.tenant/adjustMoney",params:t})}export{s as a,r as b,a as g,u};

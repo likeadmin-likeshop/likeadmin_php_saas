@@ -49,9 +49,9 @@
                 <el-table-column label="用户数量" prop="name" min-width="100" />
                 <el-table-column label="状态" min-width="50">
                     <template #default="{ row }">
-                        <el-tag :type="row.disable === 0 ? '' : 'danger'">{{
-                            row.disable === 0 ? '启用' : '禁用'
-                        }}</el-tag>
+                        <el-tag :type="row.disable === 0 ? '' : 'danger'">
+                            {{ row.disable === 0 ? '开启' : '关闭' }}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column label="创建时间" prop="create_time" min-width="120" />
@@ -60,29 +60,21 @@
                         <el-button v-perms="['user.user/detail']" type="primary" link>
                             <a href="http://localhost:5174/admin/login" target="_blank">进入后台</a>
                         </el-button>
-                        <el-button v-perms="['user.user/detail']" type="primary" link>
-                            <router-link
-                                :to="{
-                                    path: getRoutePath('user.user/detail'),
-                                    query: {
-                                        id: row.id
-                                    }
-                                }"
-                            >
-                                详情
-                            </router-link>
+                        <el-button
+                            v-perms="['user.user/detail']"
+                            type="primary"
+                            link
+                            @click="editRef?.openHandle(row.id)"
+                        >
+                            详情
                         </el-button>
-                        <el-button v-perms="['user.user/detail']" type="primary" link>
-                            <router-link
-                                :to="{
-                                    path: getRoutePath('user.user/detail'),
-                                    query: {
-                                        id: row.id
-                                    }
-                                }"
-                            >
-                                编辑
-                            </router-link>
+                        <el-button
+                            v-perms="['user.user/detail']"
+                            type="primary"
+                            link
+                            @click="editRef?.openHandle(row.id, true)"
+                        >
+                            编辑
                         </el-button>
 
                         <el-button v-perms="['user.user/detail']" type="primary" link>
@@ -113,12 +105,18 @@
                 <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
+        <Edit ref="editRef" />
     </div>
 </template>
 <script lang="ts" setup name="consumerLists">
 import { getUserList } from '@/api/consumer'
 import { usePaging } from '@/hooks/usePaging'
 import { getRoutePath } from '@/router'
+import { useComponentRef } from '@/utils/getExposeType'
+
+import Edit from './../components/edit.vue'
+
+const editRef = useComponentRef(Edit)
 
 const queryParams = reactive({
     keyword: '',

@@ -26,7 +26,7 @@ class TenantAdminSession extends BaseModel
      */
     public function admin()
     {
-        return $this->hasOne(TenantAdmin::class, 'id', 'tenant_id')
+        return $this->hasOne(TenantAdmin::class, 'id', 'admin_id')
             ->field('id,multipoint_login');
     }
 }
