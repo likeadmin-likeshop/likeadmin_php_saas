@@ -14,7 +14,9 @@
 
 namespace app\common\model;
 
+use app\common\cache\TenantAdminTokenCache;
 use app\common\service\FileService;
+use think\facade\Request;
 use think\Model;
 
 /**
@@ -24,6 +26,17 @@ use think\Model;
  */
 class BaseModel extends Model
 {
+    // // 定义全局的查询范围
+    // protected $globalScope = ['sid'];
+    //
+    // public function scopeSid($query)
+    // {
+    //     $token = Request::class::header("token");
+    //     $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
+    //     $sid = $adminInfo['sid'];
+    //     $query->where('sid', $sid);
+    // }
+
     /**
      * @notes 公共处理图片,补全路径
      * @param $value

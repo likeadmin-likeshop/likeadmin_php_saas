@@ -50,6 +50,7 @@ class LoginMiddleware
 
         $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
 
+
         if (empty($adminInfo) && !$isNotNeedLogin) {
             //token过期无效并且该地址需要登录才能访问
             return JsonService::fail('登录超时，请重新登录', [], -1);

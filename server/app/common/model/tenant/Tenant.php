@@ -20,6 +20,7 @@ use app\common\enum\YesNoEnum;
 use app\common\model\BaseModel;
 use app\common\service\FileService;
 use think\model\concern\SoftDelete;
+use think\facade\Request;
 
 /**
  * 用户模型
@@ -106,27 +107,30 @@ class Tenant extends BaseModel
 
     /**
      * @notes 生成用户编码
-     * @param string $prefix
-     * @param int $length
+     * @param $prefix
+     * @param $length
      * @return string
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
-     * @author 段誉
-     * @date 2022/9/16 10:33
+     * @author JXDN
+     * @date 2024/09/03 14:32
      */
     public static function createUserSn($prefix = '', $length = 8)
     {
+        $characters = 'abcdefghijklmnopqrstuvwxyz0123456789'; // 字母和数字的字符集
         $rand_str = '';
         for ($i = 0; $i < $length; $i++) {
-            $rand_str .= mt_rand(1, 9);
+            $rand_str .= $characters[mt_rand(0, strlen($characters) - 1)];
         }
         $sn = $prefix . $rand_str;
+
+        // 检查是否存在相同的sn
         if (Tenant::where(['sn' => $sn])->find()) {
-            return self::createUserSn($prefix, $length);
+            return self::createUserSn($prefix, $length); // 递归重新生成
         }
+
         return $sn;
     }
-
 
 }

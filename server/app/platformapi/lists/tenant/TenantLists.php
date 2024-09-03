@@ -96,11 +96,9 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
     public function setExcelFields(): array
     {
         return [
-            'sn' => '用户编号',
-            'nickname' => '用户昵称',
-            'account' => '账号',
-            'mobile' => '手机号码',
-            'channel' => '注册来源',
+            'sn' => '租户编号',
+            'name' => '租户昵称',
+            'disable' => '租户状态',
             'create_time' => '注册时间',
         ];
     }

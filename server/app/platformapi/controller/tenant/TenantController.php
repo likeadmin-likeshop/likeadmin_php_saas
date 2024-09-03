@@ -52,6 +52,18 @@ class TenantController extends BaseAdminController
         return $this->success('', $detail);
     }
 
+    /**
+     * @notes 编辑用户信息
+     * @return \think\response\Json
+     * @author 段誉
+     * @date 2022/9/22 16:34
+     */
+    public function add()
+    {
+        $params = (new TenantValidate())->post()->goCheck('add');
+        TenantLogic::add($params);
+        return $this->success('新增成功', [], 1, 1);
+    }
 
     /**
      * @notes 编辑用户信息
@@ -61,26 +73,21 @@ class TenantController extends BaseAdminController
      */
     public function edit()
     {
-        $params = (new TenantValidate())->post()->goCheck('setInfo');
-        TenantLogic::setUserInfo($params);
+        $params = (new TenantValidate())->post()->goCheck();
+        TenantLogic::edit($params);
         return $this->success('操作成功', [], 1, 1);
     }
 
-
     /**
-     * @notes 调整用户余额
+     * @notes 删除租户
      * @return \think\response\Json
-     * @author 段誉
-     * @date 2023/2/23 14:33
+     * @author JXDN
+     * @date 2024/09/03 17:02
      */
-    public function adjustMoney()
+    public function delete()
     {
-        $params = (new AdjustUserMoney())->post()->goCheck();
-        $res = TenantLogic::adjustUserMoney($params);
-        if (true === $res) {
-            return $this->success('操作成功', [], 1, 1);
-        }
-        return $this->fail($res);
+        $params = (new TenantValidate())->post()->goCheck('delete');
+        TenantLogic::delete($params);
+        return $this->success('删除成功', [], 1, 1);
     }
-
 }

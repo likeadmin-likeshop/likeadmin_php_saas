@@ -31,7 +31,11 @@
         </el-card>
         <el-card class="!border-none mt-4" shadow="never">
             <div>
-                <el-button v-perms="['tenant.tenant/add']" type="primary">
+                <el-button
+                    v-perms="['tenant.tenant/add']"
+                    type="primary"
+                    @click="addRef?.openHandle()"
+                >
                     <template #icon>
                         <icon name="el-icon-Plus" />
                     </template>
@@ -39,7 +43,7 @@
                 </el-button>
             </div>
             <el-table class="mt-4" size="large" v-loading="pager.loading" :data="pager.lists">
-                <el-table-column label="编号" prop="sn" width="80" />
+                <el-table-column label="编号" prop="sn" width="120" />
                 <el-table-column label="头像" width="90" align="center">
                     <template #default="{ row }">
                         <el-avatar :src="row.avatar" :size="50" />
@@ -47,7 +51,7 @@
                 </el-table-column>
                 <el-table-column label="租户名称" prop="name" min-width="100" />
                 <el-table-column label="用户数量" prop="name" min-width="100" />
-                <el-table-column label="状态" min-width="50">
+                <el-table-column label="状态" min-width="80">
                     <template #default="{ row }">
                         <el-tag :type="row.disable === 0 ? '' : 'danger'">
                             {{ row.disable === 0 ? '开启' : '关闭' }}
@@ -69,7 +73,7 @@
                             详情
                         </el-button>
                         <el-button
-                            v-perms="['user.user/detail']"
+                            v-perms="['user.user/edit']"
                             type="primary"
                             link
                             @click="editRef?.openHandle(row.id, true)"
@@ -77,7 +81,16 @@
                             编辑
                         </el-button>
 
-                        <el-button v-perms="['user.user/detail']" type="primary" link>
+                        <el-button
+                            v-perms="['user.user/delete']"
+                            type="danger"
+                            link
+                            @click="handleDelete(row.id)"
+                        >
+                            删除
+                        </el-button>
+
+                        <!-- <el-button v-perms="['user.user/detail']" type="primary" link>
                             <el-dropdown>
                                 <el-button v-perms="['user.user/detail']" type="primary" link>
                                     <span class="flex items-center gap-1">
@@ -90,14 +103,18 @@
 
                                 <template #dropdown>
                                     <el-dropdown-menu>
-                                        <el-dropdown-item>套餐</el-dropdown-item>
-                                        <el-dropdown-item divided>
+                                        <el-dropdown-item
+                                            @click="editRef?.openHandle(row.id, false, 'order')"
+                                        >
+                                            套餐
+                                        </el-dropdown-item>
+                                        <el-dropdown-item divided @click="handleDelete(row.id)">
                                             <span class="text-danger">删除</span>
                                         </el-dropdown-item>
                                     </el-dropdown-menu>
                                 </template>
                             </el-dropdown>
-                        </el-button>
+                        </el-button> -->
                     </template>
                 </el-table-column>
             </el-table>
@@ -105,18 +122,21 @@
                 <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
-        <Edit ref="editRef" />
+        <Edit ref="editRef" @refresh="getLists()" />
+        <Add ref="addRef" @refresh="getLists()" />
     </div>
 </template>
 <script lang="ts" setup name="consumerLists">
-import { getUserList } from '@/api/consumer'
+import { getUserList, userDelete } from '@/api/consumer'
 import { usePaging } from '@/hooks/usePaging'
-import { getRoutePath } from '@/router'
+import feedback from '@/utils/feedback'
 import { useComponentRef } from '@/utils/getExposeType'
 
+import Add from './../components/add.vue'
 import Edit from './../components/edit.vue'
 
 const editRef = useComponentRef(Edit)
+const addRef = useComponentRef(Add)
 
 const queryParams = reactive({
     keyword: '',
@@ -132,6 +152,12 @@ const { pager, getLists, resetPage, resetParams } = usePaging({
 onActivated(() => {
     getLists()
 })
+
+const handleDelete = async (id: number) => {
+    await feedback.confirm('确定要删除？')
+    await userDelete({ id })
+    getLists()
+}
 
 getLists()
 </script>

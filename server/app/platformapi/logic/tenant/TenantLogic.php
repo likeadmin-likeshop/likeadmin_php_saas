@@ -24,13 +24,29 @@ use app\common\model\tenant\Tenant;
  */
 class TenantLogic extends BaseLogic
 {
+    /**
+     * @notes 新增租户
+     * @param array $params
+     * @return void
+     * @author JXDN
+     * @date 2024/09/03 14:42
+     */
+    public static function add(array $params)
+    {
+        Tenant::create([
+            'sn' => Tenant::createUserSn(),
+            'name' => $params['name'],
+            'avatar' => $params['avatar'],
+            'disable' => $params['disable']
+        ]);
+    }
 
     /**
      * @notes 用户详情
      * @param int $userId
      * @return array
-     * @author 段誉
-     * @date 2022/9/22 16:32
+     * @author JXDN
+     * @date 2024/09/03 17:04
      */
     public static function detail(int $userId): array
     {
@@ -44,16 +60,37 @@ class TenantLogic extends BaseLogic
 
 
     /**
-     * @notes 更新用户信息
+     * @notes 更新租户信息
      * @param array $params
-     * @author 段誉
-     * @date 2022/9/22 16:38
+     * @return bool
+     * @author JXDN
+     * @date 2024/09/03 14:28
      */
-    public static function setUserInfo(array $params)
+    public static function edit(array $params)
     {
-        return Tenant::update([
-            'id' => $params['id'],
-            $params['field'] => $params['value']
-        ]);
+        try {
+            Tenant::update([
+                'id' => $params['id'],
+                'name' => $params['name'],
+                'avatar' => $params['avatar'],
+                'disable' => $params['disable'] ?? 0
+            ]);
+            return true;
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * @notes 删除租户
+     * @param array $params
+     * @return void
+     * @author JXDN
+     * @date 2024/09/03 17:04
+     */
+    public static function delete(array $params)
+    {
+        Tenant::destroy($params['id']);
     }
 }

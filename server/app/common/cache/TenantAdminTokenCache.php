@@ -89,6 +89,7 @@ class TenantAdminTokenCache extends BaseCache
 
         $adminInfo = [
             'admin_id' => $admin->id,
+            'tenant_id' => $admin->tenant_id,
             'root' => $admin->root,
             'name' => $admin->name,
             'account' => $admin->account,

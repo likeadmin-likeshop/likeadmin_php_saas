@@ -15,7 +15,12 @@ export function userEdit(params: any) {
     return request.post({ url: '/tenant.tenant/edit', params })
 }
 
-// 用户编辑
-export function adjustMoney(params: any) {
-    return request.post({ url: '/tenant.tenant/adjustMoney', params })
+// 用户新增
+export function userAdd(params: any) {
+    return request.post({ url: '/tenant.tenant/add', params })
+}
+
+// 用户新增
+export function userDelete(params: any) {
+    return request.post({ url: '/tenant.tenant/delete', params })
 }
