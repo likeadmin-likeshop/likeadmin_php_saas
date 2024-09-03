@@ -14,10 +14,11 @@
 
 namespace app\common\model;
 
-use app\common\cache\TenantAdminTokenCache;
 use app\common\service\FileService;
-use think\facade\Request;
+use think\Exception;
 use think\Model;
+use app\common\cache\TenantAdminTokenCache;
+use think\facade\Request;
 
 /**
  * 基础模型
@@ -26,16 +27,8 @@ use think\Model;
  */
 class BaseModel extends Model
 {
-    // // 定义全局的查询范围
-    // protected $globalScope = ['sid'];
-    //
-    // public function scopeSid($query)
-    // {
-    //     $token = Request::class::header("token");
-    //     $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
-    //     $sid = $adminInfo['sid'];
-    //     $query->where('sid', $sid);
-    // }
+    // 定义全局的查询范围
+    protected $globalScope = ['tenantId'];
 
     /**
      * @notes 公共处理图片,补全路径
@@ -60,4 +53,32 @@ class BaseModel extends Model
     {
         return trim($value) ? FileService::setFileUrl($value) : '';
     }
+
+    /**
+     * @notes 增加全局
+     * @param $query
+     * @return void
+     * @author yfdong
+     * @date 2024/09/03 22:45
+     */
+     public function scopeTenantId($query): void
+     {
+         // 获取当前查询模型表名
+         $table = $query->getTable();
+         // 获取对应表字段
+         $fields = $query->getConnection()->getTableInfo($table, 'fields');
+         // 获取对应查询对象实体表中是否有对应的tenant_id字段
+         if (in_array('tenant_id', $fields)) {
+             // 从请求头中获取 token 对应登录信息中租户标识
+             $token = Request::instance()->header('token');
+             $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
+             if (!empty($adminInfo['tenant_id'])) {
+                 $tenantId = $adminInfo['tenant_id'];
+                 $query->where('tenant_id', $tenantId);
+             }else{
+                 //视为越权查看，禁止返回结果
+                 $query->where('tenant_id', 'no_access');
+             }
+         }
+     }
 }
