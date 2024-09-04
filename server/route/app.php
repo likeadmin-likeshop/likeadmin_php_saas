@@ -18,7 +18,7 @@ Route::rule('platform/:any', function () {
 
 // 租户管理后台
 Route::rule('tenant/:any', function () {
-    return view(app()->getRootPath() . 'public/admin/index.html');
+    return view(app()->getRootPath() . 'public/tenant/index.html');
 })->pattern(['any' => '\w+']);
 
 // 手机端
