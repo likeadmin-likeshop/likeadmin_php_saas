@@ -11,12 +11,13 @@
 // +----------------------------------------------------------------------
 // | author: likeadminTeam
 // +----------------------------------------------------------------------
-namespace app\tenantapi\lists\user;
+namespace app\platformapi\lists\tenant;
 
+use app\common\model\auth\TenantAdmin;
 use app\tenantapi\lists\BaseAdminDataLists;
 use app\common\enum\user\UserTerminalEnum;
 use app\common\lists\ListsExcelInterface;
-use app\common\model\user\User;
+use app\common\model\tenant\Tenant;
 
 
 /**
@@ -24,7 +25,7 @@ use app\common\model\user\User;
  * Class TenantLists
  * @package app\tenantapi\lists\user
  */
-class UserLists extends BaseAdminDataLists implements ListsExcelInterface
+class TenantAdminLists extends BaseAdminDataLists implements ListsExcelInterface
 {
 
     /**
@@ -35,7 +36,7 @@ class UserLists extends BaseAdminDataLists implements ListsExcelInterface
      */
     public function setSearch(): array
     {
-        $allowSearch = ['keyword', 'channel', 'create_time_start', 'create_time_end','tenant_id'];
+        $allowSearch = ['keyword', 'create_time_start', 'create_time_end','tenant_id'];
         return array_intersect(array_keys($this->params), $allowSearch);
     }
 
@@ -51,16 +52,17 @@ class UserLists extends BaseAdminDataLists implements ListsExcelInterface
      */
     public function lists(): array
     {
-        $field = "id,sn,nickname,sex,avatar,account,mobile,channel,create_time";
-        $lists = User::withSearch($this->setSearch(), $this->params)
+        //进行参数校验 租户标识必填
+        if(!isset($this->params['tenant_id'])){
+            return [];
+        }
+        $field = "id,root,name,avatar,account,multipoint_login,disable,create_time";
+
+        $lists = TenantAdmin::withSearch($this->setSearch(), $this->params)
             ->limit($this->limitOffset, $this->limitLength)
             ->field($field)
-            ->order('id desc')
+            ->order('create_time desc')
             ->select()->toArray();
-
-        foreach ($lists as &$item) {
-            $item['channel'] = UserTerminalEnum::getTermInalDesc($item['channel']);
-        }
 
         return $lists;
     }
@@ -74,7 +76,7 @@ class UserLists extends BaseAdminDataLists implements ListsExcelInterface
      */
     public function count(): int
     {
-        return User::withSearch($this->setSearch(), $this->params)->count();
+        return TenantAdmin::withSearch($this->setSearch(), $this->params)->count();
     }
 
 
@@ -86,7 +88,7 @@ class UserLists extends BaseAdminDataLists implements ListsExcelInterface
      */
     public function setFileName(): string
     {
-        return '用户列表';
+        return '租户用户列表';
     }
 
 
@@ -99,11 +101,12 @@ class UserLists extends BaseAdminDataLists implements ListsExcelInterface
     public function setExcelFields(): array
     {
         return [
-            'sn' => '用户编号',
-            'nickname' => '用户昵称',
+            'root' => '是否超级管理员',
+            'name' => '租户账户昵称',
+            'avatar' => '头像',
             'account' => '账号',
-            'mobile' => '手机号码',
-            'channel' => '注册来源',
+            'multipoint_login' => '是否允许多处登录',
+            'disable' => '是否禁用',
             'create_time' => '注册时间',
         ];
     }

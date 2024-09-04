@@ -29,12 +29,14 @@ class UserValidate extends BaseValidate
         'id' => 'require|checkUser',
         'field' => 'require|checkField',
         'value' => 'require',
+        'tenant_id' => 'require',
     ];
 
     protected $message = [
         'id.require' => '请选择用户',
         'field.require' => '请选择操作',
         'value.require' => '请输入内容',
+        'tenant_id.require' => '请选择租户标识',
     ];
 
 
@@ -73,6 +75,20 @@ class UserValidate extends BaseValidate
         }
         return true;
     }
+
+    /**
+     * @notes 校验平台端查询用户信息的情况
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return UserValidate
+     * @author yfdong
+     * @date 2024/09/04 23:46
+     */
+    public function sceneManager(){
+        return $this->only(['tenant_id']);
+    }
+
 
 
     /**
