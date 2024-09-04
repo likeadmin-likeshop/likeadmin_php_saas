@@ -16,6 +16,7 @@ declare (strict_types=1);
 
 namespace app\platformapi\controller;
 
+use app\common\enum\AdminTerminalEnum;
 use think\App;
 use app\common\controller\BaseLikeAdminController;
 
@@ -31,6 +32,7 @@ class BaseAdminController extends BaseLikeAdminController
 
     public function initialize()
     {
+        $this->request->source = AdminTerminalEnum::PLATFORM;
         if (isset($this->request->adminInfo) && $this->request->adminInfo) {
             $this->adminInfo = $this->request->adminInfo;
             $this->adminId = $this->request->adminInfo['admin_id'];

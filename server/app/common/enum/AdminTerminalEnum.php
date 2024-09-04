@@ -25,4 +25,7 @@ class AdminTerminalEnum
 {
     const PC = 1;
     const MOBILE = 2;
+
+    const PLATFORM = '__saas__platform__';
+    const TENANT = '__saas__tenant__';
 }

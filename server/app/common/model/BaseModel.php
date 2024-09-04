@@ -14,11 +14,11 @@
 
 namespace app\common\model;
 
-use app\common\service\FileService;
-use think\Exception;
-use think\Model;
 use app\common\cache\TenantAdminTokenCache;
+use app\common\enum\AdminTerminalEnum;
+use app\common\service\FileService;
 use think\facade\Request;
+use think\Model;
 
 /**
  * 基础模型
@@ -61,24 +61,28 @@ class BaseModel extends Model
      * @author yfdong
      * @date 2024/09/03 22:45
      */
-     public function scopeTenantId($query): void
-     {
-         // 获取当前查询模型表名
-         $table = $query->getTable();
-         // 获取对应表字段
-         $fields = $query->getConnection()->getTableInfo($table, 'fields');
-         // 获取对应查询对象实体表中是否有对应的tenant_id字段
-         if (in_array('tenant_id', $fields)) {
-             // 从请求头中获取 token 对应登录信息中租户标识
-             $token = Request::instance()->header('token');
-             $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
-             if (!empty($adminInfo['tenant_id'])) {
-                 $tenantId = $adminInfo['tenant_id'];
-                 $query->where('tenant_id', $tenantId);
-             }else{
-                 //视为越权查看，禁止返回结果
-                 $query->where('tenant_id', 'no_access');
-             }
-         }
-     }
+    public function scopeTenantId($query): void
+    {
+        if (\request()->source === AdminTerminalEnum::TENANT) {
+            // 从请求头中获取 token 对应登录信息中租户标识
+            $token = Request::header('token');
+            if($token !== "null") {
+                // 获取当前查询模型表名
+                $table = $query->getTable();
+                // 获取对应表字段
+                $fields = $query->getConnection()->getTableInfo($table, 'fields');
+                // 获取对应查询对象实体表中是否有对应的tenant_id字段
+                if (in_array('tenant_id', $fields)) {
+                    $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
+                    if (!empty($adminInfo['tenant_id'])) {
+                        $tenantId = $adminInfo['tenant_id'];
+                        $query->where('tenant_id', $tenantId);
+                    } else {
+                        //视为越权查看，禁止返回结果
+                        $query->where('tenant_id', 'no_access');
+                    }
+                }
+            }
+        }
+    }
 }

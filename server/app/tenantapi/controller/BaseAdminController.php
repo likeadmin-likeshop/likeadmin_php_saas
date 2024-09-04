@@ -17,6 +17,7 @@ declare (strict_types=1);
 namespace app\tenantapi\controller;
 
 use app\common\controller\BaseLikeAdminController;
+use app\common\enum\AdminTerminalEnum;
 
 /**
  * 管理元控制器基类
@@ -30,6 +31,7 @@ class BaseAdminController extends BaseLikeAdminController
 
     public function initialize()
     {
+        $this->request->source = AdminTerminalEnum::TENANT;
         if (isset($this->request->adminInfo) && $this->request->adminInfo) {
             $this->adminInfo = $this->request->adminInfo;
             $this->adminId = $this->request->adminInfo['admin_id'];
