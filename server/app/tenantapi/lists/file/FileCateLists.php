@@ -17,7 +17,7 @@ namespace app\tenantapi\lists\file;
 
 use app\tenantapi\lists\BaseAdminDataLists;
 use app\common\lists\ListsSearchInterface;
-use app\common\model\file\FileCate;
+use app\common\model\file\TenantFileCate;
 
 /**
  * 文件分类列表
@@ -52,7 +52,7 @@ class FileCateLists extends BaseAdminDataLists implements ListsSearchInterface
      */
     public function lists(): array
     {
-        $lists = (new FileCate())->field(['id,pid,type,name'])
+        $lists = (new TenantFileCate())->field(['id,pid,type,name'])
             ->where($this->searchWhere)
             ->order('id desc')
             ->select()->toArray();
@@ -69,6 +69,6 @@ class FileCateLists extends BaseAdminDataLists implements ListsSearchInterface
      */
     public function count(): int
     {
-        return (new FileCate())->where($this->searchWhere)->count();
+        return (new TenantFileCate())->where($this->searchWhere)->count();
     }
 }

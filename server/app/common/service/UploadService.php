@@ -15,10 +15,10 @@
 namespace app\common\service;
 
 
+use app\common\enum\AdminTerminalEnum;
 use app\common\enum\FileEnum;
 use app\common\model\file\File;
-use app\common\service\ConfigService;
-use app\common\service\FileService;
+use app\common\model\file\TenantFile;
 use app\common\service\storage\Driver as StorageDriver;
 use Exception;
 
@@ -69,7 +69,7 @@ class UploadService
             }
 
             // 4、写入数据库中
-            $file = File::create([
+            $file = (AdminTerminalEnum::isTenant() ? new TenantFile() : new File())->create([
                 'cid'         => $cid,
                 'type'        => FileEnum::IMAGE_TYPE,
                 'name'        => $fileInfo['name'],
@@ -138,7 +138,7 @@ class UploadService
             }
 
             // 4、写入数据库中
-            $file = File::create([
+            $file = (AdminTerminalEnum::isTenant() ? new TenantFile() : new File())->create([
                 'cid'         => $cid,
                 'type'        => FileEnum::VIDEO_TYPE,
                 'name'        => $fileInfo['name'],
@@ -207,7 +207,7 @@ class UploadService
             }
 
             // 4、写入数据库中
-            $file = File::create([
+            $file = (AdminTerminalEnum::isTenant() ? new TenantFile() : new File())->create([
                 'cid'         => $cid,
                 'type'        => FileEnum::FILE_TYPE,
                 'name'        => $fileInfo['name'],

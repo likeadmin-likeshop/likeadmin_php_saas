@@ -13,13 +13,15 @@
 // +----------------------------------------------------------------------
 namespace app\common\service\sms;
 
+use app\common\enum\AdminTerminalEnum;
 use app\common\enum\notice\NoticeEnum;
 use app\common\enum\notice\SmsEnum;
 use app\common\logic\NoticeLogic;
 use app\common\model\notice\NoticeSetting;
+use app\common\model\notice\TenantNoticeSetting;
 use app\common\model\notice\SmsLog;
+use app\common\model\notice\TenantSmsLog;
 use app\common\service\ConfigService;
-use app\common\service\sms\SmsDriver;
 
 /**
  * 短信服务
@@ -35,7 +37,7 @@ class SmsMessageService
     {
         try {
             // 通知设置
-            $noticeSetting = NoticeSetting::where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
+            $noticeSetting = (AdminTerminalEnum::isTenant() ? new TenantNoticeSetting() : new NoticeSetting())->where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
             // 替换通知模板参数
             $content = $this->contentFormat($noticeSetting, $params);
             // 添加短信记录
@@ -103,7 +105,7 @@ class SmsMessageService
             'send_status'   => SmsEnum::SEND_ING,
             'send_time'     => time(),
         ];
-        return SmsLog::create($data);
+        return (AdminTerminalEnum::isTenant() ? new TenantSmsLog() : new SmsLog())->create($data);
     }
 
 
@@ -172,7 +174,7 @@ class SmsMessageService
      */
     public function updateSmsLog($id, $status, $result)
     {
-        SmsLog::update([
+        (AdminTerminalEnum::isTenant() ? new TenantSmsLog() : new SmsLog())->update([
             'id' => $id,
             'send_status' => $status,
             'results' => json_encode($result, JSON_UNESCAPED_UNICODE)

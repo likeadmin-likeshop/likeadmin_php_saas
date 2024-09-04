@@ -11,7 +11,7 @@ import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 // import legacyPlugin from '@vitejs/plugin-legacy'
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/admin/',
+    base: '/tenant/',
     server: {
         host: '0.0.0.0',
         open: true

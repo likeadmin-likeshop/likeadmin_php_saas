@@ -16,7 +16,7 @@ namespace app\tenantapi\logic\notice;
 
 use app\common\enum\notice\NoticeEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\notice\NoticeSetting;
+use app\common\model\notice\TenantNoticeSetting;
 
 /**
  * 通知逻辑层
@@ -36,7 +36,7 @@ class NoticeLogic extends BaseLogic
     public static function detail($params)
     {
         $field = 'id,type,scene_id,scene_name,scene_desc,system_notice,sms_notice,oa_notice,mnp_notice,support';
-        $noticeSetting = NoticeSetting::field($field)->findOrEmpty($params['id'])->toArray();
+        $noticeSetting = TenantNoticeSetting::field($field)->findOrEmpty($params['id'])->toArray();
         if (empty($noticeSetting)) {
             return [];
         }
@@ -106,7 +106,7 @@ class NoticeLogic extends BaseLogic
                 $updateData[$item['type'] . '_notice'] = json_encode($item, JSON_UNESCAPED_UNICODE);
             }
             // 更新通知设置
-            NoticeSetting::where('id', $params['id'])->update($updateData);
+            TenantNoticeSetting::where('id', $params['id'])->update($updateData);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());
@@ -124,7 +124,7 @@ class NoticeLogic extends BaseLogic
      */
     public static function checkSet($params)
     {
-        $noticeSetting = NoticeSetting::findOrEmpty($params['id'] ?? 0);
+        $noticeSetting = TenantNoticeSetting::findOrEmpty($params['id'] ?? 0);
 
         if ($noticeSetting->isEmpty()) {
             throw new \Exception('通知配置不存在');

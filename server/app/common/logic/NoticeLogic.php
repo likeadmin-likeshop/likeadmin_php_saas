@@ -14,11 +14,13 @@
 
 namespace app\common\logic;
 
+use app\common\enum\AdminTerminalEnum;
 use app\common\enum\notice\NoticeEnum;
 use app\common\enum\YesNoEnum;
 use app\common\model\notice\NoticeRecord;
-use app\common\logic\BaseLogic;
+use app\common\model\notice\TenantNoticeRecord;
 use app\common\model\notice\NoticeSetting;
+use app\common\model\notice\TenantNoticeSetting;
 use app\common\model\user\User;
 use app\common\service\sms\SmsMessageService;
 
@@ -41,7 +43,7 @@ class NoticeLogic extends BaseLogic
     public static function noticeByScene($params)
     {
         try {
-            $noticeSetting = NoticeSetting::where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
+            $noticeSetting = (AdminTerminalEnum::isTenant() ? new TenantNoticeSetting() : new NoticeSetting)->where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
             if (empty($noticeSetting)) {
                 throw new \Exception('找不到对应场景的配置');
             }
@@ -142,7 +144,7 @@ class NoticeLogic extends BaseLogic
      */
     public static function addNotice($params, $noticeSetting, $sendType, $content, $extra = '')
     {
-        return NoticeRecord::create([
+        return (AdminTerminalEnum::isTenant() ? new TenantNoticeRecord() : new NoticeRecord)->create([
             'user_id' => $params['params']['user_id'] ?? 0,
             'title' => self::getTitleByScene($sendType, $noticeSetting),
             'content' => $content,

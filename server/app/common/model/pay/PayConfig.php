@@ -21,8 +21,6 @@ use app\common\service\FileService;
 
 class PayConfig extends BaseModel
 {
-    protected $name = 'dev_pay_config';
-
     // 设置json类型字段
     protected $json = ['config'];
 

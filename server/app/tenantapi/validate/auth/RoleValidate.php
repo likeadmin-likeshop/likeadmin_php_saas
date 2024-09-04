@@ -17,7 +17,7 @@ namespace app\tenantapi\validate\auth;
 
 use app\common\validate\BaseValidate;
 use app\common\model\auth\{
-    app\platformapi\config\common\model\auth\AdminRole, app\platformapi\config\common\model\auth\SystemRole, app\platformapi\config\common\model\auth\Admin};
+    app\tenantapi\config\common\model\auth\AdminRole, app\tenantapi\config\common\model\auth\SystemRole, app\tenantapi\config\common\model\auth\Admin};
 
 /**
  * 角色验证器

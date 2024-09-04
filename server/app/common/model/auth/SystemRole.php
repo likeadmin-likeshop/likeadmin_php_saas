@@ -29,8 +29,6 @@ class SystemRole extends BaseModel
 
     protected $deleteTime = 'delete_time';
 
-    protected $name = 'system_role';
-
     /**
      * @notes 角色与菜单关联关系
      * @return \think\model\relation\HasMany

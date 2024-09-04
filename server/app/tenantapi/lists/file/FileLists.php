@@ -16,10 +16,8 @@ namespace app\tenantapi\lists\file;
 
 use app\tenantapi\lists\BaseAdminDataLists;
 use app\tenantapi\logic\FileLogic;
-use app\common\enum\FileEnum;
 use app\common\lists\ListsSearchInterface;
-use app\common\model\file\File;
-use app\common\model\file\FileCate;
+use app\common\model\file\TenantFile;
 use app\common\service\FileService;
 
 /**
@@ -75,7 +73,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
      */
     public function lists(): array
     {
-        $lists = (new File())->field(['id,cid,type,name,uri,create_time'])
+        $lists = (new TenantFile())->field(['id,cid,type,name,uri,create_time'])
             ->order('id', 'desc')
             ->where($this->searchWhere)
             ->where($this->queryWhere())
@@ -100,7 +98,7 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
      */
     public function count(): int
     {
-        return (new File())->where($this->searchWhere)
+        return (new TenantFile())->where($this->searchWhere)
             ->where($this->queryWhere())
 //            ->where('source', FileEnum::SOURCE_ADMIN)
             ->count();

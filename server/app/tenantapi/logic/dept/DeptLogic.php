@@ -16,7 +16,7 @@ namespace app\tenantapi\logic\dept;
 
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\dept\Dept;
+use app\common\model\dept\TenantDept;
 
 
 /**
@@ -46,7 +46,7 @@ class DeptLogic extends BaseLogic
         if (isset($params['status']) && $params['status'] != '') {
             $where[] = ['status', '=', $params['status']];
         }
-        $lists = Dept::where($where)
+        $lists = TenantDept::where($where)
             ->append(['status_desc'])
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
@@ -94,7 +94,7 @@ class DeptLogic extends BaseLogic
      */
     public static function leaderDept()
     {
-        $lists = Dept::field(['id', 'name'])->where(['status' => 1])
+        $lists = TenantDept::field(['id', 'name'])->where(['status' => 1])
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();
@@ -110,7 +110,7 @@ class DeptLogic extends BaseLogic
      */
     public static function add(array $params)
     {
-        Dept::create([
+        TenantDept::create([
             'pid' => $params['pid'],
             'name' => $params['name'],
             'leader' => $params['leader'] ?? '',
@@ -132,12 +132,12 @@ class DeptLogic extends BaseLogic
     {
         try {
             $pid = $params['pid'];
-            $oldDeptData = Dept::findOrEmpty($params['id']);
+            $oldDeptData = TenantDept::findOrEmpty($params['id']);
             if ($oldDeptData['pid'] == 0) {
                 $pid = 0;
             }
 
-            Dept::update([
+            TenantDept::update([
                 'id' => $params['id'],
                 'pid' => $pid,
                 'name' => $params['name'],
@@ -162,7 +162,7 @@ class DeptLogic extends BaseLogic
      */
     public static function delete(array $params)
     {
-        Dept::destroy($params['id']);
+        TenantDept::destroy($params['id']);
     }
 
 
@@ -175,7 +175,7 @@ class DeptLogic extends BaseLogic
      */
     public static function detail($params): array
     {
-        return Dept::findOrEmpty($params['id'])->toArray();
+        return TenantDept::findOrEmpty($params['id'])->toArray();
     }
 
 
@@ -190,7 +190,7 @@ class DeptLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        $data = Dept::where(['status' => YesNoEnum::YES])
+        $data = TenantDept::where(['status' => YesNoEnum::YES])
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();

@@ -77,7 +77,7 @@ return [
     // 各种默认图片
     'default_image' => [
         'admin_avatar' => 'resource/image/common/avatar.png',
-        'user_avatar' => 'resource/image/tenantapi/default/default_avatar.png',
+        'user_avatar' => 'resource/image/common/default_avatar.png',
         'qq_group' => 'resource/image/common/qq_group.png', // qq群
         'customer_service' => 'resource/image/common/customer_service.jpg', // 客服
         'menu_admin' => 'resource/image/common/menu_admin.png',// 首页快捷菜单-管理员

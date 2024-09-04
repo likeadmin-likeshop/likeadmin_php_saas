@@ -28,16 +28,17 @@ use think\Model;
 class BaseModel extends Model
 {
     // 定义全局的查询范围
-    protected $globalScope = ['tenantId'];
+    protected           $globalScope = ['tenantId'];
+    private static bool $hasTenantId = false;
 
     /**
-     * @notes 公共处理图片,补全路径
+     * @notes 公共处理图片，补全路径
      * @param $value
      * @return string
      * @author 张无忌
      * @date 2021/9/10 11:02
      */
-    public function getImageAttr($value)
+    public function getImageAttr($value): string
     {
         return trim($value) ? FileService::getFileUrl($value) : '';
     }
@@ -49,7 +50,7 @@ class BaseModel extends Model
      * @author 张无忌
      * @date 2021/9/10 11:04
      */
-    public function setImageAttr($value)
+    public function setImageAttr($value): mixed
     {
         return trim($value) ? FileService::setFileUrl($value) : '';
     }
@@ -61,28 +62,57 @@ class BaseModel extends Model
      * @author yfdong
      * @date 2024/09/03 22:45
      */
-    public function scopeTenantId($query): void
+    public static function scopeTenantId($query): void
     {
-        if (\request()->source === AdminTerminalEnum::TENANT) {
-            // 从请求头中获取 token 对应登录信息中租户标识
-            $token = Request::header('token');
-            if($token !== "null") {
-                // 获取当前查询模型表名
-                $table = $query->getTable();
-                // 获取对应表字段
-                $fields = $query->getConnection()->getTableInfo($table, 'fields');
-                // 获取对应查询对象实体表中是否有对应的tenant_id字段
-                if (in_array('tenant_id', $fields)) {
-                    $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
-                    if (!empty($adminInfo['tenant_id'])) {
-                        $tenantId = $adminInfo['tenant_id'];
-                        $query->where('tenant_id', $tenantId);
-                    } else {
-                        //视为越权查看，禁止返回结果
-                        $query->where('tenant_id', 'no_access');
-                    }
-                }
+        $tenantId = self::checkTenant();
+        if ($tenantId) {
+            // 获取当前查询模型表名
+            $table = $query->getTable();
+            // 获取对应表字段
+            $fields = $query->getConnection()->getTableInfo($table, 'fields');
+            // 获取对应查询对象实体表中是否有对应的tenant_id字段
+            if (in_array('tenant_id', $fields)) {
+                self::$hasTenantId = true;
+                $query->where($table . '.tenant_id', $tenantId);
             }
+        }
+    }
+
+    /**
+     * @notes 插入语句前置处理
+     * @param $model
+     * @return void
+     * @author JXDN
+     * @date 2024/09/04 15:48
+     */
+    public static function onBeforeInsert($model): void
+    {
+        $tenantId = self::checkTenant();
+        if ($tenantId) {
+            if (self::$hasTenantId) {
+                $model->tenant_id = $tenantId;
+            }
+        }
+    }
+
+    /**
+     * @notes 判断是否为租户端
+     * @return false|mixed|void
+     * @author JXDN
+     * @date 2024/09/04 16:01
+     */
+    private static function checkTenant()
+    {
+        $token = Request::header('token');
+        if (AdminTerminalEnum::isTenant() && $token !== "null") {
+            $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
+            if ($adminInfo && !empty($adminInfo['tenant_id'])) {
+                return $adminInfo['tenant_id'];
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 }

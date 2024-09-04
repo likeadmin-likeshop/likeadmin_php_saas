@@ -23,7 +23,7 @@ use think\facade\Config;
 /**
  * 登录逻辑
  * Class LoginLogic
- * @package app\platformapi\logic
+ * @package app\tenantapi\logic
  */
 class LoginLogic extends BaseLogic
 {

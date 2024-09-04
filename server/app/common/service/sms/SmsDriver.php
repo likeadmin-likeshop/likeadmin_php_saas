@@ -13,11 +13,12 @@
 // +----------------------------------------------------------------------
 namespace app\common\service\sms;
 
+use app\common\enum\AdminTerminalEnum;
 use app\common\enum\notice\NoticeEnum;
 use app\common\enum\notice\SmsEnum;
 use app\common\enum\YesNoEnum;
-use app\common\model\Notice;
 use app\common\model\notice\SmsLog;
+use app\common\model\notice\TenantSmsLog;
 use app\common\service\ConfigService;
 
 /**
@@ -143,7 +144,7 @@ class SmsDriver
      */
     public function sendLimit($mobile)
     {
-        $smsLog = SmsLog::where([
+        $smsLog = (AdminTerminalEnum::isTenant() ? new TenantSmsLog() : new SmsLog())->where([
             ['mobile', '=', $mobile],
             ['send_status', '=', SmsEnum::SEND_SUCCESS],
             ['scene_id', 'in', NoticeEnum::SMS_SCENE],

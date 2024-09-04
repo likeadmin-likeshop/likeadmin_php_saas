@@ -22,7 +22,7 @@ use app\common\model\auth\TenantSystemRoleMenu;
 /**
  * 权限功能类
  * Class AuthLogic
- * @package app\platformapi\logic\auth
+ * @package app\tenantapi\logic\auth
  */
 class AuthLogic
 {

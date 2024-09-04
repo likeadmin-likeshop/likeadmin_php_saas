@@ -16,7 +16,9 @@ declare(strict_types=1);
 
 namespace app\common\service;
 
+use app\common\enum\AdminTerminalEnum;
 use app\common\model\Config;
+use app\common\model\TenantConfig;
 
 class ConfigService
 {
@@ -35,15 +37,22 @@ class ConfigService
         if (is_array($value)) {
             $value = json_encode($value, JSON_UNESCAPED_UNICODE);
         }
+        $options = [
+            'type' => $type,
+            'name' => $name,
+            'value' => $value,
+        ];
+        $query = ['type' => $type, 'name' => $name];
 
-        $data = Config::where(['type' => $type, 'name' => $name])->findOrEmpty();
+        if(AdminTerminalEnum::isTenant()) {
+            $options['tenant_id'] = request()->tenantId;
+            $query['tenant_id'] = request()->tenantId;
+        }
+        $data = (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->where($query)->findOrEmpty();
 
         if ($data->isEmpty()) {
-            Config::create([
-                'type' => $type,
-                'name' => $name,
-                'value' => $value,
-            ]);
+
+            (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->create($options);
         } else {
             $data->value = $value;
             $data->save();
@@ -64,8 +73,13 @@ class ConfigService
      */
     public static function get(string $type, string $name = '', $default_value = null)
     {
+        $query = ['type' => $type, 'name' => $name];
+
+        if(AdminTerminalEnum::isTenant()) {
+            $query['tenant_id'] = request()->tenantId;
+        }
         if (!empty($name)) {
-            $value = Config::where(['type' => $type, 'name' => $name])->value('value');
+            $value = (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->where($query)->value('value');
             if (!is_null($value)) {
                 $json = json_decode($value, true);
                 $value = json_last_error() === JSON_ERROR_NONE ? $json : $value;
@@ -86,7 +100,7 @@ class ConfigService
         }
 
         // 取某个类型下的所有name的值
-        $data = Config::where(['type' => $type])->column('value', 'name');
+        $data = (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->where(['type' => $type])->column('value', 'name');
         foreach ($data as $k => $v) {
             $json = json_decode($v, true);
             if (json_last_error() === JSON_ERROR_NONE) {

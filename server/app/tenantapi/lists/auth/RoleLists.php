@@ -15,8 +15,8 @@
 namespace app\tenantapi\lists\auth;
 
 use app\tenantapi\lists\BaseAdminDataLists;
-use app\common\model\auth\AdminRole;
-use app\common\model\auth\SystemRole;
+use app\common\model\auth\TenantAdminRole;
+use app\common\model\auth\TenantSystemRole;
 
 /**
  * 角色列表
@@ -62,7 +62,7 @@ class RoleLists extends BaseAdminDataLists
      */
     public function lists(): array
     {
-        $lists = SystemRole::with(['role_menu_index'])
+        $lists = TenantSystemRole::with(['role_menu_index'])
             ->field('id,name,desc,sort,create_time')
             ->limit($this->limitOffset, $this->limitLength)
             ->order(['sort' => 'desc', 'id' => 'desc'])
@@ -71,7 +71,7 @@ class RoleLists extends BaseAdminDataLists
 
         foreach ($lists as $key => $role) {
             //使用角色的人数
-            $lists[$key]['num'] = AdminRole::where('role_id', $role['id'])->count();
+            $lists[$key]['num'] = TenantAdminRole::where('role_id', $role['id'])->count();
             $menuId = array_column($role['role_menu_index'], 'menu_id');
             $lists[$key]['menu_id'] = $menuId;
             unset($lists[$key]['role_menu_index']);
@@ -88,6 +88,6 @@ class RoleLists extends BaseAdminDataLists
      */
     public function count(): int
     {
-        return SystemRole::count();
+        return TenantSystemRole::count();
     }
 }

@@ -15,7 +15,7 @@
 namespace app\tenantapi\lists\setting\pay;
 
 use app\tenantapi\lists\BaseAdminDataLists;
-use app\common\model\pay\PayConfig;
+use app\common\model\pay\TenantPayConfig;
 
 /**
  * 支付配置列表
@@ -36,7 +36,7 @@ class PayConfigLists extends BaseAdminDataLists
      */
     public function lists(): array
     {
-        $lists = PayConfig::field('id,name,pay_way,icon,sort')
+        $lists = TenantPayConfig::field('id,name,pay_way,icon,sort')
             ->append(['pay_way_name'])
             ->order('sort','desc')
             ->select()
@@ -54,7 +54,7 @@ class PayConfigLists extends BaseAdminDataLists
      */
     public function count(): int
     {
-        return PayConfig::count();
+        return TenantPayConfig::count();
     }
 
 

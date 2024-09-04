@@ -19,11 +19,11 @@ use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsExtendInterface;
 use app\common\lists\ListsSearchInterface;
 use app\common\lists\ListsSortInterface;
-use app\common\model\auth\Admin;
-use app\common\model\auth\AdminRole;
-use app\common\model\auth\SystemRole;
-use app\common\model\dept\Dept;
-use app\common\model\dept\Jobs;
+use app\common\model\auth\TenantAdmin;
+use app\common\model\auth\TenantAdminRole;
+use app\common\model\auth\TenantSystemRole;
+use app\common\model\dept\TenantDept;
+use app\common\model\dept\TenantJobs;
 
 /**
  * 管理员列表
@@ -113,7 +113,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
     {
         $where = [];
         if (isset($this->params['role_id']) && $this->params['role_id'] != '') {
-            $adminIds = AdminRole::where('role_id', $this->params['role_id'])->column('admin_id');
+            $adminIds = TenantAdminRole::where('role_id', $this->params['role_id'])->column('admin_id');
             if (!empty($adminIds)) {
                 $where[] = ['id', 'in', $adminIds];
             }
@@ -138,7 +138,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
             'login_time', 'login_ip', 'multipoint_login', 'avatar'
         ];
 
-        $adminLists = Admin::field($field)
+        $adminLists = TenantAdmin::field($field)
             ->where($this->searchWhere)
             ->where($this->queryWhere())
             ->limit($this->limitOffset, $this->limitLength)
@@ -148,11 +148,11 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
             ->toArray();
 
         // 角色数组（'角色id'=>'角色名称')
-        $roleLists = SystemRole::column('name', 'id');
+        $roleLists = TenantSystemRole::column('name', 'id');
         // 部门列表
-        $deptLists = Dept::column('name', 'id');
+        $deptLists = TenantDept::column('name', 'id');
         // 岗位列表
-        $jobsLists = Jobs::column('name', 'id');
+        $jobsLists = TenantJobs::column('name', 'id');
 
         //管理员列表增加角色名称
         foreach ($adminLists as $k => $v) {
@@ -194,7 +194,7 @@ class AdminLists extends BaseAdminDataLists implements ListsExtendInterface, Lis
      */
     public function count(): int
     {
-        return Admin::where($this->searchWhere)
+        return TenantAdmin::where($this->searchWhere)
             ->where($this->queryWhere())
             ->count();
     }

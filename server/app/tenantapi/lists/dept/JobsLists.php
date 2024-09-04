@@ -17,7 +17,7 @@ namespace app\tenantapi\lists\dept;
 use app\tenantapi\lists\BaseAdminDataLists;
 use app\common\lists\ListsExcelInterface;
 use app\common\lists\ListsSearchInterface;
-use app\common\model\dept\Jobs;
+use app\common\model\dept\TenantJobs;
 
 /**
  * 岗位列表
@@ -50,7 +50,7 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface,Lists
      */
     public function lists(): array
     {
-        $lists = Jobs::where($this->searchWhere)
+        $lists = TenantJobs::where($this->searchWhere)
             ->append(['status_desc'])
             ->limit($this->limitOffset, $this->limitLength)
             ->order(['sort' => 'desc', 'id' => 'desc'])
@@ -69,7 +69,7 @@ class JobsLists extends BaseAdminDataLists implements ListsSearchInterface,Lists
      */
     public function count(): int
     {
-        return Jobs::where($this->searchWhere)->count();
+        return TenantJobs::where($this->searchWhere)->count();
     }
 
 

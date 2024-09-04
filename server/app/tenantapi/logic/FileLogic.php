@@ -16,8 +16,8 @@ namespace app\tenantapi\logic;
 
 
 use app\common\logic\BaseLogic;
-use app\common\model\file\File;
-use app\common\model\file\FileCate;
+use app\common\model\file\TenantFile;
+use app\common\model\file\TenantFileCate;
 use app\common\service\ConfigService;
 use app\common\service\storage\Driver as StorageDriver;
 
@@ -36,7 +36,7 @@ class FileLogic extends BaseLogic
      */
     public static function move($params)
     {
-        (new File())->whereIn('id', $params['ids'])
+        (new TenantFile())->whereIn('id', $params['ids'])
             ->update([
                 'cid' => $params['cid'],
                 'update_time' => time()
@@ -51,7 +51,7 @@ class FileLogic extends BaseLogic
      */
     public static function rename($params)
     {
-        (new File())->where('id', $params['id'])
+        (new TenantFile())->where('id', $params['id'])
             ->update([
                 'name' => $params['name'],
                 'update_time' => time()
@@ -85,7 +85,7 @@ class FileLogic extends BaseLogic
      */
     public static function addCate($params)
     {
-        FileCate::create([
+        TenantFileCate::create([
             'type' => $params['type'],
             'pid' => $params['pid'],
             'name' => $params['name']
@@ -100,7 +100,7 @@ class FileLogic extends BaseLogic
      */
     public static function editCate($params)
     {
-        FileCate::update([
+        TenantFileCate::update([
             'name' => $params['name'],
             'update_time' => time()
         ], ['id' => $params['id']]);
@@ -114,8 +114,8 @@ class FileLogic extends BaseLogic
      */
     public static function delCate($params)
     {
-        $fileModel = new File();
-        $cateModel = new FileCate();
+        $fileModel = new TenantFile();
+        $cateModel = new TenantFileCate();
 
         $cateIds = self::getCateIds($params['id']);
         array_push($cateIds, $params['id']);
@@ -142,7 +142,7 @@ class FileLogic extends BaseLogic
      */
     public static function getCateIds($parentId, array $cateArr = []): array
     {
-        $childIds = FileCate::where(['pid' => $parentId])->column('id');
+        $childIds = TenantFileCate::where(['pid' => $parentId])->column('id');
 
         if (empty($childIds)) {
             return $childIds;

@@ -16,9 +16,7 @@ namespace app\tenantapi\logic\dept;
 
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\article\Article;
-use app\common\model\dept\Jobs;
-use app\common\service\FileService;
+use app\common\model\dept\TenantJobs;
 
 
 /**
@@ -38,7 +36,7 @@ class JobsLogic extends BaseLogic
      */
     public static function add(array $params)
     {
-        Jobs::create([
+        TenantJobs::create([
             'name' => $params['name'],
             'code' => $params['code'],
             'sort' => $params['sort'] ?? 0,
@@ -58,7 +56,7 @@ class JobsLogic extends BaseLogic
     public static function edit(array $params) : bool
     {
         try {
-            Jobs::update([
+            TenantJobs::update([
                 'id' => $params['id'],
                 'name' => $params['name'],
                 'code' => $params['code'],
@@ -82,7 +80,7 @@ class JobsLogic extends BaseLogic
      */
     public static function delete(array $params)
     {
-        Jobs::destroy($params['id']);
+        TenantJobs::destroy($params['id']);
     }
 
 
@@ -95,7 +93,7 @@ class JobsLogic extends BaseLogic
      */
     public static function detail($params) : array
     {
-        return Jobs::findOrEmpty($params['id'])->toArray();
+        return TenantJobs::findOrEmpty($params['id'])->toArray();
     }
 
 
@@ -110,7 +108,7 @@ class JobsLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        return Jobs::where(['status' => YesNoEnum::YES])
+        return TenantJobs::where(['status' => YesNoEnum::YES])
             ->order(['sort' => 'desc', 'id' => 'desc'])
             ->select()
             ->toArray();

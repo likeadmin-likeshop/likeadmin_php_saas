@@ -22,8 +22,6 @@ use app\common\service\FileService;
 
 class PayWay extends BaseModel
 {
-    protected $name = 'dev_pay_way';
-
     public function getIconAttr($value,$data)
     {
         return FileService::getFileUrl($value);

@@ -28,4 +28,26 @@ class AdminTerminalEnum
 
     const PLATFORM = '__saas__platform__';
     const TENANT = '__saas__tenant__';
+
+    /**
+     * @notes 是否为租户端
+     * @return bool
+     * @author JXDN
+     * @date 2024/09/04 16:44
+     */
+    public static function isTenant()
+    {
+        return request()->source === self::TENANT;
+    }
+
+    /**
+     * @notes 是否为平台端
+     * @return bool
+     * @author JXDN
+     * @date 2024/09/04 16:44
+     */
+    public static function isPlatform()
+    {
+        return request()->source === self::PLATFORM;
+    }
 }

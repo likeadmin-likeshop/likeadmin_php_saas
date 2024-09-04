@@ -18,8 +18,8 @@ namespace app\tenantapi\logic\setting\pay;
 use app\common\enum\PayEnum;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\pay\PayConfig;
-use app\common\model\pay\PayWay;
+use app\common\model\pay\TenantPayConfig;
+use app\common\model\pay\TenantPayWay;
 use app\common\service\FileService;
 
 /**
@@ -41,7 +41,7 @@ class PayWayLogic extends BaseLogic
      */
     public static function getPayWay()
     {
-        $payWay = PayWay::select()->append(['pay_way_name'])
+        $payWay = TenantPayWay::select()->append(['pay_way_name'])
             ->toArray();
 
         if (empty($payWay)) {
@@ -52,7 +52,7 @@ class PayWayLogic extends BaseLogic
         for ($i = 1; $i <= max(array_column($payWay, 'scene')); $i++) {
             foreach ($payWay as $val) {
                 if ($val['scene'] == $i) {
-                    $val['icon'] = FileService::getFileUrl(PayConfig::where('id', $val['pay_config_id'])->value('icon'));
+                    $val['icon'] = FileService::getFileUrl(TenantPayConfig::where('id', $val['pay_config_id'])->value('icon'));
                     $lists[$i][] = $val;
                 }
             }
@@ -90,7 +90,7 @@ class PayWayLogic extends BaseLogic
             }
 
             foreach ($value as $val) {
-                $result = PayWay::where('id', $val['id'])->findOrEmpty();
+                $result = TenantPayWay::where('id', $val['id'])->findOrEmpty();
                 if ($result->isEmpty()) {
                     continue;
                 }

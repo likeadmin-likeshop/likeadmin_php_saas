@@ -475,7 +475,7 @@
                                             为了您站点的安全，安装完成后即可将网站根目录下的“install”文件夹删除，或者config/目录下创建install.lock文件防止重复安装。
                                         </div>
                                         <div class="btn-group">
-                                            <a class="btn" href="/admin/" style="margin-left: 20px;">进入管理平台</a>
+                                            <a class="btn" href="/platform/" style="margin-left: 20px;">进入管理平台</a>
                                         </div>
                                     </div>
                                 </div>

@@ -37,10 +37,10 @@ class WebSettingLogic extends BaseLogic
     public static function getWebsiteInfo(): array
     {
         return [
-            'name' => ConfigService::get('tenant', 'name'),
-            'web_favicon' => FileService::getFileUrl(ConfigService::get('tenant', 'web_favicon')),
-            'web_logo' => FileService::getFileUrl(ConfigService::get('tenant', 'web_logo')),
-            'login_image' => FileService::getFileUrl(ConfigService::get('tenant', 'login_image')),
+            'name' => ConfigService::get('website', 'name'),
+            'web_favicon' => FileService::getFileUrl(ConfigService::get('website', 'web_favicon')),
+            'web_logo' => FileService::getFileUrl(ConfigService::get('website', 'web_logo')),
+            'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
             
             'shop_name' => ConfigService::get('website', 'shop_name'),
             'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
@@ -75,15 +75,15 @@ class WebSettingLogic extends BaseLogic
         ConfigService::set('website', 'web_favicon', $favicon);
         ConfigService::set('website', 'web_logo', $logo);
         ConfigService::set('website', 'login_image', $login);
-        ConfigService::set('website', 'shop_name', $params['shop_name']);
-        ConfigService::set('website', 'shop_logo', $shopLogo);
-        ConfigService::set('website', 'pc_logo', $pcLogo);
 
+        ConfigService::set('website', 'pc_logo', $pcLogo);
         ConfigService::set('website', 'pc_title', $params['pc_title']);
         ConfigService::set('website', 'pc_ico', $pcIco);
         ConfigService::set('website', 'pc_desc', $params['pc_desc'] ?? '');
         ConfigService::set('website', 'pc_keywords', $params['pc_keywords'] ?? '');
 
+        ConfigService::set('website', 'shop_name', $params['shop_name']);
+        ConfigService::set('website', 'shop_logo', $shopLogo);
         ConfigService::set('website', 'h5_favicon', $h5favicon);
     }
 

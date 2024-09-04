@@ -16,7 +16,7 @@ namespace app\tenantapi\lists\notice;
 
 use app\tenantapi\lists\BaseAdminDataLists;
 use app\common\lists\ListsSearchInterface;
-use app\common\model\notice\NoticeSetting;
+use app\common\model\notice\TenantNoticeSetting;
 
 /**
  * 通知设置
@@ -27,7 +27,7 @@ class NoticeSettingLists extends BaseAdminDataLists implements ListsSearchInterf
 {
     /**
      * @notes 搜索条件
-     * @return \string[][]
+     * @return string[][]
      * @author ljj
      * @date 2022/2/17 2:21 下午
      */
@@ -49,7 +49,7 @@ class NoticeSettingLists extends BaseAdminDataLists implements ListsSearchInterf
      */
     public function lists(): array
     {
-        $lists = (new NoticeSetting())->field('id,scene_name,sms_notice,type')
+        $lists = (new TenantNoticeSetting())->field('id,scene_name,sms_notice,type')
             ->append(['sms_status_desc','type_desc'])
             ->where($this->searchWhere)
             ->select()
@@ -66,6 +66,6 @@ class NoticeSettingLists extends BaseAdminDataLists implements ListsSearchInterf
      */
     public function count(): int
     {
-        return (new NoticeSetting())->where($this->searchWhere)->count();
+        return (new TenantNoticeSetting())->where($this->searchWhere)->count();
     }
 }

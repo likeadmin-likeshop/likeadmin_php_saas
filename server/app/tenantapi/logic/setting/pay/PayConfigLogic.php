@@ -17,7 +17,7 @@ namespace app\tenantapi\logic\setting\pay;
 
 use app\common\enum\PayEnum;
 use app\common\logic\BaseLogic;
-use app\common\model\pay\PayConfig;
+use app\common\model\pay\TenantPayConfig;
 use app\common\service\FileService;
 
 /**
@@ -40,7 +40,7 @@ class PayConfigLogic extends BaseLogic
      */
     public static function setConfig($params)
     {
-        $payConfig = PayConfig::find($params['id']);
+        $payConfig = TenantPayConfig::find($params['id']);
 
         $config = '';
         if ($payConfig['pay_way'] == PayEnum::WECHAT_PAY) {
@@ -87,7 +87,7 @@ class PayConfigLogic extends BaseLogic
      */
     public static function getConfig($params)
     {
-        $payConfig = PayConfig::find($params['id'])->toArray();
+        $payConfig = TenantPayConfig::find($params['id'])->toArray();
         $payConfig['icon'] = FileService::getFileUrl($payConfig['icon']);
         $payConfig['domain'] = request()->domain();
         return $payConfig;
