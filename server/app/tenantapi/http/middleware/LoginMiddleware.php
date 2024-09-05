@@ -68,6 +68,13 @@ class LoginMiddleware
                     return JsonService::fail('登录过期', [], -1);
                 }
             }
+
+            if ($adminInfo['tenant_id'] !== $request->tenantId) {
+                if (!$isNotNeedLogin) {
+                    TenantTokenService::expireToken($token);
+                    return JsonService::fail('非该站点成员禁止访问', [], -1);
+                }
+            }
         }
 
         //给request赋值，用于控制器

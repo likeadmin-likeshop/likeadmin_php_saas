@@ -57,6 +57,7 @@ class LoginLogic extends BaseLogic
 
             User::create([
                 'sn' => $userSn,
+                'tenant_id' => request()->tenantId,
                 'avatar' => $avatar,
                 'nickname' => '用户' . $userSn,
                 'account' => $params['account'],
@@ -100,7 +101,7 @@ class LoginLogic extends BaseLogic
             $user->save();
 
             //设置token
-            $userInfo = UserTokenService::setToken($user->id, $params['terminal']);
+            $userInfo = UserTokenService::setToken($user, $params['terminal']);
 
             //返回登录信息
             $avatar = $user->avatar ?: Config::get('project.default_image.user_avatar');

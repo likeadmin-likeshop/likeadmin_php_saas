@@ -18,6 +18,7 @@ namespace app\common\model\tenant;
 
 use app\common\enum\YesNoEnum;
 use app\common\model\BaseModel;
+use app\common\model\user\User;
 use app\common\service\FileService;
 use think\model\concern\SoftDelete;
 use think\facade\Request;
@@ -32,6 +33,16 @@ class Tenant extends BaseModel
     use SoftDelete;
 
     protected $deleteTime = 'delete_time';
+
+    /**
+     * @notes 关联用户模型
+     * @author 段誉
+     * @date 2022/9/22 16:03
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class, 'tenant_id', 'id');
+    }
 
     /**
      * @notes 搜索器-用户信息
@@ -78,20 +89,6 @@ class Tenant extends BaseModel
             $query->where('create_time', '<=', strtotime($value));
         }
     }
-
-    /**
-     * @notes 获取禁用状态
-     * @param $value
-     * @param $data
-     * @return string|string[]
-     * @author 令狐冲
-     * @date 2021/7/7 01:25
-     */
-    public function getDisableDescAttr($value, $data)
-    {
-        return YesNoEnum::getDisableDesc($data['disable']);
-    }
-
 
     /**
      * @notes 头像获取器 - 用于头像地址拼接域名

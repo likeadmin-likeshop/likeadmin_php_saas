@@ -38,12 +38,12 @@ class TenantAdminLogic extends BaseLogic
     {
         TenantAdmin::create([
             'tenant_id' => $params['tenant_id'],
-            'account' => $params['account'],
-            'name' => $params['name'],
-            'password' => self::createPassword($params['password']),
-            'avatar' => $params['avatar'] ?? '',
-            'disable' => $params['disable'] ?? '0',
-            'root' => $params['root'] ?? '0'
+            'account'   => $params['account'],
+            'name'      => $params['name'],
+            'password'  => self::createPassword($params['password']),
+            'avatar'    => $params['avatar'] ?? '',
+            'disable'   => $params['disable'] ?? '0',
+            'root'      => $params['root'] ?? '0'
         ]);
     }
 
@@ -77,11 +77,11 @@ class TenantAdminLogic extends BaseLogic
         try {
             TenantAdmin::update([
                 'tenant_id' => $params['tenant_id'],
-                'account' => $params['account'],
-                'name' => $params['name'],
-                'avatar' => $params['avatar'],
-                'disable' => $params['disable'],
-                'root' => $params['root']
+                'account'   => $params['account'],
+                'name'      => $params['name'],
+                'avatar'    => $params['avatar'],
+                'disable'   => $params['disable'],
+                'root'      => $params['root']
             ]);
             return true;
         } catch (\Exception $e) {
@@ -93,13 +93,19 @@ class TenantAdminLogic extends BaseLogic
     /**
      * @notes 详情场景
      * @param array $params
-     * @return void
+     * @return bool
      * @author yfdong
      * @date 2024/09/04 22:58
      */
     public static function delete(array $params)
     {
+        $admin = TenantAdmin::where('id', $params['id'])->findOrEmpty();
+        if ($admin['root'] == 1) {
+            self::setError('超级管理员不允许删除');
+            return false;
+        }
         TenantAdmin::destroy($params['id']);
+        return true;
     }
 
     /**

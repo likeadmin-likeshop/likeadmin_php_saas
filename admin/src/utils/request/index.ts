@@ -72,6 +72,12 @@ const axiosHooks: AxiosHooks = {
             case RequestCodeEnum.OPEN_NEW_PAGE:
                 window.location.href = data.url
                 return data
+            case RequestCodeEnum.FORBIDDEN:
+                window.location.href = '403.html'
+                break
+            case RequestCodeEnum.NOT_FOUND:
+                window.location.href = '404.html'
+                break
             default:
                 return data
         }

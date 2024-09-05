@@ -25,7 +25,9 @@
                         </div>
                     </div>
                     <div>
-                        <el-button type="primary" size="small"> 登录 </el-button>
+                        <el-button type="info" size="small">
+                            <a :href="formData.domain" target="_blank">登录</a>
+                        </el-button>
                         <el-button
                             v-if="editStatus"
                             type="default"
@@ -49,7 +51,19 @@
                             '!grid-cols-1': editStatus
                         }"
                     >
-                        <el-form-item v-if="!editStatus" label="租户编号：">
+                        <el-form-item v-if="!editStatus" label="租户域名：" class="col-span-2">
+                            <a :href="formData.domain" target="_blank" rel="noopener noreferrer">
+                                {{ formData.domain }}
+                            </a>
+                            <span
+                                class="flex items-center ml-2 cursor-pointer"
+                                v-copy="formData.domain"
+                            >
+                                <icon name="el-icon-DocumentCopy" />
+                                复制
+                            </span>
+                        </el-form-item>
+                        <el-form-item v-if="!editStatus" label="租户编码：">
                             {{ formData.sn }}
                         </el-form-item>
                         <el-form-item v-if="editStatus" label="头像：" prop="avatar">
@@ -98,6 +112,7 @@ interface DetailType {
     create_time: string
     name: string
     sn: string
+    domain: string
     id: string
     disable: number
 }
@@ -113,6 +128,7 @@ const formData = ref<DetailType>({
     create_time: '',
     name: '',
     sn: '',
+    domain: '',
     id: '',
     disable: 0
 })

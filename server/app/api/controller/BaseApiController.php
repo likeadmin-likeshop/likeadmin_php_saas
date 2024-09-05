@@ -14,7 +14,9 @@
 
 namespace app\api\controller;
 
+use app\common\cache\UserTokenCache;
 use app\common\controller\BaseLikeAdminController;
+use app\common\enum\AdminTerminalEnum;
 
 class BaseApiController extends BaseLikeAdminController
 {
@@ -23,6 +25,7 @@ class BaseApiController extends BaseLikeAdminController
 
     public function initialize()
     {
+        $this->request->source = AdminTerminalEnum::USER;
         if (isset($this->request->userInfo) && $this->request->userInfo) {
             $this->userInfo = $this->request->userInfo;
             $this->userId = $this->request->userInfo['user_id'];

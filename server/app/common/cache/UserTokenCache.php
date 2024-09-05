@@ -75,6 +75,7 @@ class UserTokenCache extends BaseCache
 
         $userInfo = [
             'user_id' => $user->id,
+            'tenant_id' => $user->tenant_id,
             'nickname' => $user->nickname,
             'token' => $token,
             'sn' => $user->sn,
@@ -101,6 +102,4 @@ class UserTokenCache extends BaseCache
     {
         return $this->delete($this->prefix . $token);
     }
-
-
 }

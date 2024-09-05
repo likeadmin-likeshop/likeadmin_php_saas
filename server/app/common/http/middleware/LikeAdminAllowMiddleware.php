@@ -16,7 +16,10 @@ declare (strict_types=1);
 
 namespace app\common\http\middleware;
 
+use app\common\model\tenant\Tenant;
+use app\common\service\JsonService;
 use Closure;
+use think\Exception;
 
 /**
  * 自定义跨域中间件
@@ -44,7 +47,39 @@ class LikeAdminAllowMiddleware
         if (strtoupper($request->method()) == "OPTIONS") {
             return response();
         }
+
+        $host_arr = explode('/', $request->pathinfo());
+        $accept_arr = explode(',', $request->header()['accept']);
+
+        // 区分是访问页面还是访问接口
+        if (str_contains($host_arr[0], 'api') !== false) {
+            if ($host_arr[0] !== 'platformapi') {
+                $request->tenantSn = $request->subDomain();
+                $tenant = Tenant::where(['sn' => $request->tenantSn])->findOrEmpty();
+                if (!$tenant->isEmpty() && $tenant['status'] !== 2) {
+                    if ($tenant['disable'] === 0) {
+                        $request->tenantId = $tenant->id;
+                    } else {
+                        return JsonService::fail('该租户已停用', [], 3, 0);
+                    }
+                } else {
+                    return JsonService::fail('接口域名错误或租户不存在', [], 4, 0);
+                }
+            }
+        } else {
+            if ($host_arr[0] !== 'platform') {
+                $request->tenantSn = $request->subDomain();
+                $tenant = Tenant::where(['sn' => $request->tenantSn])->findOrEmpty();
+                if (!$tenant->isEmpty() && $tenant['status'] !== 2) {
+                    if ($tenant['disable'] === 1) {
+                        return view(app()->getRootPath() . 'public/403.html');
+                    }
+                } else {
+                    return view(app()->getRootPath() . 'public/404.html');
+                }
+            }
+        }
+
         return $next($request);
     }
-
 }

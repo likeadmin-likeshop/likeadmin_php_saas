@@ -50,7 +50,17 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="租户名称" prop="name" min-width="100" />
-                <el-table-column label="用户数量" prop="name" min-width="100" />
+                <el-table-column label="用户数量" prop="users_count" min-width="100">
+                    <template #default="{ row }">
+                        <el-button
+                            type="primary"
+                            link
+                            @click="editRef?.openHandle(row.id, false, 'users')"
+                        >
+                            {{ row.users_count }}
+                        </el-button>
+                    </template>
+                </el-table-column>
                 <el-table-column label="状态" min-width="80">
                     <template #default="{ row }">
                         <el-tag :type="row.disable === 0 ? '' : 'danger'">
@@ -62,7 +72,7 @@
                 <el-table-column label="操作" width="260" fixed="right">
                     <template #default="{ row }">
                         <el-button v-perms="['user.user/detail']" type="primary" link>
-                            <a href="http://localhost:5174/admin/login" target="_blank">进入后台</a>
+                            <a :href="row.domain" target="_blank">进入后台</a>
                         </el-button>
                         <el-button
                             v-perms="['user.user/detail']"

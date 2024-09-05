@@ -14,5 +14,7 @@ export enum RequestCodeEnum {
     SUCCESS = 1,
     FAIL = 0,
     LOGIN_FAILURE = -1,
-    OPEN_NEW_PAGE = 2
+    OPEN_NEW_PAGE = 2,
+    FORBIDDEN = 3,
+    NOT_FOUND = 4
 }

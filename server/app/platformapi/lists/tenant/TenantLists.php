@@ -53,11 +53,28 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
     {
         $field = "id,sn,name,avatar,disable,create_time";
 
-        $lists = Tenant::withSearch($this->setSearch(), $this->params)
+        $lists = Tenant::withCount(['users'])
+            ->withSearch($this->setSearch(), $this->params)
             ->limit($this->limitOffset, $this->limitLength)
             ->field($field)
             ->order('id desc')
             ->select()->toArray();
+
+        // 获取当前的完整域名
+        $domain = request()->domain();
+
+        // 解析域名，移除协议部分并去除 'www.' 前缀
+        $parsedDomain = parse_url($domain, PHP_URL_HOST); // 获取域名部分
+
+        // 去除 'www.' 前缀，如果存在
+        $cleanDomain = preg_replace('/^www\./', '', $parsedDomain);
+
+        // 遍历结果，添加 link 字段
+        $lists = array_map(function ($item) use ($cleanDomain) {
+            // 拼接租户的链接 http://[sn].likeadmin-saas.localhost/tenant/
+            $item['domain'] = 'http://' . $item['sn'] . '.' . $cleanDomain . '/tenant/';
+            return $item;
+        }, $lists);
 
         return $lists;
     }

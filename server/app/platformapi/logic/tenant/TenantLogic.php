@@ -16,6 +16,7 @@ namespace app\platformapi\logic\tenant;
 use app\common\enum\user\UserTerminalEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\tenant\Tenant;
+use app\common\model\user\User;
 
 /**
  * 用户逻辑层
@@ -34,10 +35,10 @@ class TenantLogic extends BaseLogic
     public static function add(array $params)
     {
         Tenant::create([
-            'sn' => Tenant::createUserSn(),
-            'name' => $params['name'],
-            'avatar' => $params['avatar'],
-            'disable' => $params['disable']
+            'sn'      => Tenant::createUserSn(),
+            'name'    => $params['name'],
+            'avatar'  => $params['avatar'],
+            'disable' => $params['disable'] ?? 0
         ]);
     }
 
@@ -52,8 +53,13 @@ class TenantLogic extends BaseLogic
     {
         $field = "id,sn,name,avatar,disable,create_time";
 
-        $user = Tenant::where(['id' => $userId])->field($field)
-            ->findOrEmpty();
+        $user = Tenant::where(['id' => $userId])->field($field)->find();
+        $user['user_total'] = User::where(['tenant_id' => $userId])->count();
+
+        $domain = request()->domain();
+        $parsedDomain = parse_url($domain, PHP_URL_HOST); // 获取域名部分
+        $cleanDomain = preg_replace('/^www\./', '', $parsedDomain);
+        $user['domain'] = 'http://' . $user['sn'] . '.' . $cleanDomain . '/tenant/';
 
         return $user->toArray();
     }
@@ -70,9 +76,9 @@ class TenantLogic extends BaseLogic
     {
         try {
             Tenant::update([
-                'id' => $params['id'],
-                'name' => $params['name'],
-                'avatar' => $params['avatar'],
+                'id'      => $params['id'],
+                'name'    => $params['name'],
+                'avatar'  => $params['avatar'],
                 'disable' => $params['disable'] ?? 0
             ]);
             return true;

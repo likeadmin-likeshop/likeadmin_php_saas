@@ -122,7 +122,10 @@ class TenantAdminController extends BaseAdminController
     public function delete()
     {
         $params = (new TenantAdminValidate())->post()->goCheck('delete');
-        TenantAdminLogic::delete($params);
-        return $this->success('删除成功', [], 1, 1);
+        $result = TenantAdminLogic::delete($params);
+        if (false === $result) {
+            return $this->success('删除成功', [], 1, 1);
+        }
+        return $this->fail(TenantAdminLogic::getError());
     }
 }

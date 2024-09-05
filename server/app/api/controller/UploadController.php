@@ -42,7 +42,4 @@ class UploadController extends BaseApiController
             return $this->fail($e->getMessage());
         }
     }
-
-
-
 }
