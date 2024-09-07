@@ -40,14 +40,14 @@ class UserLogic extends BaseLogic
         $field = [
             'id', 'sn', 'account', 'nickname', 'avatar', 'real_name',
             'sex', 'mobile', 'create_time', 'login_time', 'channel',
-            'user_money',
+            'user_money','is_disable'
         ];
 
         $user = User::where(['id' => $userId])->field($field)
             ->findOrEmpty();
 
         $user['channel'] = UserTerminalEnum::getTermInalDesc($user['channel']);
-        $user->sex = $user->getData('sex');
+        $user->sexCode = $user->getData('sex');
         return $user->toArray();
     }
 
