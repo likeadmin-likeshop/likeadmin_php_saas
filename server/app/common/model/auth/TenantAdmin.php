@@ -31,6 +31,70 @@ class TenantAdmin extends BaseModel
         'jobs_id',
     ];
 
+    /**
+     * @notes 搜索器-租户账号信息
+     * @param $query
+     * @param $value
+     * @param $data
+     * @return void
+     * @author JXDN
+     * @date 2024/09/06 11:17
+     */
+    public function searchKeywordAttr($query, $value, $data)
+    {
+        if ($value) {
+            $query->where('account|name', 'like', '%' . $value . '%');
+        }
+    }
+
+    /**
+     * @notes 搜索器-租户id
+     * @param $query
+     * @param $value
+     * @param $data
+     * @return void
+     * @author JXDN
+     * @date 2024/09/06 11:25
+     */
+    public function searchTenantIdAttr($query, $value, $data)
+    {
+        if ($value) {
+            $query->where('tenant_id', '=', $value);
+        }
+    }
+
+    /**
+     * @notes 搜索器-注册时间
+     * @param $query
+     * @param $value
+     * @param $data
+     * @return void
+     * @author JXDN
+     * @date 2024/09/06 11:24
+     */
+    public function searchCreateTimeStartAttr($query, $value, $data)
+    {
+        if ($value) {
+            $query->where('create_time', '>=', strtotime($value));
+        }
+    }
+
+
+    /**
+     * @notes 搜索器-注册时间
+     * @param $query
+     * @param $value
+     * @param $data
+     * @return void
+     * @author JXDN
+     * @date 2024/09/06 11:24
+     */
+    public function searchCreateTimeEndAttr($query, $value, $data)
+    {
+        if ($value) {
+            $query->where('create_time', '<=', strtotime($value));
+        }
+    }
 
     /**
      * @notes 关联角色id

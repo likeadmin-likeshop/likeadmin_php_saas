@@ -64,7 +64,7 @@ class ConfigService
 
     /**
      * @notes 获取配置值
-     * @param $type
+     * @param string $type
      * @param string $name
      * @param null $default_value
      * @return array|int|mixed|string

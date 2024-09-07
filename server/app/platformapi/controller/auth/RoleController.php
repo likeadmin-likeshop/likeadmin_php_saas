@@ -120,5 +120,4 @@ class RoleController extends BaseAdminController
         $result = RoleLogic::getAllData();
         return $this->data($result);
     }
-
 }

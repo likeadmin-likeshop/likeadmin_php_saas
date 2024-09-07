@@ -34,7 +34,6 @@ class BaseAdminController extends BaseLikeAdminController
     {
         $this->request->source = AdminTerminalEnum::TENANT;
         if (isset($this->request->adminInfo) && $this->request->adminInfo) {
-            $this->request->tenantId = $this->request->adminInfo['tenant_id'];
             $this->adminInfo = $this->request->adminInfo;
             $this->tenantId = $this->request->adminInfo['tenant_id'];
             $this->adminId = $this->request->adminInfo['admin_id'];

@@ -18,6 +18,7 @@ use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
 use app\common\model\dept\Jobs;
+use app\common\model\dept\TenantJobs;
 use app\common\service\FileService;
 
 
@@ -110,10 +111,17 @@ class JobsLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        return Jobs::where(['status' => YesNoEnum::YES])
-            ->order(['sort' => 'desc', 'id' => 'desc'])
-            ->select()
-            ->toArray();
+        $tenant_id = request()->param('tenant_id');
+        $isTenant = $tenant_id !== null;
+        $deptModel = $isTenant ? new TenantJobs() : new Jobs();
+        $sql = $deptModel->where(['status' => YesNoEnum::YES])->order(['sort' => 'desc', 'id' => 'desc']);
+        if($isTenant) {
+            $data = $sql->where('tenant_id', '=', $tenant_id)->select()->toArray();
+        } else {
+            $data = $sql->select()->toArray();
+        }
+
+        return $data;
     }
 
 }

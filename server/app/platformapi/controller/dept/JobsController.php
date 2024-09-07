@@ -113,6 +113,4 @@ class JobsController extends BaseAdminController
         $result = JobsLogic::getAllData();
         return $this->data($result);
     }
-
-
 }

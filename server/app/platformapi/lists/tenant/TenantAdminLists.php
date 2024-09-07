@@ -56,6 +56,7 @@ class TenantAdminLists extends BaseAdminDataLists implements ListsExcelInterface
         if(!isset($this->params['tenant_id'])){
             return [];
         }
+
         $field = "id,root,name,avatar,account,multipoint_login,disable,create_time";
 
         $lists = TenantAdmin::withSearch($this->setSearch(), $this->params)
@@ -63,6 +64,7 @@ class TenantAdminLists extends BaseAdminDataLists implements ListsExcelInterface
             ->field($field)
             ->order('create_time desc')
             ->select()->toArray();
+
 
         return $lists;
     }

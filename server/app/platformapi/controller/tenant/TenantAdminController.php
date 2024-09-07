@@ -61,8 +61,11 @@ class TenantAdminController extends BaseAdminController
     public function add()
     {
         $params = (new TenantAdminValidate())->post()->goCheck('add');
-        TenantAdminLogic::add($params);
-        return $this->success('新增租户管理员账号成功', [], 1, 1);
+        $result = TenantAdminLogic::add($params);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(TenantAdminLogic::getError());
     }
 
     /**
@@ -74,8 +77,11 @@ class TenantAdminController extends BaseAdminController
     public function edit()
     {
         $params = (new TenantAdminValidate())->post()->goCheck('edit');
-        TenantAdminLogic::edit($params);
-        return $this->success('操作成功', [], 1, 1);
+        $result = TenantAdminLogic::edit($params);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(TenantAdminLogic::getError());
     }
 
     /**
@@ -98,22 +104,6 @@ class TenantAdminController extends BaseAdminController
     }
 
     /**
-     * @notes 重置密码
-     * @return \think\response\Json
-     * @author yfdong
-     * @date 2024/09/04 23:22
-     */
-    public function resetPassword()
-    {
-        $params = (new TenantAdminValidate())->post()->goCheck('resetPassword');
-        $result = TenantAdminLogic::resetPassword((int)$params['id']);
-        if (true === $result) {
-            return $this->success('操作成功', [], 1, 1);
-        }
-        return $this->fail(TenantAdminLogic::getError());
-    }
-
-    /**
      * @notes 删除租户管理员账号
      * @return \think\response\Json
      * @author yfdong
@@ -123,7 +113,7 @@ class TenantAdminController extends BaseAdminController
     {
         $params = (new TenantAdminValidate())->post()->goCheck('delete');
         $result = TenantAdminLogic::delete($params);
-        if (false === $result) {
+        if (true === $result) {
             return $this->success('删除成功', [], 1, 1);
         }
         return $this->fail(TenantAdminLogic::getError());

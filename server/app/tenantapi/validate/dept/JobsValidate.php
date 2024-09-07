@@ -14,10 +14,8 @@
 
 namespace app\tenantapi\validate\dept;
 
-
-use app\common\model\auth\Admin;
-use app\common\model\auth\AdminJobs;
-use app\common\model\dept\Jobs;
+use app\common\model\auth\TenantAdminJobs;
+use app\common\model\dept\TenantJobs;
 use app\common\validate\BaseValidate;
 
 
@@ -31,8 +29,8 @@ class JobsValidate extends BaseValidate
 {
     protected $rule = [
         'id' => 'require|checkJobs',
-        'name' => 'require|unique:'.Jobs::class.'|length:1,50',
-        'code' => 'require|unique:'.Jobs::class,
+        'name' => 'require|unique:'.TenantJobs::class.'|length:1,50',
+        'code' => 'require|unique:'.TenantJobs::class,
         'status' => 'require|in:0,1',
         'sort' => 'egt:0',
     ];
@@ -100,7 +98,7 @@ class JobsValidate extends BaseValidate
      */
     public function checkJobs($value)
     {
-        $jobs = Jobs::findOrEmpty($value);
+        $jobs = TenantJobs::findOrEmpty($value);
         if ($jobs->isEmpty()) {
             return '岗位不存在';
         }
@@ -117,7 +115,7 @@ class JobsValidate extends BaseValidate
      */
     public function checkAbleDetele($value)
     {
-        $check = AdminJobs::where(['jobs_id' => $value])->findOrEmpty();
+        $check = TenantAdminJobs::where(['jobs_id' => $value])->findOrEmpty();
         if (!$check->isEmpty()) {
             return '已关联管理员，暂不可删除';
         }

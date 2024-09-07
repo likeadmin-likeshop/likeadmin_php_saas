@@ -129,6 +129,4 @@ class DeptController extends BaseAdminController
         $result = DeptLogic::getAllData();
         return $this->data($result);
     }
-
-
 }

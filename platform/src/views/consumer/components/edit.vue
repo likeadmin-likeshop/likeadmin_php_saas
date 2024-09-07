@@ -1,6 +1,7 @@
 <template>
     <el-drawer
         v-model="drawer"
+        destroy-on-close
         title="租户信息"
         direction="rtl"
         size="50%"
@@ -8,13 +9,7 @@
         @close="console.log('close')"
         :before-close="beforeClose"
     >
-        <el-form
-            ref="formRef"
-            class="ls-form"
-            label-position="left"
-            :model="formData"
-            label-width="100px"
-        >
+        <div class="h-full flex flex-col">
             <div class="flex flex-col pb-1">
                 <div class="bg-page p-4 rounded flex justify-between items-center">
                     <div class="flex items-center gap-4">
@@ -43,13 +38,17 @@
                 </div>
             </div>
 
-            <el-tabs v-model="activeName">
+            <el-tabs class="flex-1 flex flex-col" v-model="activeName" :before-leave="beforeLeave">
                 <el-tab-pane label="基础信息" name="profile">
-                    <div
+                    <el-form
+                        ref="formRef"
                         class="grid grid-cols-2 gap-x-4 pt-2"
                         :class="{
                             '!grid-cols-1': editStatus
                         }"
+                        label-position="left"
+                        :model="formData"
+                        label-width="100px"
                     >
                         <el-form-item v-if="!editStatus" label="租户域名：" class="col-span-2">
                             <a :href="formData.domain" target="_blank" rel="noopener noreferrer">
@@ -92,12 +91,16 @@
                         <el-form-item v-if="!editStatus" label="创建时间：">
                             {{ formData.create_time }}
                         </el-form-item>
-                    </div>
+                    </el-form>
                 </el-tab-pane>
-                <el-tab-pane label="账号列表" name="accounts"> 123 </el-tab-pane>
-                <el-tab-pane label="用户列表" name="users"> 123 </el-tab-pane>
+                <el-tab-pane lazy label="账号列表" name="accounts">
+                    <Accounts :tenant_id="formData.id" />
+                </el-tab-pane>
+                <el-tab-pane lazy label="用户列表" name="users">
+                    <Users :tenant_id="formData.id" />
+                </el-tab-pane>
             </el-tabs>
-        </el-form>
+        </div>
     </el-drawer>
 </template>
 
@@ -107,13 +110,16 @@ import { cloneDeep } from 'lodash-es'
 
 import { getUserDetail, userEdit } from '@/api/consumer'
 
+import Accounts from './account/index.vue'
+import Users from './users.vue'
+
 interface DetailType {
     avatar: string
     create_time: string
     name: string
     sn: string
     domain: string
-    id: string
+    id: number
     disable: number
 }
 
@@ -129,7 +135,7 @@ const formData = ref<DetailType>({
     name: '',
     sn: '',
     domain: '',
-    id: '',
+    id: 0,
     disable: 0
 })
 
@@ -143,6 +149,16 @@ const openHandle = (id: number, status?: boolean, tabIndex?: string) => {
     drawer.value = true
 }
 
+const beforeLeave = async () => {
+    if (editStatus.value) {
+        try {
+            await ElMessageBox.confirm('修改还未保存，确认退出编辑吗？')
+            handleEdit()
+        } catch (error) {
+            return false
+        }
+    }
+}
 const getDetails = async (id: number) => {
     const data: DetailType = await getUserDetail({
         id: id
@@ -181,3 +197,13 @@ defineExpose({
     openHandle
 })
 </script>
+
+<style lang="scss" scoped>
+:deep(.el-tabs__content) {
+    flex: 1;
+
+    .el-tab-pane {
+        height: 100%;
+    }
+}
+</style>

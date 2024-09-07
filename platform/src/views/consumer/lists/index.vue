@@ -99,32 +99,6 @@
                         >
                             删除
                         </el-button>
-
-                        <!-- <el-button v-perms="['user.user/detail']" type="primary" link>
-                            <el-dropdown>
-                                <el-button v-perms="['user.user/detail']" type="primary" link>
-                                    <span class="flex items-center gap-1">
-                                        <span>更多</span>
-                                        <el-icon>
-                                            <arrow-down />
-                                        </el-icon>
-                                    </span>
-                                </el-button>
-
-                                <template #dropdown>
-                                    <el-dropdown-menu>
-                                        <el-dropdown-item
-                                            @click="editRef?.openHandle(row.id, false, 'order')"
-                                        >
-                                            套餐
-                                        </el-dropdown-item>
-                                        <el-dropdown-item divided @click="handleDelete(row.id)">
-                                            <span class="text-danger">删除</span>
-                                        </el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </template>
-                            </el-dropdown>
-                        </el-button> -->
                     </template>
                 </el-table-column>
             </el-table>

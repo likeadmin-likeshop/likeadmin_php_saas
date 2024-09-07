@@ -16,8 +16,7 @@ namespace app\tenantapi\validate\auth;
 
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\{
-    app\tenantapi\config\common\model\auth\AdminRole, app\tenantapi\config\common\model\auth\SystemRole, app\tenantapi\config\common\model\auth\Admin};
+use app\common\model\auth\{TenantAdminRole, TenantSystemRole, TenantAdmin};
 
 /**
  * 角色验证器
@@ -28,7 +27,7 @@ class RoleValidate extends BaseValidate
 {
     protected $rule = [
         'id' => 'require|checkRole',
-        'name' => 'require|max:64|unique:' . \app\common\model\auth\SystemRole::class . ',name',
+        'name' => 'require|max:64|unique:' . TenantSystemRole::class . ',name',
         'menu_id' => 'array',
     ];
 
@@ -89,7 +88,7 @@ class RoleValidate extends BaseValidate
      */
     public function checkRole($value, $rule, $data)
     {
-        if (!\app\common\model\auth\SystemRole::find($value)) {
+        if (!TenantSystemRole::find($value)) {
             return '角色不存在';
         }
         return true;
@@ -111,7 +110,7 @@ class RoleValidate extends BaseValidate
      */
     public function checkAdmin($value, $rule, $data)
     {
-        if (\app\common\model\auth\AdminRole::where(['role_id' => $value])->find()) {
+        if (TenantAdminRole::where(['role_id' => $value])->find()) {
             return '有管理员在使用该角色，不允许删除';
         }
         return true;

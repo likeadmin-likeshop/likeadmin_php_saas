@@ -19,7 +19,6 @@ namespace app\common\http\middleware;
 use app\common\model\tenant\Tenant;
 use app\common\service\JsonService;
 use Closure;
-use think\Exception;
 
 /**
  * 自定义跨域中间件
@@ -49,7 +48,6 @@ class LikeAdminAllowMiddleware
         }
 
         $host_arr = explode('/', $request->pathinfo());
-        $accept_arr = explode(',', $request->header()['accept']);
 
         // 区分是访问页面还是访问接口
         if (str_contains($host_arr[0], 'api') !== false) {
@@ -73,6 +71,8 @@ class LikeAdminAllowMiddleware
                 if (!$tenant->isEmpty() && $tenant['status'] !== 2) {
                     if ($tenant['disable'] === 1) {
                         return view(app()->getRootPath() . 'public/403.html');
+                    } else {
+                        $request->tenantId = $tenant->id;
                     }
                 } else {
                     return view(app()->getRootPath() . 'public/404.html');

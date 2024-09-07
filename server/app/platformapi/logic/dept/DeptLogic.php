@@ -17,6 +17,7 @@ namespace app\platformapi\logic\dept;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\dept\Dept;
+use app\common\model\dept\TenantDept;
 
 
 /**
@@ -111,12 +112,12 @@ class DeptLogic extends BaseLogic
     public static function add(array $params)
     {
         Dept::create([
-            'pid' => $params['pid'],
-            'name' => $params['name'],
+            'pid'    => $params['pid'],
+            'name'   => $params['name'],
             'leader' => $params['leader'] ?? '',
             'mobile' => $params['mobile'] ?? '',
             'status' => $params['status'],
-            'sort' => $params['sort'] ?? 0
+            'sort'   => $params['sort'] ?? 0
         ]);
     }
 
@@ -138,13 +139,13 @@ class DeptLogic extends BaseLogic
             }
 
             Dept::update([
-                'id' => $params['id'],
-                'pid' => $pid,
-                'name' => $params['name'],
+                'id'     => $params['id'],
+                'pid'    => $pid,
+                'name'   => $params['name'],
                 'leader' => $params['leader'] ?? '',
                 'mobile' => $params['mobile'] ?? '',
                 'status' => $params['status'],
-                'sort' => $params['sort'] ?? 0
+                'sort'   => $params['sort'] ?? 0
             ]);
             return true;
         } catch (\Exception $e) {
@@ -190,10 +191,19 @@ class DeptLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        $data = Dept::where(['status' => YesNoEnum::YES])
-            ->order(['sort' => 'desc', 'id' => 'desc'])
-            ->select()
-            ->toArray();
+        $tenant_id = request()->param('tenant_id');
+        $isTenant = $tenant_id !== null;
+        $deptModel = $isTenant ? new TenantDept() : new Dept();
+        $sql = $deptModel->where(['status' => YesNoEnum::YES])->order(['sort' => 'desc', 'id' => 'desc']);
+        if($isTenant) {
+            $data = $sql->where('tenant_id', '=', $tenant_id)->select()->toArray();
+        } else {
+            $data = $sql->select()->toArray();
+        }
+
+        if(empty($data)) {
+            return [];
+        }
 
         $pid = min(array_column($data, 'pid'));
         return self::getTree($data, $pid);

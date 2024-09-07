@@ -105,9 +105,9 @@ class BaseModel extends Model
     {
         $token = Request::header('token');
         if (AdminTerminalEnum::isTenant() && $token !== "null") {
-            $adminInfo = (new TenantAdminTokenCache())->getAdminInfo($token);
-            if ($adminInfo && !empty($adminInfo['tenant_id'])) {
-                return $adminInfo['tenant_id'];
+            $tenant_id = \request()->tenantId;
+            if ($tenant_id) {
+                return $tenant_id;
             } else {
                 return false;
             }

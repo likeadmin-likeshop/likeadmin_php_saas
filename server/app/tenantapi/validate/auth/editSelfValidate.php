@@ -15,7 +15,7 @@
 namespace app\tenantapi\validate\auth;
 
 use app\common\validate\BaseValidate;
-use app\common\model\auth\Admin;
+use app\common\model\auth\TenantAdmin;
 use think\facade\Config;
 
 /**
@@ -59,7 +59,7 @@ class editSelfValidate extends BaseValidate
             return '请填写当前密码';
         }
 
-        $admin = Admin::findOrEmpty($data['admin_id']);
+        $admin = TenantAdmin::findOrEmpty($data['admin_id']);
         $passwordSalt = Config::get('project.unique_identification');
         $oldPassword = create_password($data['password_old'], $passwordSalt);
 

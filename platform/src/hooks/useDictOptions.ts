@@ -30,7 +30,11 @@ export function useDictOptions<T = any>(options: Options) {
     })
 
     const refresh = async () => {
-        const res = await Promise.allSettled<Promise<any>>(apiLists.map((api) => api()))
+        const res = await Promise.allSettled<Promise<any>>(
+            apiLists.map((api) => {
+                return api()
+            })
+        )
         res.forEach((item, index) => {
             const key = optionsKey[index]
             if (item.status == 'fulfilled') {

@@ -17,9 +17,7 @@ namespace app\platformapi\logic\auth;
 use app\common\logic\BaseLogic;
 use app\common\model\auth\SystemRole;
 use app\common\model\auth\SystemRoleMenu;
-use app\common\{
-    cache\AdminAuthCache
-};
+use app\common\{cache\AdminAuthCache, model\auth\TenantSystemRole};
 use think\facade\Db;
 
 
@@ -161,10 +159,16 @@ class RoleLogic extends BaseLogic
      */
     public static function getAllData()
     {
-        return SystemRole::order(['sort' => 'desc', 'id' => 'desc'])
-            ->select()
-            ->toArray();
+        $tenant_id = request()->param('tenant_id');
+        $isTenant = $tenant_id !== null;
+        $deptModel = $isTenant ? new TenantSystemRole() : new SystemRole();
+        $sql = $deptModel->order(['sort' => 'desc', 'id' => 'desc']);
+        if($isTenant) {
+            $data = $sql->where('tenant_id', '=', $tenant_id)->select()->toArray();
+        } else {
+            $data = $sql->select()->toArray();
+        }
+
+        return $data;
     }
-
-
 }

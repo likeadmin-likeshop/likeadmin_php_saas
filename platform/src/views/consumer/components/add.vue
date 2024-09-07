@@ -4,6 +4,7 @@
         title="新增租户"
         direction="rtl"
         size="50%"
+        destroy-on-close
         @open="console.log('open')"
         @close="console.log('close')"
         :before-close="beforeClose"

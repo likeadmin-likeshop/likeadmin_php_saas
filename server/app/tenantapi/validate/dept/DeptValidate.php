@@ -14,9 +14,8 @@
 
 namespace app\tenantapi\validate\dept;
 
-use app\common\model\auth\Admin;
-use app\common\model\auth\AdminDept;
-use app\common\model\dept\Dept;
+use app\common\model\auth\TenantAdminDept;
+use app\common\model\dept\TenantDept;
 use app\common\validate\BaseValidate;
 
 
@@ -31,7 +30,7 @@ class DeptValidate extends BaseValidate
     protected $rule = [
         'id' => 'require|checkDept',
         'pid' => 'require|integer',
-        'name' => 'require|unique:'.Dept::class.'|length:1,30',
+        'name' => 'require|unique:'.TenantDept::class.'|length:1,30',
         'status' => 'require|in:0,1',
         'sort' => 'egt:0',
     ];
@@ -106,7 +105,7 @@ class DeptValidate extends BaseValidate
      */
     public function checkDept($value)
     {
-        $dept = Dept::findOrEmpty($value);
+        $dept = TenantDept::findOrEmpty($value);
         if ($dept->isEmpty()) {
             return '部门不存在';
         }
@@ -123,17 +122,17 @@ class DeptValidate extends BaseValidate
      */
     public function checkAbleDetele($value)
     {
-        $hasLower = Dept::where(['pid' => $value])->findOrEmpty();
+        $hasLower = TenantDept::where(['pid' => $value])->findOrEmpty();
         if (!$hasLower->isEmpty()) {
             return '已关联下级部门,暂不可删除';
         }
 
-        $check = AdminDept::where(['dept_id' => $value])->findOrEmpty();
+        $check = TenantAdminDept::where(['dept_id' => $value])->findOrEmpty();
         if (!$check->isEmpty()) {
             return '已关联管理员，暂不可删除';
         }
 
-        $dept = Dept::findOrEmpty($value);
+        $dept = TenantDept::findOrEmpty($value);
         if ($dept['pid'] == 0) {
             return '顶级部门不可删除';
         }
@@ -153,7 +152,7 @@ class DeptValidate extends BaseValidate
     public function checkPid($value, $rule, $data = [])
     {
         // 当前编辑的部门id信息是否存在
-        $dept = Dept::findOrEmpty($data['id']);
+        $dept = TenantDept::findOrEmpty($data['id']);
         if ($dept->isEmpty()) {
             return '当前部门信息缺失';
         }
@@ -167,7 +166,7 @@ class DeptValidate extends BaseValidate
             return '上级部门不可是当前部门';
         }
 
-        $leaderDept = Dept::findOrEmpty($value);
+        $leaderDept = TenantDept::findOrEmpty($value);
         if ($leaderDept->isEmpty()) {
             return '部门不存在';
         }
