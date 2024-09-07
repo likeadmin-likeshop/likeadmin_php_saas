@@ -20,6 +20,7 @@ use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\pay\PayConfig;
 use app\common\model\pay\PayWay;
+use app\common\model\pay\TenantPayWay;
 use app\common\service\FileService;
 
 /**
@@ -106,6 +107,44 @@ class PayWayLogic extends BaseLogic
         }
         $payWay->saveAll($data);
         return true;
+    }
+
+    /**
+     * @notes 初始化支付方式配置
+     * @param mixed $tenant_id
+     * @return void
+     * @author yfdong
+     * @date 2024/09/05 23:01
+     */
+    public static function initialization(mixed $tenant_id)
+    {
+        //支付方式配置
+        $field = "pay_config_id,scene,is_default,status";
+        //查询支付方式配置 此处默认为租户号为1的
+        $payWayList = TenantPayWay::where(['tenant_id' => '1'])->field($field)->select();
+        foreach ($payWayList as $item) {
+            $item['tenant_id'] = $tenant_id;
+            TenantPayWay::create(self::toArray($item));
+        }
+    }
+
+    /**
+     * @notes 对象转数组
+     * @param mixed $payWay
+     * @return array
+     * @author yfdong
+     * @date 2024/09/07 13:07
+     */
+    private static function toArray(mixed $payWay): array
+    {
+        return [
+            'id' => $payWay['id'],
+            'tenant_id' => $payWay['tenant_id'],
+            'pay_config_id' => $payWay['pay_config_id'],
+            'scene' => $payWay['scene'],
+            'is_default' => $payWay['is_default'],
+            'status' => $payWay['status']
+        ];
     }
 }
 

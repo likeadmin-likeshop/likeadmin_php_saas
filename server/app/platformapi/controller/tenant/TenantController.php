@@ -15,9 +15,14 @@ namespace app\platformapi\controller\tenant;
 
 use app\platformapi\controller\BaseAdminController;
 use app\platformapi\lists\tenant\TenantLists;
+use app\platformapi\logic\setting\pay\PayConfigLogic;
+use app\platformapi\logic\setting\pay\PayWayLogic;
+use app\platformapi\logic\tenant\TenantAdminLogic;
 use app\platformapi\logic\tenant\TenantLogic;
+use app\platformapi\logic\tenant\TenantSystemMenuLogic;
 use app\platformapi\validate\tenant\AdjustUserMoney;
 use app\platformapi\validate\tenant\TenantValidate;
+use think\facade\Db;
 
 /**
  * 用户控制器
@@ -53,16 +58,40 @@ class TenantController extends BaseAdminController
     }
 
     /**
-     * @notes 编辑用户信息
+     * @notes 新增租户信息 同步初始化对应租户信息
      * @return \think\response\Json
-     * @author 段誉
-     * @date 2022/9/22 16:34
+     * @author yfdong
+     * @date 2024/09/07 12:23
      */
     public function add()
     {
-        $params = (new TenantValidate())->post()->goCheck('add');
-        TenantLogic::add($params);
-        return $this->success('新增成功', [], 1, 1);
+
+
+        try {
+            // 开始事务
+            DB::startTrans();
+            // 验证参数
+            $params = (new TenantValidate())->post()->goCheck('add');
+            // 创建租户基本信息
+            $tenant = TenantLogic::add($params);
+            // 创建租户菜单权限
+            TenantSystemMenuLogic::initialization($tenant['id']);
+            // 初始化租户管理员账号
+            TenantAdminLogic::initialization($tenant['id'], $tenant['name']);
+            // 初始化支付配置是否开启
+            PayConfigLogic::initialization($tenant['id']);
+            // 初始化支付方式配置
+            PayWayLogic::initialization($tenant['id']);
+            // 提交事务
+            DB::commit();
+            // 返回成功
+            return $this->success('新增成功', [], 1, 1);
+        } catch (\Exception $e) {
+            // 回滚事务
+            DB::rollBack();
+            // 处理异常并返回错误信息
+            return $this->fail('新增失败: ' . $e->getMessage(), [], 0, 1);
+        }
     }
 
     /**

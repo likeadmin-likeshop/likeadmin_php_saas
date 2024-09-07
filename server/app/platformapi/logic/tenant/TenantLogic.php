@@ -28,13 +28,13 @@ class TenantLogic extends BaseLogic
     /**
      * @notes 新增租户
      * @param array $params
-     * @return void
+     * @return Tenant|\think\Model
      * @author JXDN
      * @date 2024/09/03 14:42
      */
     public static function add(array $params)
     {
-        Tenant::create([
+        return Tenant::create([
             'sn'      => Tenant::createUserSn(),
             'name'    => $params['name'],
             'avatar'  => $params['avatar'],

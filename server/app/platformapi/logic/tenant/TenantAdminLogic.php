@@ -13,11 +13,8 @@
 // +----------------------------------------------------------------------
 namespace app\platformapi\logic\tenant;
 
-use app\common\enum\user\UserTerminalEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\auth\TenantAdmin;
-use app\common\model\tenant\Tenant;
-use app\platformapi\validate\tenant\TenantAdminValidate;
 use think\facade\Config;
 
 /**
@@ -38,12 +35,12 @@ class TenantAdminLogic extends BaseLogic
     {
         TenantAdmin::create([
             'tenant_id' => $params['tenant_id'],
-            'account'   => $params['account'],
-            'name'      => $params['name'],
-            'password'  => self::createPassword($params['password']),
-            'avatar'    => $params['avatar'] ?? '',
-            'disable'   => $params['disable'] ?? '0',
-            'root'      => $params['root'] ?? '0'
+            'account' => $params['account'],
+            'name' => $params['name'],
+            'password' => self::createPassword($params['password']),
+            'avatar' => $params['avatar'] ?? '',
+            'disable' => $params['disable'] ?? '0',
+            'root' => $params['root'] ?? '0'
         ]);
     }
 
@@ -77,11 +74,11 @@ class TenantAdminLogic extends BaseLogic
         try {
             TenantAdmin::update([
                 'tenant_id' => $params['tenant_id'],
-                'account'   => $params['account'],
-                'name'      => $params['name'],
-                'avatar'    => $params['avatar'],
-                'disable'   => $params['disable'],
-                'root'      => $params['root']
+                'account' => $params['account'],
+                'name' => $params['name'],
+                'avatar' => $params['avatar'],
+                'disable' => $params['disable'],
+                'root' => $params['root']
             ]);
             return true;
         } catch (\Exception $e) {
@@ -185,5 +182,27 @@ class TenantAdminLogic extends BaseLogic
             self::setError($e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * @notes 初始化管理员账号
+     * @param mixed $id
+     * @param $name
+     * @return void
+     * @author yfdong
+     * @date 2024/09/05 22:52
+     */
+    public static function initialization(mixed $id, $name)
+    {
+        // 初始化管理员账号
+        TenantAdmin::create([
+            'tenant_id' => $id,
+            'account' => 'tenant' . $id,
+            'name' => $name,
+            'password' => self::createPassword(123456),
+            'avatar' => '',
+            'disable' => '0',
+            'root' => '1'
+        ]);
     }
 }

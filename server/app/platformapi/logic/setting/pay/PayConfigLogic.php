@@ -18,6 +18,7 @@ namespace app\platformapi\logic\setting\pay;
 use app\common\enum\PayEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\pay\PayConfig;
+use app\common\model\pay\TenantPayConfig;
 use app\common\service\FileService;
 
 /**
@@ -91,6 +92,46 @@ class PayConfigLogic extends BaseLogic
         $payConfig['icon'] = FileService::getFileUrl($payConfig['icon']);
         $payConfig['domain'] = request()->domain();
         return $payConfig;
+    }
+
+    /**
+     * @notes 初始化支付配置是否开启
+     * @param mixed $tenant_id
+     * @return void
+     * @author yfdong
+     * @date 2024/09/05 23:01
+     */
+    public static function initialization(mixed $tenant_id)
+    {
+        //支付方式配置
+        $field = "name,pay_way,config,icon,sort,remark,tenant_id";
+        //查询支付方式配置 此处默认为租户号为1的
+        $payConfigList = TenantPayConfig::where(['tenant_id' => '1'])->field($field)->select();
+        foreach ($payConfigList as $item) {
+            $item['tenant_id'] = $tenant_id;
+            TenantPayConfig::create(self::toArray($item));
+        }
+    }
+
+    /**
+     * @notes 对象转数组
+     * @param mixed $payConfig
+     * @return array
+     * @author yfdong
+     * @date 2024/09/07 13:05
+     */
+    private static function toArray(mixed $payConfig): array
+    {
+        return [
+            'id'=>$payConfig['id'],
+            'tenant_id'=>$payConfig['tenant_id'],
+            'name' => $payConfig['name'],
+            'pay_way' => $payConfig['pay_way'],
+            'config' => $payConfig['config'],
+            'icon' => $payConfig['icon'],
+            'sort' => $payConfig['sort'],
+            'remark' => $payConfig['remark']
+        ];
     }
 
 }
