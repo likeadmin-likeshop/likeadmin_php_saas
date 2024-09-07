@@ -170,13 +170,13 @@ class TenantAdminLogic extends BaseLogic
         try {
             // 重置密码
             $passwordSalt = Config::get('project.unique_identification');
-            $password = create_password('123456', $passwordSalt);
-
+            // 获取配置中的默认密码
+            $defaultPassword = Config::get('project.default_password');
+            $password = create_password($defaultPassword, $passwordSalt);
             // 更新
             TenantAdmin::where('id', $id)->update([
                 'password' => $password
             ]);
-
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());
@@ -194,12 +194,14 @@ class TenantAdminLogic extends BaseLogic
      */
     public static function initialization(mixed $id, $name)
     {
+        // 获取配置中的默认密码
+        $defaultPassword = Config::get('project.default_password');
         // 初始化管理员账号
         TenantAdmin::create([
             'tenant_id' => $id,
             'account' => 'tenant' . $id,
             'name' => $name,
-            'password' => self::createPassword(123456),
+            'password' => self::createPassword($defaultPassword),
             'avatar' => '',
             'disable' => '0',
             'root' => '1'
