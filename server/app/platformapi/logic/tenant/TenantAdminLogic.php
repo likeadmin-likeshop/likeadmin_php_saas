@@ -15,7 +15,6 @@ namespace app\platformapi\logic\tenant;
 
 use app\common\cache\TenantAdminAuthCache;
 use app\common\cache\TenantAdminTokenCache;
-use app\common\enum\user\UserTerminalEnum;
 use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\auth\TenantAdmin;
@@ -23,10 +22,7 @@ use app\common\model\auth\TenantAdminDept;
 use app\common\model\auth\TenantAdminJobs;
 use app\common\model\auth\TenantAdminRole;
 use app\common\model\auth\TenantAdminSession;
-use app\common\model\tenant\Tenant;
-use app\common\service\FileService;
 use app\common\service\TenantFileService;
-use app\platformapi\validate\tenant\TenantAdminValidate;
 use think\facade\Db;
 use think\facade\Config;
 
@@ -316,5 +312,29 @@ class TenantAdminLogic extends BaseLogic
         // 密码盐
         $passwordSalt = Config::get('project.unique_identification');
         return create_password($password, $passwordSalt);
+    }
+
+    /**
+     * @notes 初始化管理员账号
+     * @param mixed $id
+     * @param $name
+     * @return void
+     * @author yfdong
+     * @date 2024/09/05 22:52
+     */
+    public static function initialization(mixed $id, $name)
+    {
+        // 获取配置中的默认密码
+        $defaultPassword = Config::get('project.default_password');
+        // 初始化管理员账号
+        TenantAdmin::create([
+            'tenant_id' => $id,
+            'account' => 'tenant' . $id,
+            'name' => $name,
+            'password' => self::createPassword($defaultPassword),
+            'avatar' => '',
+            'disable' => '0',
+            'root' => '1'
+        ]);
     }
 }

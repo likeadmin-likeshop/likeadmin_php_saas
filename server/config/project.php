@@ -50,6 +50,9 @@ return [
     // 唯一标识，密码盐、路径加密等
     'unique_identification' => env('project.unique_identification', 'likeadmin'),
 
+    // 默认密码
+    'default_password' => env('project.default_password', '123456'),
+
     // 平台管理员token（登录令牌）配置
     'admin_token' => [
         'expire_duration' => 3600 * 8,//管理后台token过期时长(单位秒）
