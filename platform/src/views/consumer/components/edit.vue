@@ -111,7 +111,7 @@ import { cloneDeep } from 'lodash-es'
 import { getUserDetail, userEdit } from '@/api/consumer'
 
 import Accounts from './account/index.vue'
-import Users from './users.vue'
+import Users from './user/index.vue'
 
 interface DetailType {
     avatar: string

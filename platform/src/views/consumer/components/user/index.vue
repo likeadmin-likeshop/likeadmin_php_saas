@@ -18,7 +18,7 @@
             <el-form-item class="!mr-0">
                 <el-button type="primary" @click="resetPage">查询</el-button>
                 <el-button @click="resetParams">重置</el-button>
-                <el-button>新增</el-button>
+                <!-- <el-button>新增</el-button> -->
                 <export-data
                     class="ml-2.5"
                     :fetch-fun="getTenantUserList"
@@ -38,27 +38,41 @@
             <el-table-column label="性别" prop="sex" min-width="60" />
             <el-table-column label="状态" min-width="80">
                 <template #default="{ row }">
-                    <el-tag :type="row.disable === 0 ? '' : 'danger'">
-                        {{ row.disable === 0 ? '开启' : '关闭' }}
+                    <el-tag :type="row.is_disable === 0 ? '' : 'danger'">
+                        {{ row.is_disable === 0 ? '开启' : '关闭' }}
                     </el-tag>
                 </template>
             </el-table-column>
             <el-table-column label="创建时间" prop="create_time" min-width="120" />
             <el-table-column label="操作" width="auto" min-width="90" fixed="right">
                 <template #default="{ row }">
-                    <el-button v-perms="['user.user/detail']" type="primary" link> 详情 </el-button>
+                    <el-button
+                        v-perms="['user.user/detail']"
+                        type="primary"
+                        link
+                        @click="detialRef?.open(row.id)"
+                    >
+                        详情
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
         <div class="flex justify-end mt-4">
             <pagination v-model="pager" @change="getLists" />
         </div>
+
+        <Detail ref="detialRef" :tenant_id="props.tenant_id" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import { getTenantUserList } from '@/api/consumer'
 import { usePaging } from '@/hooks/usePaging'
+import { useComponentRef } from '@/utils/getExposeType'
+
+import Detail from './detail.vue'
+
+const detialRef = useComponentRef(Detail)
 
 const props = defineProps({
     tenant_id: {

@@ -1,6 +1,7 @@
 <template>
     <div class="edit-popup">
         <popup
+            destroy-on-close
             ref="popupRef"
             :title="popupTitle"
             :async="true"
