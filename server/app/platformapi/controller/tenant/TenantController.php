@@ -20,7 +20,6 @@ use app\platformapi\logic\setting\pay\PayWayLogic;
 use app\platformapi\logic\tenant\TenantAdminLogic;
 use app\platformapi\logic\tenant\TenantLogic;
 use app\platformapi\logic\tenant\TenantSystemMenuLogic;
-use app\platformapi\validate\tenant\AdjustUserMoney;
 use app\platformapi\validate\tenant\TenantValidate;
 use think\facade\Db;
 
