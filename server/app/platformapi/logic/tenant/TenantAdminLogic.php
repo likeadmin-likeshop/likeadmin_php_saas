@@ -322,14 +322,14 @@ class TenantAdminLogic extends BaseLogic
      * @author yfdong
      * @date 2024/09/05 22:52
      */
-    public static function initialization(mixed $id, $name)
+    public static function initialization(mixed $id, $name, $sn)
     {
         // 获取配置中的默认密码
         $defaultPassword = Config::get('project.default_password');
         // 初始化管理员账号
         TenantAdmin::create([
             'tenant_id' => $id,
-            'account' => 'tenant' . $id,
+            'account' => $sn,
             'name' => $name,
             'password' => self::createPassword($defaultPassword),
             'avatar' => '',

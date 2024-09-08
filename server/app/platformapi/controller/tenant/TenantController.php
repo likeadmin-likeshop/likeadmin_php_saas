@@ -76,7 +76,7 @@ class TenantController extends BaseAdminController
             // 创建租户菜单权限
             TenantSystemMenuLogic::initialization($tenant['id']);
             // 初始化租户管理员账号
-            TenantAdminLogic::initialization($tenant['id'], $tenant['name']);
+            TenantAdminLogic::initialization($tenant['id'], $tenant['name'], $tenant['sn']);
             // 初始化支付配置是否开启
             PayConfigLogic::initialization($tenant['id']);
             // 初始化支付方式配置
