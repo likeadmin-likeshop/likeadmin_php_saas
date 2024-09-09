@@ -36,7 +36,7 @@
                                 阅读许可协议
                             </div>
                             <div class="content">
-                                <h2>likeadmin应用授权协议</h2>
+                                <h2>Likeadmin-SaaS应用授权协议</h2>
                                 <div class="white-space;pre">
 
                                 </div>
@@ -314,10 +314,16 @@
                                                     <td><?php if ($modelInstall->checkDirWrite('public/uploads') == 'fail') echo '请给public/uploads目录权限，若目录不存在先新建'; ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>/public/admin</td>
-                                                    <td>admin目录可写</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/admin')) ?>
-                                                    <td><?php if ($modelInstall->checkDirWrite('public/uploads') == 'fail') echo '请给public/admin目录权限，若目录不存在先新建'; ?></td>
+                                                    <td>/public/platform</td>
+                                                    <td>platform目录可写</td>
+                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/platform')) ?>
+                                                    <td><?php if ($modelInstall->checkDirWrite('public/platform') == 'fail') echo '请给public/platform，若目录不存在先新建'; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>/public/tenant</td>
+                                                    <td>tenant目录可写</td>
+                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/tenant')) ?>
+                                                    <td><?php if ($modelInstall->checkDirWrite('public/tenant') == 'fail') echo '请给public/tenant，若目录不存在先新建'; ?></td>
                                                 </tr>
                                                 <tr>
                                                     <td>../config</td>
@@ -428,15 +434,6 @@
                                         <div>
                                             <input type="password" name="admin_confirm_password"
                                                 value="<?= $post['admin_confirm_password'] ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="form-box-check">
-                                        <div class="form-desc"></div>
-                                        <div style="display: flex;align-items: center;">
-                                            <input type="checkbox" name="import_test_data"
-                                                <?php if ($post['import_test_data'] == 'on'): ?>checked<?php endif; ?>
-                                                title="导入测试数据" />
-                                            <div style="color: #666666;">&nbsp;导入测试数据</div>
                                         </div>
                                     </div>
                                 </div>

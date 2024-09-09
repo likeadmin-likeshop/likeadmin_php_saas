@@ -20,6 +20,7 @@ use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\pay\PayConfig;
 use app\common\model\pay\PayWay;
+use app\common\model\pay\TenantPayConfig;
 use app\common\model\pay\TenantPayWay;
 use app\common\service\FileService;
 
@@ -118,12 +119,19 @@ class PayWayLogic extends BaseLogic
      */
     public static function initialization(mixed $tenant_id)
     {
+        $payConfigList = TenantPayConfig::where(['tenant_id' => $tenant_id])->select();
         //支付方式配置
         $field = "pay_config_id,scene,is_default,status";
-        //查询支付方式配置 此处默认为租户号为1的
-        $payWayList = TenantPayWay::where(['tenant_id' => '1'])->field($field)->select();
+        //查询支付方式配置 此处默认为租户号为0的模板数据
+        $payWayList = TenantPayWay::where(['tenant_id' => '0'])->field($field)->select();
         foreach ($payWayList as $item) {
             $item['tenant_id'] = $tenant_id;
+            //匹配对应复制的支付方式配置
+            foreach ($payConfigList as $payConfig) {
+                if($item['pay_config_id'] == $payConfig['pay_way']){
+                    $item['pay_config_id'] = $payConfig['id'];
+                }
+            }
             TenantPayWay::create(self::toArray($item));
         }
     }

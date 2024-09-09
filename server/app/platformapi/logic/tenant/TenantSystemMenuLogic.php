@@ -33,8 +33,8 @@ class TenantSystemMenuLogic
     {
         //初始化租户菜单字段
         $field = "id,pid,type,name,icon,sort,perms,paths,component,selected,params,is_cache,is_show,is_disable,tenant_id";
-        //查询模板菜单配置文件 此处默认为租户号为1的
-        $tenantSystemMenuList = TenantSystemMenu::where(['tenant_id' => '1'])->field($field)->order('pid')->select();
+        //查询模板菜单配置文件 此处默认为租户号为0的模板数据
+        $tenantSystemMenuList = TenantSystemMenu::where(['tenant_id' => '0'])->field($field)->order('pid')->select();
         //记录对应的关系
         foreach ($tenantSystemMenuList as $item) {
             $tenantSystemMenu[$item['id']] = $item;

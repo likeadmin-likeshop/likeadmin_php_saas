@@ -105,8 +105,8 @@ class PayConfigLogic extends BaseLogic
     {
         //支付方式配置
         $field = "name,pay_way,config,icon,sort,remark,tenant_id";
-        //查询支付方式配置 此处默认为租户号为1的
-        $payConfigList = TenantPayConfig::where(['tenant_id' => '1'])->field($field)->select();
+        //查询支付方式配置 此处默认为租户号为0的模板数据
+        $payConfigList = TenantPayConfig::where(['tenant_id' => '0'])->field($field)->select();
         foreach ($payConfigList as $item) {
             $item['tenant_id'] = $tenant_id;
             TenantPayConfig::create(self::toArray($item));

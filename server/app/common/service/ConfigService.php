@@ -80,6 +80,7 @@ class ConfigService
         }
         if (!empty($name)) {
             $value = (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->where($query)->value('value');
+
             if (!is_null($value)) {
                 $json = json_decode($value, true);
                 $value = json_last_error() === JSON_ERROR_NONE ? $json : $value;

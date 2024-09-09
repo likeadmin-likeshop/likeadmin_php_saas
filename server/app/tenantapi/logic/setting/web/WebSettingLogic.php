@@ -38,9 +38,9 @@ class WebSettingLogic extends BaseLogic
     {
         return [
             'name' => ConfigService::get('website', 'name'),
-            'web_favicon' => FileService::getFileUrl(ConfigService::get('website', 'web_favicon')),
-            'web_logo' => FileService::getFileUrl(ConfigService::get('website', 'web_logo')),
-            'login_image' => FileService::getFileUrl(ConfigService::get('website', 'login_image')),
+            'web_favicon' => FileService::getFileUrl(ConfigService::get('tenant', 'web_favicon')),
+            'web_logo' => FileService::getFileUrl(ConfigService::get('tenant', 'web_logo')),
+            'login_image' => FileService::getFileUrl(ConfigService::get('tenant', 'login_image')),
             
             'shop_name' => ConfigService::get('website', 'shop_name'),
             'shop_logo' => FileService::getFileUrl(ConfigService::get('website', 'shop_logo')),
