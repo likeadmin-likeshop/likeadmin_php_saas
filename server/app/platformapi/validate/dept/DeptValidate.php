@@ -29,22 +29,22 @@ class DeptValidate extends BaseValidate
 {
 
     protected $rule = [
-        'id' => 'require|checkDept',
-        'pid' => 'require|integer',
-        'name' => 'require|unique:'.Dept::class.'|length:1,30',
+        'id'     => 'require|checkDept',
+        'pid'    => 'require|integer',
+        'name'   => 'require|unique:' . Dept::class . '|length:1,30',
         'status' => 'require|in:0,1',
-        'sort' => 'egt:0',
+        'sort'   => 'egt:0',
     ];
 
 
     protected $message = [
-        'id.require' => '参数缺失',
-        'name.require' => '请填写部门名称',
-        'name.length' => '部门名称长度须在1-30位字符',
-        'name.unique' => '部门名称已存在',
-        'sort.egt' => '排序值不正确',
-        'pid.require' => '请选择上级部门',
-        'pid.integer' => '上级部门参数错误',
+        'id.require'     => '参数缺失',
+        'name.require'   => '请填写部门名称',
+        'name.length'    => '部门名称长度须在1-30位字符',
+        'name.unique'    => '部门名称已存在',
+        'sort.egt'       => '排序值不正确',
+        'pid.require'    => '请选择上级部门',
+        'pid.integer'    => '上级部门参数错误',
         'status.require' => '请选择部门状态',
     ];
 

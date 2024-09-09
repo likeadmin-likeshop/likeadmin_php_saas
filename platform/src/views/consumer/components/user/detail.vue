@@ -1,43 +1,43 @@
 <template>
     <div class="edit-popup">
-        <popup ref="popupRef" title="用户详情" :async="true" width="550px" destroy-on-close>
+        <popup ref="popupRef" title="用户详情" :async="true" width="550px">
             <div
                 v-loading="loading"
-                element-loading-text="Loading..."
+                element-loading-text="加载中..."
                 element-loading-background="var(--el-bg-color)"
                 :data="formData.avatar"
             >
-                <el-avatar v-if="formData.avatar" :src="formData.avatar" :size="70" />
-                <el-avatar v-else :size="70"> {{ formData.nickname }} </el-avatar>
-                <el-descriptions :column="1" style="margin-top: 0.625rem">
-                    <el-descriptions-item label-align="right" label="昵称：">
-                        {{ formData.nickname }}
-                        <el-icon v-if="formData.sexCode == 1" color="bule"><Male /></el-icon>
-                        <el-icon v-else color="red"><Female /></el-icon>
+                <el-descriptions :column="1">
+                    <el-descriptions-item label="头像：">
+                        <el-avatar v-if="formData.avatar" :src="formData.avatar" :size="70" />
+                        <el-avatar v-else :size="70"> {{ formData.nickname || '--' }} </el-avatar>
                     </el-descriptions-item>
-                    <el-descriptions-item label-align="right" label="账号：">
-                        {{ formData.account }}
-                        <el-tag :type="formData.is_disable === 0 ? '' : 'danger'">
+                    <el-descriptions-item label="昵称：">
+                        {{ formData.nickname || '--' }}
+                        <el-icon v-if="formData.sexCode == 1" color="bule"><Male /></el-icon>
+                        <el-icon v-if="formData.sexCode == 2" color="red"><Female /></el-icon>
+                    </el-descriptions-item>
+                    <el-descriptions-item label="账号：">
+                        {{ formData.account || '--' }}
+                    </el-descriptions-item>
+                    <el-descriptions-item label="状态：">
+                        <el-tag :type="formData.is_disable === 0 ? 'primary' : 'danger'">
                             {{ formData.is_disable === 0 ? '开启' : '关闭' }}
                         </el-tag>
                     </el-descriptions-item>
-                    <el-descriptions-item label-align="right" :width="140" label="手机号：">
-                        {{ formData.mobile }}
+                    <el-descriptions-item :width="140" label="手机号：">
+                        {{ formData.mobile || '--' }}
                     </el-descriptions-item>
-                    <el-descriptions-item label-align="right" label="来源渠道：">
-                        {{ formData.channel }}
+                    <el-descriptions-item label="来源渠道：">
+                        {{ formData.channel || '--' }}
                     </el-descriptions-item>
-                    <el-descriptions-item label-align="right" label="真实姓名：">
-                        {{ formData.real_name }}
+                    <el-descriptions-item label="真实姓名：">
+                        {{ formData.real_name || '--' }}
                     </el-descriptions-item>
-                    <el-descriptions-item label-align="right" label="创建时间：">
-                        {{ formData.create_time }}
+                    <el-descriptions-item label="创建时间：">
+                        {{ formData.create_time || '--' }}
                     </el-descriptions-item>
-                    <el-descriptions-item
-                        label-align="right"
-                        v-if="formData.login_time"
-                        label="活跃时间："
-                    >
+                    <el-descriptions-item v-if="formData.login_time" label="最近活跃：">
                         {{ formData.login_time }}
                     </el-descriptions-item>
                 </el-descriptions>

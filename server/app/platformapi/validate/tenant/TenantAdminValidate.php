@@ -27,19 +27,19 @@ class TenantAdminValidate extends BaseValidate
 {
 
     protected $rule = [
-        'id' => 'require|checkUser',
+        'id'        => 'require|checkUser',
         'tenant_id' => 'require|checkTenant',
-        'account' => 'require',
-        'name' => 'require',
-        'password' => 'require',
+        'account'   => 'require',
+        'name'      => 'require',
+        'password'  => 'require',
     ];
 
     protected $message = [
-        'id.require' => '请选择用户',
-        'name.require' => '请输入用户名',
-        'account.require' => '请输入账户',
+        'id.require'        => '请选择用户',
+        'name.require'      => '请输入用户名',
+        'account.require'   => '请输入账户',
         'tenant_id.require' => '请选择对应的租户',
-        'password.require' => '请输入账号密码',
+        'password.require'  => '请输入账号密码',
     ];
 
 

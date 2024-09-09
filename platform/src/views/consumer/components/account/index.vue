@@ -37,7 +37,7 @@
             <el-table-column label="账号" prop="account" min-width="100" />
             <el-table-column label="状态" min-width="80">
                 <template #default="{ row }">
-                    <el-tag :type="row.disable === 0 ? '' : 'danger'">
+                    <el-tag :type="row.disable === 0 ? 'primary' : 'danger'">
                         {{ row.disable === 0 ? '开启' : '关闭' }}
                     </el-tag>
                 </template>

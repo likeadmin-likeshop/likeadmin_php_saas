@@ -64,19 +64,17 @@ class TenantController extends BaseAdminController
      */
     public function add()
     {
-
-
+        $params = (new TenantValidate())->post()->goCheck('add');
         try {
             // 开始事务
             DB::startTrans();
             // 验证参数
-            $params = (new TenantValidate())->post()->goCheck('add');
             // 创建租户基本信息
             $tenant = TenantLogic::add($params);
             // 创建租户菜单权限
             TenantSystemMenuLogic::initialization($tenant['id']);
             // 初始化租户管理员账号
-            TenantAdminLogic::initialization($tenant['id'], $tenant['name'], $tenant['sn']);
+            TenantAdminLogic::initialization($tenant['id'], $tenant['sn'], $params);
             // 初始化支付配置是否开启
             PayConfigLogic::initialization($tenant['id']);
             // 初始化支付方式配置
@@ -89,7 +87,7 @@ class TenantController extends BaseAdminController
             // 回滚事务
             DB::rollBack();
             // 处理异常并返回错误信息
-            return $this->fail('新增失败: ' . $e->getMessage(), [], 0, 1);
+            return $this->fail('新增失败' . $e->getMessage());
         }
     }
 

@@ -51,7 +51,7 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
      */
     public function lists(): array
     {
-        $field = "id,sn,name,avatar,disable,create_time";
+        $field = "id,sn,name,avatar,disable,create_time,domain_alias,domain_alias_enable,notes,tel";
 
         $lists = Tenant::withCount(['users'])
             ->withSearch($this->setSearch(), $this->params)
@@ -72,7 +72,13 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
         // 遍历结果，添加 link 字段
         $lists = array_map(function ($item) use ($cleanDomain) {
             // 拼接租户的链接 http://[sn].likeadmin-saas.localhost/tenant/
-            $item['domain'] = 'http://' . $item['sn'] . '.' . $cleanDomain . '/tenant/';
+            $item['default_domain'] = 'http://' . $item['sn'] . '.' . $cleanDomain . '/tenant/';
+
+            if ($item['domain_alias_enable'] === 0) {
+                $item['domain'] = $item['domain_alias'] . '/tenant/';
+            } else {
+                $item['domain'] = $item['default_domain'];
+            }
             return $item;
         }, $lists);
 

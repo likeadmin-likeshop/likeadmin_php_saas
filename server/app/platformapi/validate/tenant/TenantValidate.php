@@ -26,12 +26,12 @@ class TenantValidate extends BaseValidate
 {
 
     protected $rule = [
-        'id' => 'require|checkUser',
+        'id'   => 'require|checkUser',
         'name' => 'require',
     ];
 
     protected $message = [
-        'id.require' => '请选择用户',
+        'id.require'   => '请选择用户',
         'name.require' => '请输入用户名',
     ];
 

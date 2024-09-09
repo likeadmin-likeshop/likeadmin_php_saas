@@ -38,7 +38,7 @@
             <el-table-column label="性别" prop="sex" min-width="60" />
             <el-table-column label="状态" min-width="80">
                 <template #default="{ row }">
-                    <el-tag :type="row.is_disable === 0 ? '' : 'danger'">
+                    <el-tag :type="row.is_disable === 0 ? 'primary' : 'danger'">
                         {{ row.is_disable === 0 ? '开启' : '关闭' }}
                     </el-tag>
                 </template>

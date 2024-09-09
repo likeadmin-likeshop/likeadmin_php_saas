@@ -5,11 +5,14 @@
         title="租户信息"
         direction="rtl"
         size="50%"
-        @open="console.log('open')"
-        @close="console.log('close')"
         :before-close="beforeClose"
     >
-        <div class="h-full flex flex-col">
+        <div
+            class="h-full flex flex-col"
+            v-loading="loading"
+            element-loading-text="加载中..."
+            element-loading-background="var(--el-bg-color)"
+        >
             <div class="flex flex-col pb-1">
                 <div class="bg-page p-4 rounded flex justify-between items-center">
                     <div class="flex items-center gap-4">
@@ -38,7 +41,7 @@
                 </div>
             </div>
 
-            <el-tabs class="flex-1 flex flex-col" v-model="activeName" :before-leave="beforeLeave">
+            <el-tabs class="flex-1" v-model="activeName" :before-leave="beforeLeave">
                 <el-tab-pane label="基础信息" name="profile">
                     <el-form
                         ref="formRef"
@@ -46,13 +49,18 @@
                         :class="{
                             '!grid-cols-1': editStatus
                         }"
-                        label-position="left"
+                        label-position="right"
                         :model="formData"
                         label-width="100px"
+                        :rules="rules"
                     >
-                        <el-form-item v-if="!editStatus" label="租户域名：" class="col-span-2">
-                            <a :href="formData.domain" target="_blank" rel="noopener noreferrer">
-                                {{ formData.domain }}
+                        <el-form-item v-if="!editStatus" label="默认域名：" class="col-span-2">
+                            <a
+                                :href="formData.default_domain"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {{ formData.default_domain || '--' }}
                             </a>
                             <span
                                 class="flex items-center ml-2 cursor-pointer"
@@ -68,7 +76,7 @@
                         <el-form-item v-if="editStatus" label="头像：" prop="avatar">
                             <material-picker v-model="formData.avatar" :limit="1" />
                         </el-form-item>
-                        <el-form-item label="租户名称：">
+                        <el-form-item label="租户名称：" prop="name" :required="editStatus">
                             <el-input
                                 v-if="editStatus"
                                 v-model="formData.name"
@@ -76,20 +84,70 @@
                                 style="max-width: 250px"
                             />
                             <span v-else>
-                                {{ formData.name }}
+                                {{ formData.name || '--' }}
                             </span>
                         </el-form-item>
-                        <el-form-item label="租户状态：">
+                        <el-form-item label="联系方式：">
+                            <el-input
+                                v-if="editStatus"
+                                v-model="formData.tel"
+                                placeholder="请输入联系方式"
+                                style="max-width: 250px"
+                            />
+                            <span v-else>
+                                {{ formData.tel || '--' }}
+                            </span>
+                        </el-form-item>
+                        <el-form-item label="域名别名：" prop="domain_alias">
+                            <el-input
+                                v-if="editStatus"
+                                v-model="formData.domain_alias"
+                                placeholder="请输入域名别名"
+                                style="max-width: 250px"
+                            />
+                            <span v-else>
+                                {{ formData.domain_alias || '--' }}
+                            </span>
+                        </el-form-item>
+                        <el-form-item label="启用别名：" prop="disable">
+                            <div v-if="editStatus">
+                                <el-radio-group v-model="formData.domain_alias_enable">
+                                    <el-radio :label="0">启用</el-radio>
+                                    <el-radio :label="1">禁用</el-radio>
+                                </el-radio-group>
+                                <p class="text-info text-sm">
+                                    Tips：项目线上部署后，配置好域名别名并解析到默认域名后启用即可生效
+                                </p>
+                            </div>
+
+                            <el-tag v-else :type="formData.disable === 0 ? 'primary' : 'danger'">
+                                {{ formData.domain_alias_enable === 0 ? '启用' : '禁用' }}
+                            </el-tag>
+                        </el-form-item>
+                        <el-form-item label="租户状态：" prop="disable">
                             <el-radio-group v-if="editStatus" v-model="formData.disable">
                                 <el-radio :label="0">开启</el-radio>
                                 <el-radio :label="1">关闭</el-radio>
                             </el-radio-group>
-                            <el-tag v-else :type="formData.disable === 0 ? '' : 'danger'">
+                            <el-tag v-else :type="formData.disable === 0 ? 'primary' : 'danger'">
                                 {{ formData.disable === 0 ? '开启' : '关闭' }}
                             </el-tag>
                         </el-form-item>
                         <el-form-item v-if="!editStatus" label="创建时间：">
                             {{ formData.create_time }}
+                        </el-form-item>
+                        <el-form-item label="租户备注：" prop="notes">
+                            <el-input
+                                v-if="editStatus"
+                                v-model="formData.notes"
+                                placeholder="请输入租户备注"
+                                style="max-width: 250px"
+                                type="textarea"
+                                :maxlength="100"
+                            />
+                            <span v-else>
+                                {{ formData.notes || '--' }}
+                            </span>
                         </el-form-item>
                     </el-form>
                 </el-tab-pane>
@@ -119,29 +177,58 @@ interface DetailType {
     name: string
     sn: string
     domain: string
+    default_domain: string
     id: number
     disable: number
+    tel: string
+    domain_alias: string
+    domain_alias_enable: number
+    notes: string
 }
 
 const drawer = ref(false)
 const formRef = shallowRef<FormInstance>()
 const tenantId = ref<number>()
-const activeName = ref<string>('profile')
+const activeName = ref<'profile' | 'accounts' | 'users'>('profile')
 const editStatus = ref<boolean>(false)
 const tempFormData = ref<DetailType>()
+const loading = ref<boolean>(true)
 const formData = ref<DetailType>({
     avatar: '',
     create_time: '',
     name: '',
     sn: '',
     domain: '',
+    default_domain: '',
     id: 0,
-    disable: 0
+    disable: 0,
+    tel: '',
+    domain_alias: '',
+    domain_alias_enable: 1,
+    notes: ''
 })
+
+const rules = {
+    avatar: [
+        {
+            required: true,
+            message: '请选择头像',
+            trigger: ['change']
+        }
+    ],
+    name: [
+        {
+            required: true,
+            message: '请输入租户名称',
+            trigger: ['blur']
+        }
+    ]
+}
 
 const emits = defineEmits(['refresh'])
 
-const openHandle = (id: number, status?: boolean, tabIndex?: string) => {
+const openHandle = (id: number, status?: boolean, tabIndex?: 'profile' | 'accounts' | 'users') => {
+    loading.value = true
     activeName.value = tabIndex || 'profile'
     editStatus.value = status || false
     getDetails(id)
@@ -163,6 +250,7 @@ const getDetails = async (id: number) => {
     const data: DetailType = await getUserDetail({
         id: id
     })
+    loading.value = false
     formData.value = data
     tempFormData.value = cloneDeep(formData.value)
 }
@@ -183,7 +271,16 @@ const beforeClose = (done: () => void) => {
 
 const handleEdit = async (save?: boolean) => {
     if (editStatus.value) {
-        save ? await submitEdit() : (formData.value = tempFormData.value as DetailType)
+        if (save) {
+            await formRef.value?.validate()
+            await submitEdit()
+        } else {
+            formData.value = tempFormData.value as DetailType
+            formRef.value?.clearValidate()
+        }
+    } else {
+        activeName.value = 'profile'
+        await nextTick()
     }
     editStatus.value = !editStatus.value
 }

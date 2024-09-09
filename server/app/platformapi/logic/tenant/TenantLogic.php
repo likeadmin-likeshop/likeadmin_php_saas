@@ -35,10 +35,14 @@ class TenantLogic extends BaseLogic
     public static function add(array $params)
     {
         return Tenant::create([
-            'sn'      => Tenant::createUserSn(),
-            'name'    => $params['name'],
-            'avatar'  => $params['avatar'],
-            'disable' => $params['disable'] ?? 0
+            'sn'                  => Tenant::createUserSn(),
+            'name'                => $params['name'],
+            'avatar'              => $params['avatar'],
+            'tel'                 => $params['tel'],
+            'domain_alias'        => $params['domain_alias'],
+            'domain_alias_enable' => $params['domain_alias_enable'],
+            'disable'             => $params['disable'] ?? 0,
+            'notes'               => $params['notes'] ?? '',
         ]);
     }
 
@@ -51,7 +55,7 @@ class TenantLogic extends BaseLogic
      */
     public static function detail(int $userId): array
     {
-        $field = "id,sn,name,avatar,disable,create_time";
+        $field = "id,sn,name,avatar,tel,domain_alias,domain_alias_enable,disable,create_time,notes";
 
         $user = Tenant::where(['id' => $userId])->field($field)->find();
         $user['user_total'] = User::where(['tenant_id' => $userId])->count();
@@ -59,7 +63,12 @@ class TenantLogic extends BaseLogic
         $domain = request()->domain();
         $parsedDomain = parse_url($domain, PHP_URL_HOST); // 获取域名部分
         $cleanDomain = preg_replace('/^www\./', '', $parsedDomain);
-        $user['domain'] = 'http://' . $user['sn'] . '.' . $cleanDomain . '/tenant/';
+        $user['default_domain'] = 'http://' . $user['sn'] . '.' . $cleanDomain . '/tenant/';
+        if ($user['domain_alias_enable'] === 0) {
+            $user['domain'] = $user['domain_alias'] . '/tenant/';
+        } else {
+            $user['domain'] = $user['default_domain'];
+        }
 
         return $user->toArray();
     }
@@ -76,10 +85,14 @@ class TenantLogic extends BaseLogic
     {
         try {
             Tenant::update([
-                'id'      => $params['id'],
-                'name'    => $params['name'],
-                'avatar'  => $params['avatar'],
-                'disable' => $params['disable'] ?? 0
+                'id'                  => $params['id'],
+                'name'                => $params['name'],
+                'avatar'              => $params['avatar'],
+                'disable'             => $params['disable'] ?? 0,
+                'tel'                 => $params['tel'],
+                'domain_alias'        => $params['domain_alias'],
+                'domain_alias_enable' => $params['domain_alias_enable'],
+                'notes'               => $params['notes'] ?? '',
             ]);
             return true;
         } catch (\Exception $e) {

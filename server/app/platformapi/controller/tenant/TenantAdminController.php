@@ -49,7 +49,7 @@ class TenantAdminController extends BaseAdminController
     {
         $params = (new TenantAdminValidate())->goCheck('detail');
         $detail = TenantAdminLogic::detail($params['id']);
-        return $this->success('获取租户详情成功', $detail);
+        return $this->success('获取成功', $detail);
     }
 
     /**
@@ -78,25 +78,6 @@ class TenantAdminController extends BaseAdminController
     {
         $params = (new TenantAdminValidate())->post()->goCheck('edit');
         $result = TenantAdminLogic::edit($params);
-        if (true === $result) {
-            return $this->success('操作成功', [], 1, 1);
-        }
-        return $this->fail(TenantAdminLogic::getError());
-    }
-
-    /**
-     * @notes 修改密码
-     * @return \think\response\Json
-     * @author yfdong
-     * @date 2024/09/04 23:00
-     */
-    public function changePassword()
-    {
-        $params = (new PasswordValidate())->post()->goCheck('changePassword');
-        if (!isset($params['id'])) {
-            return $this->fail('修改的用户标识不能为空', [], 1, 1);
-        }
-        $result = TenantAdminLogic::changePassword($params, (int)$params['id']);
         if (true === $result) {
             return $this->success('操作成功', [], 1, 1);
         }
