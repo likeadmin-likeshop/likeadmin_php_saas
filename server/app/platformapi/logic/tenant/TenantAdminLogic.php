@@ -22,7 +22,7 @@ use app\common\model\auth\TenantAdminDept;
 use app\common\model\auth\TenantAdminJobs;
 use app\common\model\auth\TenantAdminRole;
 use app\common\model\auth\TenantAdminSession;
-use app\common\service\TenantFileService;
+use app\common\service\FileService;
 use think\facade\Db;
 use think\facade\Config;
 
@@ -47,7 +47,7 @@ class TenantAdminLogic extends BaseLogic
             $passwordSalt = Config::get('project.unique_identification');
             $password = create_password($params['password'], $passwordSalt);
             $defaultAvatar = config('project.default_image.admin_avatar');
-            $avatar = !empty($params['avatar']) ? TenantFileService::setFileUrl($params['avatar'], $params['tenant_id']) : $defaultAvatar;
+            $avatar = !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : $defaultAvatar;
 
             $admin = TenantAdmin::create([
                 'name'             => $params['name'],
@@ -115,7 +115,7 @@ class TenantAdminLogic extends BaseLogic
             ];
 
             // 头像
-            $data['avatar'] = !empty($params['avatar']) ? TenantFileService::setFileUrl($params['avatar'], $params['tenant_id']) : '';
+            $data['avatar'] = !empty($params['avatar']) ? FileService::setFileUrl($params['avatar']) : '';
 
             // 密码
             if (!empty($params['password'])) {
