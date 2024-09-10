@@ -119,11 +119,11 @@ class PayWayLogic extends BaseLogic
      */
     public static function initialization(mixed $tenant_id)
     {
-        $payConfigList = TenantPayConfig::where(['tenant_id' => $tenant_id])->select();
+        $payConfigList = TenantPayConfig::where(['tenant_id' => $tenant_id])->select()->toArray();
         //支付方式配置
         $field = "pay_config_id,scene,is_default,status";
         //查询支付方式配置 此处默认为租户号为0的模板数据
-        $payWayList = TenantPayWay::where(['tenant_id' => '0'])->field($field)->select();
+        $payWayList = TenantPayWay::where(['tenant_id' => 0])->field($field)->select()->toArray();
         foreach ($payWayList as $item) {
             $item['tenant_id'] = $tenant_id;
             //匹配对应复制的支付方式配置
@@ -132,27 +132,8 @@ class PayWayLogic extends BaseLogic
                     $item['pay_config_id'] = $payConfig['id'];
                 }
             }
-            TenantPayWay::create(self::toArray($item));
+            TenantPayWay::create($item);
         }
-    }
-
-    /**
-     * @notes 对象转数组
-     * @param mixed $payWay
-     * @return array
-     * @author yfdong
-     * @date 2024/09/07 13:07
-     */
-    private static function toArray(mixed $payWay): array
-    {
-        return [
-            'id' => $payWay['id'],
-            'tenant_id' => $payWay['tenant_id'],
-            'pay_config_id' => $payWay['pay_config_id'],
-            'scene' => $payWay['scene'],
-            'is_default' => $payWay['is_default'],
-            'status' => $payWay['status']
-        ];
     }
 }
 

@@ -32,12 +32,12 @@ class LoginValidate extends BaseValidate
 {
     protected $rule = [
         'terminal' => 'require|in:' . AdminTerminalEnum::PC . ',' . AdminTerminalEnum::MOBILE,
-        'account' => 'require',
+        'account'  => 'require',
         'password' => 'require|password',
     ];
 
     protected $message = [
-        'account.require' => '请输入账号',
+        'account.require'  => '请输入账号',
         'password.require' => '请输入密码'
     ];
 
@@ -57,9 +57,9 @@ class LoginValidate extends BaseValidate
     {
         // 登录限制
         $config = [
-            'login_restrictions' => ConfigService::get('admin_login', 'login_restrictions'),
+            'login_restrictions'   => ConfigService::get('admin_login', 'login_restrictions'),
             'password_error_times' => ConfigService::get('admin_login', 'password_error_times'),
-            'limit_login_time' => ConfigService::get('admin_login', 'limit_login_time'),
+            'limit_login_time'     => ConfigService::get('admin_login', 'limit_login_time'),
         ];
 
         $adminAccountSafeCache = new AdminAccountSafeCache();
@@ -73,7 +73,7 @@ class LoginValidate extends BaseValidate
             return '密码连续' . $adminAccountSafeCache->count . '次输入错误，请' . $adminAccountSafeCache->minute . '分钟后重试';
         }
 
-        $adminInfo = TenantAdmin::where('account', '=', $data['account'])
+        $adminInfo = TenantAdmin::where(['account' => $data['account'], 'tenant_id' => $this->request->tenantId])
             ->field(['password,disable'])
             ->findOrEmpty();
 

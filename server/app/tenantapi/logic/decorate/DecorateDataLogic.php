@@ -16,6 +16,7 @@ namespace app\tenantapi\logic\decorate;
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
 use app\common\model\decorate\DecoratePage;
+use app\common\model\decorate\DecorateTabbar;
 
 /**
  * 装修页-数据
@@ -40,7 +41,7 @@ class DecorateDataLogic extends BaseLogic
         $field = 'id,title,desc,abstract,image,author,content,
         click_virtual,click_actual,create_time';
 
-        return Article::where(['is_show' => 1])
+        return Article::withoutGlobalScope()->where(['is_show' => 1, 'tenant_id' => 0])
             ->field($field)
             ->order(['id' => 'desc'])
             ->limit($limit)
@@ -65,7 +66,31 @@ class DecorateDataLogic extends BaseLogic
         ];
     }
 
-
-
-
+    /**
+     * @notes 初始化装修配置
+     * @param mixed $tenant_id
+     * @return void
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author JXDN
+     * @date 2024/09/10 15:46
+     */
+    public static function initialization(mixed $tenant_id)
+    {
+        // 支付方式配置
+        $page_field = "name,type,data,meta,tenant_id";
+        $tabbar_field = "name,selected,unselected,link,is_show,tenant_id";
+        // 查询装修配置模版数据，此处默认为租户号为0的模板数据
+        $pageList = DecoratePage::where(['tenant_id' => 0])->field($page_field)->select()->toArray();
+        $tabbarList = DecorateTabbar::where(['tenant_id' => 0])->field($tabbar_field)->select()->toArray();
+        foreach ($pageList as $item) {
+            $item['tenant_id'] = $tenant_id;
+            DecoratePage::create($item);
+        }
+        foreach ($tabbarList as $item) {
+            $item['tenant_id'] = $tenant_id;
+            DecorateTabbar::create($item);
+        }
+    }
 }

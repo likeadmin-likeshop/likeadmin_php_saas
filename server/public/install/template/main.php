@@ -36,7 +36,7 @@
                                 阅读许可协议
                             </div>
                             <div class="content">
-                                <h2>Likeadmin-SaaS应用授权协议</h2>
+                                <h2>likeadmin应用授权协议</h2>
                                 <div class="white-space;pre">
 
                                 </div>

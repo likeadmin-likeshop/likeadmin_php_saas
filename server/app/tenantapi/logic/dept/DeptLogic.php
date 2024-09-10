@@ -195,6 +195,9 @@ class DeptLogic extends BaseLogic
             ->select()
             ->toArray();
 
+        if(empty($data)) {
+            return [];
+        }
         $pid = min(array_column($data, 'pid'));
         return self::getTree($data, $pid);
     }

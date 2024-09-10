@@ -1,7 +1,6 @@
 <template>
     <div class="edit-popup">
         <popup
-            destroy-on-close
             ref="popupRef"
             :title="popupTitle"
             :async="true"
@@ -138,7 +137,6 @@ import { jobsAll } from '@/api/org/post'
 import { roleAll } from '@/api/perms/role'
 import Popup from '@/components/popup/index.vue'
 import { useDictOptions } from '@/hooks/useDictOptions'
-
 const props = defineProps({
     tenant_id: {
         type: Number,
@@ -287,7 +285,7 @@ const setFormData = async (id: number) => {
 }
 
 const handleClose = () => {
-    emit('close')
+    formRef.value?.resetFields()
 }
 
 defineExpose({

@@ -106,32 +106,10 @@ class PayConfigLogic extends BaseLogic
         //支付方式配置
         $field = "name,pay_way,config,icon,sort,remark,tenant_id";
         //查询支付方式配置 此处默认为租户号为0的模板数据
-        $payConfigList = TenantPayConfig::where(['tenant_id' => '0'])->field($field)->select();
+        $payConfigList = TenantPayConfig::where(['tenant_id' => 0])->field($field)->select()->toArray();
         foreach ($payConfigList as $item) {
             $item['tenant_id'] = $tenant_id;
-            TenantPayConfig::create(self::toArray($item));
+            TenantPayConfig::create($item);
         }
     }
-
-    /**
-     * @notes 对象转数组
-     * @param mixed $payConfig
-     * @return array
-     * @author yfdong
-     * @date 2024/09/07 13:05
-     */
-    private static function toArray(mixed $payConfig): array
-    {
-        return [
-            'id'=>$payConfig['id'],
-            'tenant_id'=>$payConfig['tenant_id'],
-            'name' => $payConfig['name'],
-            'pay_way' => $payConfig['pay_way'],
-            'config' => $payConfig['config'],
-            'icon' => $payConfig['icon'],
-            'sort' => $payConfig['sort'],
-            'remark' => $payConfig['remark']
-        ];
-    }
-
 }

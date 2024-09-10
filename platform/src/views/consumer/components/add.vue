@@ -4,8 +4,9 @@
         title="新增租户"
         direction="rtl"
         size="50%"
-        destroy-on-close
+        :destroy-on-close="true"
         :before-close="beforeClose"
+        @close="afterClose"
     >
         <el-form
             ref="formRef"
@@ -124,7 +125,7 @@ interface DetailType {
     repassword: string
 }
 
-const drawer = ref(false)
+const drawer = ref<boolean>(false)
 const formRef = shallowRef<FormInstance>()
 const submited = ref<boolean>(false)
 const formData = ref<DetailType>({
@@ -170,6 +171,7 @@ const rules: FormRules = {
 const emits = defineEmits(['refresh'])
 
 const openHandle = () => {
+    submited.value = false
     drawer.value = true
 }
 
@@ -182,6 +184,10 @@ const beforeClose = (done: () => void) => {
         .catch(() => {
             console.log('取消')
         })
+}
+
+const afterClose = () => {
+    formRef.value?.resetFields()
 }
 
 const submitEdit = async () => {

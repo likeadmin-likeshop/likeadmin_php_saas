@@ -112,9 +112,9 @@ const getSelectWidget = computed(() => {
 })
 
 const getData = async () => {
-    const data = await getDecoratePages({ id: activeMenu.value })
-    menus[String(data.id)].pageData = JSON.parse(data.data)
-    menus[String(data.id)].pageMeta = data?.meta ? JSON.parse(data?.meta) : null
+    const data = await getDecoratePages({ type: activeMenu.value })
+    menus[String(data.type)].pageData = JSON.parse(data.data)
+    menus[String(data.type)].pageMeta = data?.meta ? JSON.parse(data?.meta) : null
 }
 
 const setData = async () => {

@@ -5,6 +5,7 @@
         title="租户信息"
         direction="rtl"
         size="50%"
+        @close="afterClose"
         :before-close="beforeClose"
     >
         <div
@@ -267,6 +268,10 @@ const beforeClose = (done: () => void) => {
     } else {
         done()
     }
+}
+
+const afterClose = () => {
+    formRef.value?.resetFields()
 }
 
 const handleEdit = async (save?: boolean) => {

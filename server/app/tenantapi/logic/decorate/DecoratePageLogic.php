@@ -34,9 +34,9 @@ class DecoratePageLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/14 18:41
      */
-    public static function getDetail($id)
+    public static function getDetail($type)
     {
-        return DecoratePage::findOrEmpty($id)->toArray();
+        return DecoratePage::where(['type' => $type])->findOrEmpty()->toArray();
     }
 
 

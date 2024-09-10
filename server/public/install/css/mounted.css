@@ -288,8 +288,9 @@ img {
 
 .success-content .tips {
     width: 400px;
-    height: 80px;
-    padding: 9px 18px;
+    /*height: 80px;*/
+    padding: 18px;
+    border-radius: 8px;
     background-color: #F8F8F8;
     font-size: 12px;
     margin-top: 10px;
