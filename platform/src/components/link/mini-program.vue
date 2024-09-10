@@ -45,11 +45,11 @@
             <div class="ml-4 flex-1 min-w-[100px]">
                 <el-radio-group
                     :model-value="modelValue.query?.env_version"
-                    @change="(value) => handleInput('env_version', value)"
+                    @change="(value) => handleInput('env_version', value as string)"
                 >
-                    <el-radio label="release">正式版</el-radio>
-                    <el-radio label="trial">体验版</el-radio>
-                    <el-radio label="develop">开发版</el-radio>
+                    <el-radio value="release">正式版</el-radio>
+                    <el-radio value="trial">体验版</el-radio>
+                    <el-radio value="develop">开发版</el-radio>
                 </el-radio-group>
             </div>
         </div>

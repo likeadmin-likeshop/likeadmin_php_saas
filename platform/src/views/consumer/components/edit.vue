@@ -112,8 +112,8 @@
                         <el-form-item label="启用别名：" prop="disable">
                             <div v-if="editStatus">
                                 <el-radio-group v-model="formData.domain_alias_enable">
-                                    <el-radio :label="0">启用</el-radio>
-                                    <el-radio :label="1">禁用</el-radio>
+                                    <el-radio :value="0">启用</el-radio>
+                                    <el-radio :value="1">禁用</el-radio>
                                 </el-radio-group>
                                 <p class="text-info text-sm">
                                     Tips：项目线上部署后，配置好域名别名并解析到默认域名后启用即可生效
@@ -126,8 +126,8 @@
                         </el-form-item>
                         <el-form-item label="租户状态：" prop="disable">
                             <el-radio-group v-if="editStatus" v-model="formData.disable">
-                                <el-radio :label="0">开启</el-radio>
-                                <el-radio :label="1">关闭</el-radio>
+                                <el-radio :value="0">开启</el-radio>
+                                <el-radio :value="1">关闭</el-radio>
                             </el-radio-group>
                             <el-tag v-else :type="formData.disable === 0 ? 'primary' : 'danger'">
                                 {{ formData.disable === 0 ? '开启' : '关闭' }}

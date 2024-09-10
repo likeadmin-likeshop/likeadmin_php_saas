@@ -10,7 +10,7 @@
         >
             <el-form ref="formRef" :model="formData" label-width="84px" :rules="formRules">
                 <el-form-item label="支付方式">
-                    <el-radio :label="popupTitle" :model-value="popupTitle" />
+                    <el-radio :value="popupTitle" :model-value="popupTitle" />
                 </el-form-item>
                 <el-form-item label="显示名称" prop="name">
                     <el-input v-model="formData.name" placeholder="请输入显示名称" />
@@ -25,7 +25,7 @@
                     <el-form-item prop="config.interface_version" label="微信支付接口版本">
                         <div>
                             <el-radio-group v-model="formData.config.interface_version">
-                                <el-radio label="v3"></el-radio>
+                                <el-radio value="v3"></el-radio>
                             </el-radio-group>
                             <div class="form-tips">暂时只支持V3版本</div>
                         </div>
@@ -34,7 +34,7 @@
                     <el-form-item label="商户类型" prop="config.merchant_type">
                         <div>
                             <el-radio-group v-model="formData.config.merchant_type">
-                                <el-radio label="ordinary_merchant">普通商户</el-radio>
+                                <el-radio value="ordinary_merchant">普通商户</el-radio>
                             </el-radio-group>
                             <div class="form-tips">
                                 暂时只支持普通商户类型，服务商户类型模式暂不支持
@@ -107,7 +107,7 @@
                     <el-form-item label="模式" prop="config.mode">
                         <div>
                             <el-radio-group v-model="formData.config.mode">
-                                <el-radio label="normal_mode">普通模式</el-radio>
+                                <el-radio value="normal_mode">普通模式</el-radio>
                             </el-radio-group>
                             <div class="form-tips">暂时仅支持支付宝普通模式</div>
                         </div>
@@ -116,7 +116,7 @@
                     <el-form-item label="商户类型" prop="config.merchant_type">
                         <div>
                             <el-radio-group v-model="formData.config.merchant_type">
-                                <el-radio label="ordinary_merchant">普通商户</el-radio>
+                                <el-radio value="ordinary_merchant">普通商户</el-radio>
                             </el-radio-group>
                             <div class="form-tips">
                                 暂时只支持普通商户类型，服务商户类型模式暂不支持
