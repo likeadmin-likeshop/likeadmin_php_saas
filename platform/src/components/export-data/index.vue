@@ -61,7 +61,6 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { Arrayable } from '@vueuse/core'
 import type { FormInstance, FormItemRule } from 'element-plus'
 
 import Popup from '@/components/popup/index.vue'
@@ -90,7 +89,7 @@ const formData = reactive({
     file_name: ''
 })
 
-const formRules: Partial<Record<string, Arrayable<FormItemRule>>> = {
+const formRules: Partial<Record<string, Array<FormItemRule>>> = {
     page_start: [
         { required: true, message: '请输入起始页码' },
         { type: 'number', message: '页码必须是整数' },

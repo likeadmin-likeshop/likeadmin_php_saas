@@ -26,8 +26,8 @@
                     </el-form-item>
                     <el-form-item prop="page_type" label="导出范围：" required>
                         <el-radio-group v-model="formData.page_type">
-                            <el-radio :label="0">全部导出</el-radio>
-                            <el-radio :label="1">分页导出</el-radio>
+                            <el-radio :value="0">全部导出</el-radio>
+                            <el-radio :value="1">分页导出</el-radio>
                         </el-radio-group>
                     </el-form-item>
                     <el-form-item label="分页范围：" v-if="formData.page_type == 1">
@@ -61,7 +61,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, FormItemRule } from 'element-plus'
 
 import Popup from '@/components/popup/index.vue'
 import feedback from '@/utils/feedback'
@@ -89,7 +89,7 @@ const formData = reactive({
     file_name: ''
 })
 
-const formRules = {
+const formRules: Partial<Record<string, Array<FormItemRule>>> = {
     page_start: [
         { required: true, message: '请输入起始页码' },
         { type: 'number', message: '页码必须是整数' },
