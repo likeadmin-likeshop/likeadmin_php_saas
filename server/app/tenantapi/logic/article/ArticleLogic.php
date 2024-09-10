@@ -118,4 +118,22 @@ class ArticleLogic extends BaseLogic
         ]);
         return true;
     }
+
+    /**
+     * @notes 初始化租户文章列表
+     * @param mixed $tenant_id
+     * @return void
+     * @author yfdong
+     * @date 2024/09/10 20:59
+     */
+    public static function initialization(mixed $tenant_id)
+    {
+        $field = 'tenant_id,cid,title,desc,abstract,image,author,content,click_virtual,click_actual,is_show,sort';
+        // 初始化文章
+        $templateArticle = Article::where('tenant_id', 0)->field($field)->select()->toArray();
+        foreach ($templateArticle as $item) {
+            $item['tenant_id'] = $tenant_id;
+            Article::create($item);
+        }
+    }
 }

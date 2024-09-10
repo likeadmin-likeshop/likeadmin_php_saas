@@ -21,6 +21,7 @@ use app\platformapi\logic\tenant\TenantAdminLogic;
 use app\platformapi\logic\tenant\TenantLogic;
 use app\platformapi\logic\tenant\TenantSystemMenuLogic;
 use app\platformapi\validate\tenant\TenantValidate;
+use app\tenantapi\logic\article\ArticleLogic;
 use app\tenantapi\logic\decorate\DecorateDataLogic;
 use think\facade\Db;
 
@@ -74,6 +75,8 @@ class TenantController extends BaseAdminController
             $tenant = TenantLogic::add($params);
             // 创建默认装修数据
             DecorateDataLogic::initialization($tenant['id']);
+            // 初始化租户文章列表
+            ArticleLogic::initialization($tenant['id']);
             // 创建租户菜单权限
             TenantSystemMenuLogic::initialization($tenant['id']);
             // 初始化租户管理员账号
