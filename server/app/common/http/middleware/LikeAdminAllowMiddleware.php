@@ -110,7 +110,7 @@ class LikeAdminAllowMiddleware
     {
         // 通过别名访问租户
         $tenant = $tenantModel->where(['domain_alias' => $domain])->findOrEmpty();
-        if (!$tenant->isEmpty() && $tenant->disable === 0) {
+        if (!$tenant->isEmpty() && $tenant->disable === 0 && $tenant->domain_alias_enable === 0) {
             $request->tenantId = $tenant->id;
             $request->tenantSn = $tenant->sn;
             return $next($request);
