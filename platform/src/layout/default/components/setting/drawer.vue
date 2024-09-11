@@ -27,12 +27,6 @@
                     </div>
                 </div>
                 <div class="setting-item mb-5 flex justify-between items-center">
-                    <span class="text-tx-secondary">主题颜色</span>
-                    <div>
-                        <el-color-picker v-model="theme" :predefine="predefineColors" />
-                    </div>
-                </div>
-                <div class="setting-item mb-5 flex justify-between items-center">
                     <span class="text-tx-secondary">开启黑暗模式</span>
                     <div>
                         <el-switch :model-value="isDark" @change="toggleDark" />
@@ -100,7 +94,6 @@ import theme_light from '@/assets/images/theme_white.png'
 import useSettingStore from '@/stores/modules/setting'
 
 const settingStore = useSettingStore()
-const predefineColors = ref(['#409EFF', '#28C76F', '#EA5455', '#FF9F43', '#01CFE8', '#4A5DFF'])
 const sideThemeList = [
     {
         type: 'dark',
@@ -168,18 +161,6 @@ const showSetting = computed({
             key: 'showDrawer',
             value
         })
-    }
-})
-const theme = computed({
-    get() {
-        return settingStore.theme
-    },
-    set(value) {
-        settingStore.setSetting({
-            key: 'theme',
-            value
-        })
-        themeChange()
     }
 })
 

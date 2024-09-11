@@ -18,14 +18,14 @@
                         <div class="w-20">获取渠道</div>
                         <div>
                             <a :href="workbenchData.version.channel.website" target="_blank">
-                                <el-button type="info" size="small">官网</el-button>
+                                <el-button type="success" size="small">官网</el-button>
                             </a>
                             <a
                                 class="ml-3"
                                 :href="workbenchData.version.channel.gitee"
                                 target="_blank"
                             >
-                                <el-button type="primary" size="small">Gitee</el-button>
+                                <el-button type="danger" size="small">Gitee</el-button>
                             </a>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="w-1/2 md:w-1/4">
-                        <div class="leading-10">租户数量</div>
+                        <div class="leading-10">新增访问量</div>
                         <div class="text-6xl">{{ workbenchData.today.today_visitor }}</div>
                         <div class="text-tx-secondary text-xs">
                             总：{{ workbenchData.today.total_visitor }}
@@ -124,7 +124,6 @@
 </template>
 
 <script lang="ts" setup name="workbench">
-import { useDark } from '@vueuse/core'
 import vCharts from 'vue-echarts'
 
 import { getWorkbench } from '@/api/app'
@@ -135,20 +134,10 @@ import { calcColor } from '@/utils/util'
 const settingStore = useSettingStore()
 const saleChart = useComponentRef(vCharts)
 const visitorChart = useComponentRef(vCharts)
-const isDark = useDark()
-const themeColor = ref<string>(isDark.value ? '#ffffff' : settingStore.theme)
 
 watch(
     () => settingStore.theme,
     () => {
-        updateColor()
-    }
-)
-
-watch(
-    () => settingStore.mode,
-    (mode) => {
-        themeColor.value = mode === 'light' ? settingStore.theme : '#ffffff'
         updateColor()
     }
 )
@@ -190,9 +179,9 @@ const workbenchData: any = reactive({
                 data: [],
                 type: 'line',
                 smooth: true,
-                color: themeColor.value,
+                color: settingStore.theme,
                 lineStyle: {
-                    color: themeColor.value,
+                    color: settingStore.theme,
                     width: 2
                 },
                 areaStyle: {
@@ -205,11 +194,11 @@ const workbenchData: any = reactive({
                         colorStops: [
                             {
                                 offset: 0,
-                                color: themeColor.value
+                                color: settingStore.theme
                             },
                             {
                                 offset: 1,
-                                color: themeColor.value
+                                color: settingStore.theme
                             }
                         ]
                     },
@@ -253,11 +242,11 @@ const workbenchData: any = reactive({
                         colorStops: [
                             {
                                 offset: 0,
-                                color: calcColor(themeColor.value, 0.7)
+                                color: calcColor(settingStore.theme, 0.7)
                             },
                             {
                                 offset: 1,
-                                color: themeColor.value
+                                color: settingStore.theme
                             }
                         ]
                     }
@@ -327,26 +316,26 @@ const getData = () => {
 }
 
 const updateColor = () => {
-    workbenchData.visitorOption.series[0].color = themeColor.value
-    workbenchData.visitorOption.series[0].lineStyle.color = themeColor.value
+    workbenchData.visitorOption.series[0].color = settingStore.theme
+    workbenchData.visitorOption.series[0].lineStyle.color = settingStore.theme
     workbenchData.visitorOption.series[0].areaStyle.color.colorStops = [
         {
             offset: 0,
-            color: themeColor.value
+            color: settingStore.theme
         },
         {
             offset: 1,
-            color: themeColor.value
+            color: settingStore.theme
         }
     ]
     workbenchData.saleOption.series[0].itemStyle.color.colorStops = [
         {
             offset: 0,
-            color: calcColor(themeColor.value, 0.7)
+            color: calcColor(settingStore.theme, 0.7)
         },
         {
             offset: 1,
-            color: themeColor.value
+            color: settingStore.theme
         }
     ]
 
