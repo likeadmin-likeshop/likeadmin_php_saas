@@ -49,7 +49,7 @@ class LoginLogic extends BaseLogic
         //设置token
         $adminInfo = TenantTokenService::setToken($admin->id, $params['terminal'], $admin->multipoint_login);
         //返回登录信息
-        $avatar = $admin->avatar ? $admin->avatar : Config::get('project.default_image.admin_avatar');
+        $avatar = $admin->avatar ?: Config::get('project.default_image.admin_avatar');
         $avatar = FileService::getFileUrl($avatar);
         return [
             'name' => $adminInfo['name'],
