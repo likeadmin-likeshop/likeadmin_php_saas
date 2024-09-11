@@ -55,6 +55,7 @@ class LikeAdminAllowMiddleware
             if($tenant->disable === 0) {
                 // 通过别名访问
                 $request->tenantId = $tenant->tenant_id;
+                $request->tenantSn = $tenant->sn;
             } else {
                 return JsonService::fail('该租户已停用', [], 3, 0);
             }
