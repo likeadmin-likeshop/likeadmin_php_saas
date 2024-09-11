@@ -86,4 +86,11 @@ const queryStr = computed<string>(() => {
         vertical-align: middle;
     }
 }
+
+:deep(.el-menu-item.is-active) {
+    color: var(--el-menu-text-color) !important;
+    border-right-width: 2px;
+    border-color: var(--el-text-color-primary) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
 </style>

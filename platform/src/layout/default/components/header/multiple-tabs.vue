@@ -83,6 +83,7 @@ const handleCommand = (command: any) => {
                 padding: 0 15px !important;
                 box-sizing: border-box;
                 &.is-active {
+                    color: var(--el-text-color-primary);
                     background-color: var(--el-color-primary-light-9);
                     &::before {
                         content: '';
@@ -116,6 +117,34 @@ const handleCommand = (command: any) => {
             }
             &__active-bar {
                 display: none;
+            }
+        }
+    }
+}
+
+.dark {
+    .app-tabs {
+        :deep(.el-tabs) {
+            .el-tabs {
+                &__item {
+                    &.is-active {
+                        color: var(--el-text-color-primary);
+                        background-color: rgba(255, 255, 255, 0.1);
+                        &::before {
+                            background-color: #fff;
+                        }
+                        &::after {
+                            background-color: var(--el-text-color-primary);
+                        }
+                    }
+                    .is-icon-close {
+                        color: var(--el-text-color-regular);
+                        &:hover {
+                            color: var(--color-white);
+                            background-color: var(--el-color-danger);
+                        }
+                    }
+                }
             }
         }
     }

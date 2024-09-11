@@ -13,6 +13,7 @@ export const useSettingStore = defineStore({
     state: () => {
         const state = {
             showDrawer: false,
+            mode: '',
             ...defaultSetting
         }
         isObject(storageSetting) && Object.assign(state, storageSetting)
@@ -32,6 +33,7 @@ export const useSettingStore = defineStore({
         },
         // 设置主题色
         setTheme(isDark: boolean) {
+            this.mode = isDark ? 'dark' : 'light'
             setTheme(
                 {
                     primary: this.theme,
