@@ -47,13 +47,29 @@ class LikeAdminAllowMiddleware
             return response();
         }
 
+        // 判断租户是否有配置并启用别名
+        $tenantModel = Tenant::withoutGlobalScope();
+        $domain = preg_replace('/^https?:\/\/|\/$/', '', $request->domain());
+        $tenant = $tenantModel->where(['domain_alias' => $domain])->findOrEmpty();
+        if(!empty($tenant)) {
+            if($tenant->disable === 0) {
+                // 通过别名访问
+                $request->tenantId = $tenant->tenant_id;
+            } else {
+                return JsonService::fail('该租户已停用', [], 3, 0);
+            }
+        } else {
+            return JsonService::fail('域名错误或租户不存在', [], 4, 0);
+        }
+
+        // 默认域名访问
         $host_arr = explode('/', $request->pathinfo());
 
         // 区分是访问页面还是访问接口
         if (str_contains($host_arr[0], 'api') !== false) {
             if ($host_arr[0] !== 'platformapi') {
                 $request->tenantSn = $request->subDomain();
-                $tenant = Tenant::where(['sn' => $request->tenantSn])->findOrEmpty();
+                $tenant = $tenantModel->where(['sn' => $request->tenantSn])->findOrEmpty();
                 if (!$tenant->isEmpty() && $tenant['status'] !== 2) {
                     if ($tenant['disable'] === 0) {
                         $request->tenantId = $tenant->id;
@@ -67,7 +83,7 @@ class LikeAdminAllowMiddleware
         } else {
             if ($host_arr[0] !== 'platform') {
                 $request->tenantSn = $request->subDomain();
-                $tenant = Tenant::where(['sn' => $request->tenantSn])->findOrEmpty();
+                $tenant = $tenantModel->where(['sn' => $request->tenantSn])->findOrEmpty();
                 if (!$tenant->isEmpty() && $tenant['status'] !== 2) {
                     if ($tenant['disable'] === 1) {
                         return view(app()->getRootPath() . 'public/403.html');
