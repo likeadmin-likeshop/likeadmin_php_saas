@@ -56,11 +56,10 @@ class LikeAdminAllowMiddleware
                 // 通过别名访问
                 $request->tenantId = $tenant->tenant_id;
                 $request->tenantSn = $tenant->sn;
+                return $next($request);
             } else {
                 return JsonService::fail('该租户已停用', [], 3, 0);
             }
-        } else {
-            return JsonService::fail('域名错误或租户不存在', [], 4, 0);
         }
 
         // 默认域名访问
