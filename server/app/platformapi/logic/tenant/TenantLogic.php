@@ -34,12 +34,16 @@ class TenantLogic extends BaseLogic
      */
     public static function add(array $params)
     {
+        $domain_alias = preg_replace('/^https?:\/\/|\/$/', '', $params['domain_alias']);
+        if (Tenant::where(['domain_alias' => $domain_alias])->find()) {
+            self::setError('域名已存在');
+        }
         return Tenant::create([
             'sn'                  => Tenant::createUserSn(),
             'name'                => $params['name'],
             'avatar'              => $params['avatar'],
             'tel'                 => $params['tel'],
-            'domain_alias'        => $params['domain_alias'],
+            'domain_alias'        => $domain_alias,
             'domain_alias_enable' => $params['domain_alias_enable'],
             'disable'             => $params['disable'] ?? 0,
             'notes'               => $params['notes'] ?? '',
@@ -60,10 +64,8 @@ class TenantLogic extends BaseLogic
         $user = Tenant::where(['id' => $userId])->field($field)->find();
         $user['user_total'] = User::where(['tenant_id' => $userId])->count();
 
-        $domain = request()->domain();
-        $parsedDomain = parse_url($domain, PHP_URL_HOST); // 获取域名部分
-        $cleanDomain = preg_replace('/^www\./', '', $parsedDomain);
-        $user['default_domain'] = 'http://' . $user['sn'] . '.' . $cleanDomain . '/tenant/';
+        $domain = self::getRootDmain(request()->domain());
+        $user['default_domain'] = self::checkHttp() ? 'https://' : 'http://' . $user['sn'] . '.' . $domain . '/tenant/';
         if ($user['domain_alias_enable'] === 0) {
             $user['domain'] = $user['domain_alias'] . '/tenant/';
         } else {
@@ -72,7 +74,6 @@ class TenantLogic extends BaseLogic
 
         return $user->toArray();
     }
-
 
     /**
      * @notes 更新租户信息
@@ -111,5 +112,53 @@ class TenantLogic extends BaseLogic
     public static function delete(array $params)
     {
         Tenant::destroy($params['id']);
+    }
+
+    /**
+     * @notes 检查是否为https
+     * @return bool
+     * @author JXDN
+     * @date 2024/09/11 14:39
+     */
+    public static function checkHttp()
+    {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @notes 获取根域名
+     * @param $url
+     * @return array|int|string|null
+     * @author JXDN
+     * @date 2024/09/11 14:49
+     */
+    public static function getRootDmain($url)
+    {
+        // 解析 URL 获取主机名
+        $host = parse_url($url, PHP_URL_HOST);
+
+        // 如果主机名为空，返回 null
+        if (!$host) {
+            return null;
+        }
+
+        // 拆分域名
+        $parts = explode('.', $host);
+
+        // 检查域名的级数
+        $numParts = count($parts);
+
+        // 针对常见的两级或三级域名进行处理
+        if ($numParts >= 2) {
+            // 获取最后两部分，例如 qq.com 或 co.uk
+            $rootDomain = $parts[$numParts - 2] . '.' . $parts[$numParts - 1];
+            return $rootDomain;
+        }
+
+        return $host; // 当域名本身就是根域名时，直接返回
     }
 }

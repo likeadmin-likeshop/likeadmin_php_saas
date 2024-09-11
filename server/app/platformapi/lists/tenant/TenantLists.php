@@ -60,29 +60,20 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
             ->order('id desc')
             ->select()->toArray();
 
-        // 获取当前的完整域名
-        $domain = request()->domain();
-
-        // 解析域名，移除协议部分并去除 'www.' 前缀
-        $parsedDomain = parse_url($domain, PHP_URL_HOST); // 获取域名部分
-
-        // 去除 'www.' 前缀，如果存在
-        $cleanDomain = preg_replace('/^www\./', '', $parsedDomain);
+        $domain = self::getRootDmain(request()->domain());
 
         // 遍历结果，添加 link 字段
-        $lists = array_map(function ($item) use ($cleanDomain) {
+        return array_map(function ($item) use ($domain) {
             // 拼接租户的链接 http://[sn].likeadmin-saas.localhost/tenant/
-            $item['default_domain'] = 'http://' . $item['sn'] . '.' . $cleanDomain . '/tenant/';
+            $item['default_domain'] = self::checkHttp() ? 'https://' : 'http://' . $item['sn'] . '.' . $domain . '/tenant/';
 
             if ($item['domain_alias_enable'] === 0) {
-                $item['domain'] = $item['domain_alias'] . '/tenant/';
+                $item['domain'] = self::checkHttp() ? 'https://' : 'http://' . $item['domain_alias'] . '/tenant/';
             } else {
                 $item['domain'] = $item['default_domain'];
             }
             return $item;
         }, $lists);
-
-        return $lists;
     }
 
 
@@ -126,4 +117,51 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
         ];
     }
 
+    /**
+     * @notes 检查是否为https
+     * @return bool
+     * @author JXDN
+     * @date 2024/09/11 14:39
+     */
+    public static function checkHttp()
+    {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @notes 获取根域名
+     * @param $url
+     * @return array|int|string|null
+     * @author JXDN
+     * @date 2024/09/11 14:49
+     */
+    public static function getRootDmain($url)
+    {
+        // 解析 URL 获取主机名
+        $host = parse_url($url, PHP_URL_HOST);
+
+        // 如果主机名为空，返回 null
+        if (!$host) {
+            return null;
+        }
+
+        // 拆分域名
+        $parts = explode('.', $host);
+
+        // 检查域名的级数
+        $numParts = count($parts);
+
+        // 针对常见的两级或三级域名进行处理
+        if ($numParts >= 2) {
+            // 获取最后两部分，例如 qq.com 或 co.uk
+            $rootDomain = $parts[$numParts - 2] . '.' . $parts[$numParts - 1];
+            return $rootDomain;
+        }
+
+        return $host; // 当域名本身就是根域名时，直接返回
+    }
 }
