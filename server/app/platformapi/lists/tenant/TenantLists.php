@@ -68,7 +68,7 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
             $item['default_domain'] = self::checkHttp() ? 'https://' : 'http://' . $item['sn'] . '.' . $domain . '/tenant/';
 
             if ($item['domain_alias_enable'] === 0) {
-                $item['domain'] = self::checkHttp() ? 'https://' : 'http://' . $item['domain_alias'] . '/tenant/';
+                $item['domain'] = (self::checkHttp() ? 'https://' : 'http://') . $item['domain_alias'] . '/tenant/';
             } else {
                 $item['domain'] = $item['default_domain'];
             }
