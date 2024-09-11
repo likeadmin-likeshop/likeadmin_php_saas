@@ -210,13 +210,6 @@ const formData = ref<DetailType>({
 })
 
 const rules = {
-    avatar: [
-        {
-            required: true,
-            message: '请选择头像',
-            trigger: ['change']
-        }
-    ],
     name: [
         {
             required: true,

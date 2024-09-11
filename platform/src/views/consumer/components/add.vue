@@ -98,7 +98,7 @@
                 />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitEdit">提交</el-button>
+                <el-button type="primary" @click="debouncedSubmitEdit">提交</el-button>
             </el-form-item>
         </el-form>
     </el-drawer>
@@ -106,6 +106,7 @@
 
 <script lang="ts" setup>
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { debounce } from 'lodash-es'
 
 import { userAdd } from '@/api/consumer'
 
@@ -145,13 +146,6 @@ const formData = ref<DetailType>({
 })
 
 const rules: FormRules = {
-    avatar: [
-        {
-            required: true,
-            message: '请选择头像',
-            trigger: ['change']
-        }
-    ],
     name: [
         {
             required: true,
@@ -190,7 +184,7 @@ const afterClose = () => {
     formRef.value?.resetFields()
 }
 
-const submitEdit = async () => {
+const submitAdd = async () => {
     await formRef.value?.validate()
     if (formData.value.password !== formData.value.repassword) {
         return ElMessage.error('两次密码输入不一致')
@@ -200,6 +194,8 @@ const submitEdit = async () => {
     drawer.value = false
     emits('refresh')
 }
+
+const debouncedSubmitEdit = debounce(submitAdd, 500)
 
 defineExpose({
     openHandle
