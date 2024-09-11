@@ -54,8 +54,11 @@ class TenantController extends BaseAdminController
     public function detail()
     {
         $params = (new TenantValidate())->goCheck('detail');
-        $detail = TenantLogic::detail($params['id']);
-        return $this->success('', $detail);
+        $result = TenantLogic::detail($params['id']);
+        if (false === $result) {
+            return $this->fail(TenantLogic::getError());
+        }
+        return $this->success('获取成功', $result);
     }
 
     /**
@@ -105,9 +108,12 @@ class TenantController extends BaseAdminController
      */
     public function edit()
     {
-        $params = (new TenantValidate())->post()->goCheck();
-        TenantLogic::edit($params);
+        $params = (new TenantValidate())->post()->goCheck('edit');
+        $result = TenantLogic::edit($params);
+        if(true === $result) {
         return $this->success('操作成功', [], 1, 1);
+        }
+        return $this->fail(TenantLogic::getError());
     }
 
     /**
@@ -119,7 +125,10 @@ class TenantController extends BaseAdminController
     public function delete()
     {
         $params = (new TenantValidate())->post()->goCheck('delete');
-        TenantLogic::delete($params);
-        return $this->success('删除成功', [], 1, 1);
+        $result = TenantLogic::delete($params);
+        if(true === $result) {
+            return $this->success('删除成功', [], 1, 1);
+        }
+        return $this->fail(TenantLogic::getError());
     }
 }

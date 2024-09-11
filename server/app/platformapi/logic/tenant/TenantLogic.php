@@ -35,9 +35,6 @@ class TenantLogic extends BaseLogic
     public static function add(array $params)
     {
         $domain_alias = preg_replace('/^https?:\/\/|\/$/', '', $params['domain_alias']);
-        if (Tenant::where(['domain_alias' => $domain_alias])->find()) {
-            self::setError('域名已存在');
-        }
         return Tenant::create([
             'sn'                  => Tenant::createUserSn(),
             'name'                => $params['name'],
@@ -53,26 +50,32 @@ class TenantLogic extends BaseLogic
     /**
      * @notes 用户详情
      * @param int $userId
-     * @return array
+     * @return array|false
      * @author JXDN
-     * @date 2024/09/03 17:04
+     * @date 2024/09/11 15:48
      */
-    public static function detail(int $userId): array
+    public static function detail(int $userId)
     {
-        $field = "id,sn,name,avatar,tel,domain_alias,domain_alias_enable,disable,create_time,notes";
+        try {
+            $field = "id,sn,name,avatar,tel,domain_alias,domain_alias_enable,disable,create_time,notes";
 
-        $user = Tenant::where(['id' => $userId])->field($field)->find();
-        $user['user_total'] = User::where(['tenant_id' => $userId])->count();
+            $user = Tenant::where(['id' => $userId])->field($field)->findOrEmpty();
+            $user['user_total'] = User::where(['tenant_id' => $userId])->count();
 
-        $domain = self::getRootDmain(request()->domain());
-        $user['default_domain'] = (self::checkHttp() ? 'https://' : 'http://') . $user['sn'] . '.' . $domain . '/tenant/';
-        if ($user['domain_alias_enable'] === 0) {
-            $user['domain'] = $user['domain_alias'] . '/tenant/';
-        } else {
-            $user['domain'] = $user['default_domain'];
+            $domain = self::getRootDmain(request()->domain());
+            $user['default_domain'] = (self::checkHttp() ? 'https://' : 'http://') . $user['sn'] . '.' . $domain . '/tenant/';
+            if ($user['domain_alias_enable'] === 0) {
+                $user['domain'] = $user['domain_alias'] . '/tenant/';
+            } else {
+                $user['domain'] = $user['default_domain'];
+            }
+
+            return $user->toArray();
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
         }
 
-        return $user->toArray();
     }
 
     /**
@@ -105,13 +108,19 @@ class TenantLogic extends BaseLogic
     /**
      * @notes 删除租户
      * @param array $params
-     * @return void
+     * @return bool
      * @author JXDN
      * @date 2024/09/03 17:04
      */
     public static function delete(array $params)
     {
-        Tenant::destroy($params['id']);
+        try {
+            Tenant::destroy($params['id']);
+            return true;
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
     }
 
     /**
@@ -155,8 +164,7 @@ class TenantLogic extends BaseLogic
         // 针对常见的两级或三级域名进行处理
         if ($numParts >= 2) {
             // 获取最后两部分，例如 qq.com 或 co.uk
-            $rootDomain = $parts[$numParts - 2] . '.' . $parts[$numParts - 1];
-            return $rootDomain;
+            return $parts[$numParts - 2] . '.' . $parts[$numParts - 1];
         }
 
         return $host; // 当域名本身就是根域名时，直接返回

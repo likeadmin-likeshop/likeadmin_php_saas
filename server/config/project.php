@@ -20,7 +20,7 @@ return [
     // 租户端
     'tenant' => [
         'admin_avatar' => 'resource/image/common/shop_logo.png',
-        'name' => env('project.web_name', 'likeadmin租户端'), // 网站名称
+        'name' => env('project.web_name', 'SaaS租户端'), // 网站名称
         'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
         'login_image' => 'resource/image/tenantapi/default/login_image.png',
         'web_logo' => 'resource/image/tenantapi/default/web_logo.jpg', // 网站logo
@@ -30,7 +30,7 @@ return [
     // 平台端
     'platform' => [
         'admin_avatar' => 'resource/image/common/avatar.png',
-        'name' => env('project.web_name', 'likeadmin平台端'), // 网站名称
+        'name' => env('project.web_name', 'SaaS平台端'), // 网站名称
         'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
         'login_image' => 'resource/image/platformapi/default/login_image.png',
         'web_logo' => 'resource/image/platformapi/default/web_logo.jpg', // 网站logo

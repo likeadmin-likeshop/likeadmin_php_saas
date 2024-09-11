@@ -79,18 +79,20 @@ class TenantAdminLogic extends BaseLogic
     /**
      * @notes 租户管理员详情
      * @param int $userId
-     * @return array
+     * @return array | bool
      * @author yfdong
      * @date 2024/09/04 22:44
      */
-    public static function detail(int $userId): array
+    public static function detail(int $userId): array|bool
     {
         $field = "id,root,name,avatar,account,multipoint_login,disable,create_time";
 
-        $user = TenantAdmin::where(['id' => $userId])->field($field)
-            ->findOrEmpty();
-
-        return $user->toArray();
+        try {
+            return TenantAdmin::where(['id' => $userId])->field($field)->findOrEmpty()->toArray();
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
     }
 
 
@@ -329,12 +331,12 @@ class TenantAdminLogic extends BaseLogic
         // 初始化管理员账号
         TenantAdmin::create([
             'tenant_id' => $id,
-            'account' => $params['account'] ?? $sn,
-            'name' => '超级管理员',
-            'password' => self::createPassword($params['password'] ?? $defaultPassword),
-            'avatar' => '',
-            'disable' => 0,
-            'root' => 1
+            'account'   => $params['account'] ?? $sn,
+            'name'      => '超级管理员',
+            'password'  => self::createPassword($params['password'] ?? $defaultPassword),
+            'avatar'    => '',
+            'disable'   => 0,
+            'root'      => 1
         ]);
     }
 }

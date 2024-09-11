@@ -28,6 +28,7 @@ class TenantValidate extends BaseValidate
     protected $rule = [
         'id'   => 'require|checkUser',
         'name' => 'require',
+        'domain_alias' => 'checkDomainAlias'
     ];
 
     protected $message = [
@@ -66,6 +67,24 @@ class TenantValidate extends BaseValidate
         return true;
     }
 
+    /**
+     * @notes 域名校验
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return string|true
+     * @author JXDN
+     * @date 2024/09/11 15:30
+     */
+    public function checkDomainAlias($value, $rule, $data)
+    {
+        $tenant = Tenant::where(['domain_alias' => $value])->findOrEmpty();
+        if (!$tenant->isEmpty()) {
+            return '租户别名已存在';
+        }
+        return true;
+    }
+
 
     /**
      * @notes 添加场景
@@ -76,6 +95,17 @@ class TenantValidate extends BaseValidate
     public function sceneAdd()
     {
         return $this->remove('id', true);
+    }
+
+    /**
+     * @notes 编辑场景
+     * @return TenantValidate
+     * @author JXDN
+     * @date 2024/09/11 15:31
+     */
+    public function sceneEdit()
+    {
+        return $this->only(['id', 'name', 'domain_alias']);
     }
 
     /**

@@ -48,8 +48,11 @@ class TenantAdminController extends BaseAdminController
     public function detail()
     {
         $params = (new TenantAdminValidate())->goCheck('detail');
-        $detail = TenantAdminLogic::detail($params['id']);
-        return $this->success('获取成功', $detail);
+        $result = TenantAdminLogic::detail($params['id']);
+        if (false === $result) {
+            return $this->fail(TenantAdminLogic::getError());
+        }
+        return $this->success('获取成功', $result);
     }
 
     /**
