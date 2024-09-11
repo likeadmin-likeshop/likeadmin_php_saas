@@ -28,74 +28,121 @@ use Closure;
 class LikeAdminAllowMiddleware
 {
     /**
+     * 允许的请求头常量
+     */
+    private const ALLOWED_HEADERS = [
+        'Authorization', 'Sec-Fetch-Mode', 'DNT', 'X-Mx-ReqToken', 'Keep-Alive', 'User-Agent',
+        'If-Match', 'If-None-Match', 'If-Unmodified-Since', 'X-Requested-With', 'If-Modified-Since',
+        'Cache-Control', 'Content-Type', 'Accept-Language', 'Origin', 'Accept-Encoding', 'Access-Token',
+        'token', 'version'
+    ];
+
+    /**
      * @notes 跨域处理
      * @param $request
-     * @param \Closure $next
+     * @param Closure $next
      * @param array|null $header
-     * @return mixed|\think\Response
-     * @author 令狐冲
-     * @date 2021/7/26 11:51
+     * @return mixed|\think\Response|\think\response\Json|\think\response\View
+     * @author JXDN
+     * @date 2024/09/11 14:11
      */
     public function handle($request, Closure $next, ?array $header = [])
     {
-        header('Access-Control-Allow-Origin: *');
-        header("Access-Control-Allow-Headers: Authorization, Sec-Fetch-Mode, DNT, X-Mx-ReqToken, Keep-Alive, User-Agent, If-Match, If-None-Match, If-Unmodified-Since, X-Requested-With, If-Modified-Since, Cache-Control, Content-Type, Accept-Language, Origin, Accept-Encoding,Access-Token,token,version");
-        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, post');
-        header('Access-Control-Max-Age: 1728000');
-        header('Access-Control-Allow-Credentials:true');
-        if (strtoupper($request->method()) == "OPTIONS") {
+        // 设置跨域头
+        $this->setCorsHeaders();
+
+        // 如果是OPTIONS请求，直接返回响应
+        if (strtoupper($request->method()) === 'OPTIONS') {
             return response();
         }
 
-        // 判断租户是否有配置并启用别名
-        $tenantModel = Tenant::withoutGlobalScope();
+        // 获取租户信息
+        $tenantModel = new Tenant();
         $domain = preg_replace('/^https?:\/\/|\/$/', '', $request->domain());
-        $tenant = $tenantModel->where(['domain_alias' => $domain])->findOrEmpty();
-        if(!empty($tenant)) {
-            if($tenant->disable === 0) {
-                // 通过别名访问
-                $request->tenantId = $tenant->tenant_id;
-                $request->tenantSn = $tenant->sn;
-                return $next($request);
-            } else {
-                return JsonService::fail('该租户已停用', [], 3, 0);
-            }
-        }
+        $pathSegments = explode('/', $request->pathinfo());
+        $firstSegment = $pathSegments[0];
 
-        // 默认域名访问
-        $host_arr = explode('/', $request->pathinfo());
-
-        // 区分是访问页面还是访问接口
-        if (str_contains($host_arr[0], 'api') !== false) {
-            if ($host_arr[0] !== 'platformapi') {
-                $request->tenantSn = $request->subDomain();
-                $tenant = $tenantModel->where(['sn' => $request->tenantSn])->findOrEmpty();
-                if (!$tenant->isEmpty() && $tenant['status'] !== 2) {
-                    if ($tenant['disable'] === 0) {
-                        $request->tenantId = $tenant->id;
-                    } else {
-                        return JsonService::fail('该租户已停用', [], 3, 0);
-                    }
-                } else {
-                    return JsonService::fail('接口域名错误或租户不存在', [], 4, 0);
-                }
+        // 处理API请求
+        if (str_contains($firstSegment, 'api')) {
+            if ($firstSegment !== 'platformapi') {
+                return $this->handleTenantAccess($tenantModel, $domain, $request, $next);
             }
         } else {
-            if ($host_arr[0] !== 'platform') {
-                $request->tenantSn = $request->subDomain();
-                $tenant = $tenantModel->where(['sn' => $request->tenantSn])->findOrEmpty();
-                if (!$tenant->isEmpty() && $tenant['status'] !== 2) {
-                    if ($tenant['disable'] === 1) {
-                        return view(app()->getRootPath() . 'public/403.html');
-                    } else {
-                        $request->tenantId = $tenant->id;
-                    }
-                } else {
-                    return view(app()->getRootPath() . 'public/404.html');
-                }
+            // 处理页面请求
+            if ($firstSegment !== 'platform') {
+                return $this->handleTenantAccess($tenantModel, $domain, $request, $next, true);
             }
         }
 
         return $next($request);
+    }
+
+    /**
+     * 设置跨域头信息
+     */
+    private function setCorsHeaders()
+    {
+        $headers = [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Headers' => implode(', ', self::ALLOWED_HEADERS),
+            'Access-Control-Allow-Methods' => 'GET, POST, PATCH, PUT, DELETE, post',
+            'Access-Control-Max-Age' => '1728000',
+            'Access-Control-Allow-Credentials' => 'true'
+        ];
+
+        foreach ($headers as $key => $value) {
+            header("$key: $value");
+        }
+    }
+
+    /**
+     * @notes 处理租户访问逻辑
+     * @param Tenant $tenantModel
+     * @param string $domain
+     * @param $request
+     * @param Closure $next
+     * @param bool $isPage
+     * @return mixed|\think\Response|\think\response\Json|\think\response\View
+     * @author JXDN
+     * @date 2024/09/11 14:06
+     */
+    private function handleTenantAccess(Tenant $tenantModel, string $domain, $request, Closure $next, bool $isPage = false)
+    {
+        // 通过别名访问租户
+        $tenant = $tenantModel->where(['domain_alias' => $domain])->findOrEmpty();
+        if (!$tenant->isEmpty() && $tenant->disable === 0) {
+            $request->tenantId = $tenant->tenant_id;
+            $request->tenantSn = $tenant->sn;
+            return $next($request);
+        } elseif (!$tenant->isEmpty()) {
+            return $this->tenantDisabledResponse($isPage);
+        }
+
+        // 通过子域名访问租户
+        $request->tenantSn = $request->subDomain();
+        $tenant = $tenantModel->where(['sn' => $request->tenantSn])->findOrEmpty();
+        if (!$tenant->isEmpty()) {
+            if ($tenant->disable === 0) {
+                $request->tenantId = $tenant->id;
+                return $next($request);
+            } else {
+                return $this->tenantDisabledResponse($isPage);
+            }
+        }
+
+        // 租户不存在或域名错误
+        return $isPage ? view(app()->getRootPath() . 'public/404.html') : JsonService::fail('接口域名错误或租户不存在', [], 4, 0);
+    }
+
+    /**
+     * @notes 返回租户停用的响应
+     * @param bool $isPage
+     * @return \think\response\Json|\think\response\View
+     * @author JXDN
+     * @date 2024/09/11 14:06
+     */
+    private function tenantDisabledResponse(bool $isPage)
+    {
+        return $isPage ? view(app()->getRootPath() . 'public/403.html') : JsonService::fail('该租户已停用', [], 3, 0);
     }
 }
