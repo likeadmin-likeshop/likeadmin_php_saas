@@ -40,7 +40,7 @@
             </div>
         </el-card>
         <edit-popup v-if="showEdit" ref="editRef" @success="getConfig" @close="showEdit = false" />
-        <Edit ref="editNewRef" @refresh="() => {}" />
+        <Edit ref="editNewRef" @refresh="getConfig" />
     </div>
 </template>
 
@@ -48,7 +48,7 @@
 import { getPayConfigLists } from '@/api/setting/pay'
 import { useComponentRef } from '@/utils/getExposeType'
 
-import Edit from './edit_new.vue'
+import Edit from './edit.vue'
 
 const editNewRef = useComponentRef(Edit)
 

@@ -1099,7 +1099,7 @@ VALUES (109, 107, 'A', '详情', '', 0, 'notice.sms_config/detail', '', '', '', 
 INSERT INTO `la_system_menu`
 VALUES (112, 28, 'M', '用户设置', 'local-icon-keziyuyue', 90, '', 'user', '', '', '', 0, 1, 0, 1663903302, 1710473056);
 INSERT INTO `la_system_menu`
-VALUES (113, 112, 'C', '用户设置', '', 0, 'setting.user.user/getConfig', 'setup', 'setting/user/setup', '', '', 0, 1, 0,
+VALUES (113, 112, 'C', '用户设置', '', 0, 'setting.user.user/getConfig', 'setup', 'setting/user/setup', '', '', 0, 1, 1,
         1663903506, 1663903506);
 INSERT INTO `la_system_menu`
 VALUES (114, 113, 'A', '保存', '', 0, 'setting.user.user/setConfig', '', '', '', '', 0, 1, 0, 1663903522, 1663903522);

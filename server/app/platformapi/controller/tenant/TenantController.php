@@ -13,6 +13,7 @@
 // +----------------------------------------------------------------------
 namespace app\platformapi\controller\tenant;
 
+use app\common\model\dept\TenantDept;
 use app\platformapi\controller\BaseAdminController;
 use app\platformapi\lists\tenant\TenantLists;
 use app\platformapi\logic\setting\pay\PayConfigLogic;
@@ -83,7 +84,9 @@ class TenantController extends BaseAdminController
             // 创建租户菜单权限
             TenantSystemMenuLogic::initialization($tenant['id']);
             // 初始化租户管理员账号
-            TenantAdminLogic::initialization($tenant['id'], $tenant['sn'], $params);
+            $managerInfo = TenantAdminLogic::initialization($tenant['id'], $tenant['sn'], $params);
+            // 初始化管理员部门信息
+            TenantDept::initialization($tenant['id'],$managerInfo['id']);
             // 初始化支付方式配置
             PayConfigLogic::initialization($tenant['id']);
             // 初始化支付配置是否开启
@@ -96,7 +99,7 @@ class TenantController extends BaseAdminController
             // 回滚事务
             DB::rollBack();
             // 处理异常并返回错误信息
-            return $this->fail('新增失败' . $e->getMessage());
+            return $this->fail('新增失败：' . $e->getMessage());
         }
     }
 

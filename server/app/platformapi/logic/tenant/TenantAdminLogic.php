@@ -320,7 +320,7 @@ class TenantAdminLogic extends BaseLogic
      * @notes 初始化管理员账号
      * @param mixed $id
      * @param $name
-     * @return void
+     * @return TenantAdmin|\think\Model
      * @author yfdong
      * @date 2024/09/05 22:52
      */
@@ -329,7 +329,7 @@ class TenantAdminLogic extends BaseLogic
         // 获取配置中的默认密码
         $defaultPassword = Config::get('project.default_password');
         // 初始化管理员账号
-        TenantAdmin::create([
+        return TenantAdmin::create([
             'tenant_id' => $id,
             'account'   => $params['account'] ?: $sn,
             'name'      => '超级管理员',

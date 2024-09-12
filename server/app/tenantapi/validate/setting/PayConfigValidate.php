@@ -16,7 +16,7 @@ namespace app\tenantapi\validate\setting;
 
 
 use app\common\enum\PayEnum;
-use app\common\model\pay\PayConfig;
+use app\common\model\pay\TenantPayConfig;
 use app\common\validate\BaseValidate;
 
 
@@ -27,7 +27,7 @@ class PayConfigValidate extends BaseValidate
         'name' => 'require|checkName',
         'icon' => 'require',
         'sort' => 'require|number|max:5',
-        'config' => 'require|checkConfig',
+        'config' => 'checkConfig',
     ];
 
     protected $message = [
@@ -60,9 +60,13 @@ class PayConfigValidate extends BaseValidate
      */
     public function checkConfig($config, $rule, $data)
     {
-        $result = PayConfig::where('id', $data['id'])->find();
+        $result = TenantPayConfig::where('id', $data['id'])->find();
         if (empty($result)) {
             return '支付方式不存在';
+        }
+
+        if ($result['pay_way'] != PayEnum::BALANCE_PAY && !isset($config)) {
+            return '支付配置不能为空';
         }
 
         if ($result['pay_way'] == PayEnum::WECHAT_PAY) {
@@ -117,7 +121,7 @@ class PayConfigValidate extends BaseValidate
      */
     public function checkName($value, $rule, $data)
     {
-        $result = PayConfig::where('name', $value)
+        $result = TenantPayConfig::where('name', $value)
             ->where('id', '<>', $data['id'])
             ->findOrEmpty();
         if (!$result->isEmpty()) {
