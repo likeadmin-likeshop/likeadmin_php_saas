@@ -10,7 +10,9 @@
         >
             <el-form ref="formRef" :model="formData" label-width="84px" :rules="formRules">
                 <el-form-item label="支付方式">
-                    <el-radio :value="popupTitle" :model-value="popupTitle" />
+                    <el-radio :value="popupTitle" :model-value="popupTitle">
+                        {{ popupTitle }}
+                    </el-radio>
                 </el-form-item>
                 <el-form-item label="显示名称" prop="name">
                     <el-input v-model="formData.name" placeholder="请输入显示名称" />
@@ -25,7 +27,7 @@
                     <el-form-item prop="config.interface_version" label="微信支付接口版本">
                         <div>
                             <el-radio-group v-model="formData.config.interface_version">
-                                <el-radio value="v3"></el-radio>
+                                <el-radio value="v3">V3</el-radio>
                             </el-radio-group>
                             <div class="form-tips">暂时只支持V3版本</div>
                         </div>
@@ -63,7 +65,7 @@
                     <el-form-item label="微信支付证书" prop="config.apiclient_cert">
                         <el-input
                             type="textarea"
-                            rows="3"
+                            :rows="3"
                             v-model="formData.config.apiclient_cert"
                             placeholder="请输入微信支付证书"
                         />
@@ -76,7 +78,7 @@
                     <el-form-item label="微信支付证书密钥" prop="config.apiclient_key">
                         <el-input
                             type="textarea"
-                            rows="3"
+                            :rows="3"
                             v-model="formData.config.apiclient_key"
                             placeholder="请输入微信支付证书密钥"
                         />
@@ -89,17 +91,7 @@
                         <div>
                             <div>
                                 <span class="mr-[20px]">https://前台手机域名地址/</span>
-                                <el-button
-                                    link
-                                    type="primary"
-                                    v-copy="formData.domain + '/mobile/'"
-                                >
-                                    复制
-                                </el-button>
                             </div>
-                            <span class="form-tips">
-                                支付授权目录仅用于参考，复制后前往微信商家平台填写
-                            </span>
                         </div>
                     </el-form-item>
                 </template>
@@ -138,7 +130,7 @@
                         <div class="flex-1">
                             <el-input
                                 type="textarea"
-                                rows="3"
+                                :rows="3"
                                 v-model="formData.config.private_key"
                                 placeholder="请输入支付宝应用私钥"
                             />
@@ -150,7 +142,7 @@
                         <div class="flex-1">
                             <el-input
                                 type="textarea"
-                                rows="3"
+                                :rows="3"
                                 v-model="formData.config.ali_public_key"
                                 placeholder="请输入支付宝公钥"
                             />

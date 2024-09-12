@@ -26,4 +26,4 @@ console.log(
     'padding: 4px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #bbb; font-weight: bold;',
     'padding: 4px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #4A5DFF; font-weight: bold;'
 )
-console.log(`%c ${likeadminArt}`, `color: ${config.version}`)
+console.log(`%c ${likeadminArt}`, `color: #4A5DFF`)

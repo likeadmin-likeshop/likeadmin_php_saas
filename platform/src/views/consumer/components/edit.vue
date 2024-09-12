@@ -35,7 +35,12 @@
                         >
                             取消
                         </el-button>
-                        <el-button type="primary" size="small" @click="handleEdit(true)">
+                        <el-button
+                            type="primary"
+                            size="small"
+                            :loading="isLock"
+                            @click="handleEdit(true)"
+                        >
                             {{ editStatus ? '保存' : '编辑' }}
                         </el-button>
                     </div>
@@ -84,7 +89,7 @@
                                 placeholder="请输入租户名称"
                                 style="max-width: 250px"
                             />
-                            <span v-else>
+                            <span v-else class="break-all">
                                 {{ formData.name || '--' }}
                             </span>
                         </el-form-item>
@@ -106,7 +111,7 @@
                                 placeholder="请输入域名别名"
                                 style="max-width: 250px"
                             />
-                            <span v-else>
+                            <span v-else class="break-all">
                                 {{ formData.domain_alias || '--' }}
                             </span>
                         </el-form-item>
@@ -121,7 +126,11 @@
                                 </p>
                             </div>
 
-                            <el-tag v-else :type="formData.disable === 0 ? 'primary' : 'danger'">
+                            <el-tag
+                                v-else
+                                disable-transitions
+                                :type="formData.disable === 0 ? 'primary' : 'danger'"
+                            >
                                 {{ formData.domain_alias_enable === 0 ? '启用' : '禁用' }}
                             </el-tag>
                         </el-form-item>
@@ -130,7 +139,11 @@
                                 <el-radio :value="0">开启</el-radio>
                                 <el-radio :value="1">关闭</el-radio>
                             </el-radio-group>
-                            <el-tag v-else :type="formData.disable === 0 ? 'primary' : 'danger'">
+                            <el-tag
+                                v-else
+                                disable-transitions
+                                :type="formData.disable === 0 ? 'primary' : 'danger'"
+                            >
                                 {{ formData.disable === 0 ? '开启' : '关闭' }}
                             </el-tag>
                         </el-form-item>
@@ -168,6 +181,7 @@ import type { FormInstance } from 'element-plus'
 import { cloneDeep } from 'lodash-es'
 
 import { getUserDetail, userEdit } from '@/api/consumer'
+import { useLockFn } from '@/hooks/useLockFn'
 
 import Accounts from './account/index.vue'
 import Users from './user/index.vue'
@@ -271,7 +285,7 @@ const handleEdit = async (save?: boolean) => {
     if (editStatus.value) {
         if (save) {
             await formRef.value?.validate()
-            await submitEdit()
+            await lockSubmit()
         } else {
             formData.value = tempFormData.value as DetailType
             formRef.value?.clearValidate()
@@ -288,6 +302,8 @@ const submitEdit = async () => {
     emits('refresh')
 }
 
+const { isLock, lockFn: lockSubmit } = useLockFn(submitEdit)
+
 defineExpose({
     openHandle
 })
@@ -300,5 +316,8 @@ defineExpose({
     .el-tab-pane {
         height: 100%;
     }
+}
+:deep(.el-form-item__content) {
+    align-items: start;
 }
 </style>

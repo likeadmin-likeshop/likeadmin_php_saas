@@ -154,6 +154,12 @@
     }
 }
 
+.el-dropdown {
+    .el-tooltip__trigger {
+        outline: unset;
+    }
+}
+
 .dark {
     .el-tag {
         --el-tag-text-color: var(--el-text-color-primary) !important;
@@ -197,6 +203,7 @@
         color: var(--el-text-color-primary);
         background-color: var(--el-color-primary-light-9);
     }
+
     .el-dropdown-menu__item:not(.is-disabled):focus,
     .el-dropdown-menu__item:not(.is-disabled):hover {
         color: var(--el-text-color-primary);

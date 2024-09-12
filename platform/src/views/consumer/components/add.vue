@@ -98,7 +98,7 @@
                 />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="debouncedSubmitEdit">提交</el-button>
+                <el-button type="primary" :loading="isLock" @click="lockSubmit">提交</el-button>
             </el-form-item>
         </el-form>
     </el-drawer>
@@ -106,9 +106,9 @@
 
 <script lang="ts" setup>
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import { debounce } from 'lodash-es'
 
 import { userAdd } from '@/api/consumer'
+import { useLockFn } from '@/hooks/useLockFn'
 
 interface DetailType {
     avatar: string
@@ -175,9 +175,7 @@ const beforeClose = (done: () => void) => {
         .then(() => {
             done()
         })
-        .catch(() => {
-            console.log('取消')
-        })
+        .catch(() => {})
 }
 
 const afterClose = () => {
@@ -195,7 +193,7 @@ const submitAdd = async () => {
     emits('refresh')
 }
 
-const debouncedSubmitEdit = debounce(submitAdd, 500)
+const { isLock, lockFn: lockSubmit } = useLockFn(submitAdd)
 
 defineExpose({
     openHandle

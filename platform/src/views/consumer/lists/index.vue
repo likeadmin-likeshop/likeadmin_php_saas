@@ -51,7 +51,7 @@
                 </el-table-column>
                 <el-table-column label="租户名称" prop="name" min-width="100" />
                 <el-table-column label="联系方式" prop="tel" min-width="130" />
-                <el-table-column label="用户数量" prop="users_count" min-width="100">
+                <el-table-column label="用户数量" prop="users_count" min-width="100" align="center">
                     <template #default="{ row }">
                         <el-button
                             type="primary"
@@ -81,36 +81,41 @@
                 <el-table-column label="创建时间" prop="create_time" min-width="200" />
                 <el-table-column label="备注" prop="notes" min-width="150" show-overflow-tooltip />
 
-                <el-table-column label="操作" width="260" fixed="right">
+                <el-table-column label="操作" width="120" fixed="right">
                     <template #default="{ row }">
-                        <el-button v-perms="['user.user/detail']" type="primary" link>
-                            <a :href="row.domain" target="_blank">进入后台</a>
-                        </el-button>
-                        <el-button
-                            v-perms="['user.user/detail']"
-                            type="primary"
-                            link
-                            @click="editRef?.openHandle(row.id)"
-                        >
-                            详情
-                        </el-button>
-                        <el-button
-                            v-perms="['user.user/edit']"
-                            type="primary"
-                            link
-                            @click="editRef?.openHandle(row.id, true)"
-                        >
-                            编辑
-                        </el-button>
-
-                        <el-button
-                            v-perms="['user.user/delete']"
-                            type="danger"
-                            link
-                            @click="handleDelete(row.id)"
-                        >
-                            删除
-                        </el-button>
+                        <div class="flex items-center gap-2">
+                            <el-button
+                                v-perms="['user.user/detail']"
+                                type="primary"
+                                link
+                                @click="editRef?.openHandle(row.id)"
+                            >
+                                详情
+                            </el-button>
+                            <el-dropdown>
+                                <span class="flex items-center">
+                                    更多
+                                    <el-icon>
+                                        <arrow-down />
+                                    </el-icon>
+                                </span>
+                                <template #dropdown>
+                                    <el-dropdown-menu>
+                                        <el-dropdown-item>
+                                            <a :href="row.domain" target="_blank">进入后台</a>
+                                        </el-dropdown-item>
+                                        <el-dropdown-item
+                                            @click="editRef?.openHandle(row.id, true)"
+                                        >
+                                            编辑
+                                        </el-dropdown-item>
+                                        <el-dropdown-item divided @click="handleDelete(row.id)">
+                                            <span class="text-danger"> 删除 </span>
+                                        </el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </template>
+                            </el-dropdown>
+                        </div>
                     </template>
                 </el-table-column>
             </el-table>

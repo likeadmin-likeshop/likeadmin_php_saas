@@ -2,18 +2,18 @@
 
 <a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
 
- <h1 align="center">likeadmin（PHP）
+ <h1 align="center">likeadmin-SaaS（PHP）
  通用管理后台</h1>
-<h4 align="center">🚀快速开发 🛠️ 一键生成代码 ✅后台多端自适应 📱手机端 🖥️PC（电脑）端前台</h4> 
+<h4 align="center">🚀快速开发 🏘️多租户管理 📊租户独立配置 🌍自定义域名</h4> 
 <p align="center">
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8-8892bf"></a>
-<a href="https://www.tslang.cn/"><img src="https://img.shields.io/badge/TypeScript-3-294e80"></a>
+<a href="https://www.tslang.cn/"><img src="https://img.shields.io/badge/TypeScript-5-294e80"></a>
 <a href="#"><img src="https://img.shields.io/badge/ThinkPHP-8.0-6fb737"></a>
-<a href="#"><img src="https://img.shields.io/badge/Vue.js-3-4eb883"></a>
-<a href="#"><img src="https://img.shields.io/badge/vite-2-ffc018"></a>
-<a href="#"><img src="https://img.shields.io/badge/Element Plus-2-409eff"></a>
-<a href="https://uniapp.dcloud.io/"><img src="https://img.shields.io/badge/uniapp--d85806"></a>
-<a href="https://www.nuxtjs.cn/"><img src="https://img.shields.io/badge/Nuxt.js--18bc78"></a>
+<a href="#"><img src="https://img.shields.io/badge/Vue.js-3.5-4eb883"></a>
+<a href="#"><img src="https://img.shields.io/badge/vite-5-ffc018"></a>
+<a href="#"><img src="https://img.shields.io/badge/Element Plus-2.8-409eff"></a>
+<a href="https://uniapp.dcloud.io/"><img src="https://img.shields.io/badge/uniapp-3-d85806"></a>
+<a href="https://www.nuxtjs.cn/"><img src="https://img.shields.io/badge/Nuxt.js-3-18bc78"></a>
 </p>
 <p align="center">
 <a href="https://mp.weixin.qq.com/"><img src="https://img.shields.io/badge/微信-公众号-05ce66"></a>
@@ -29,7 +29,7 @@
 </p>
 </p>
 <div align="center">
-  <img src="/server/public/readme/likeadmin.png" /><br>
+  <img src="/server/public/readme/platform-1.png" /><br>
 </div>
 <br>
 
@@ -62,20 +62,26 @@ registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
 ### 🛜 访问
 
 访问安装程序：http://127.0.0.1:20221
-<br>PC 端管理后台：http://127.0.0.1:20221/admin/login
+<br>平台管理后台：http://127.0.0.1:20221/platform/login
+<br>租户管理后台：http://127.0.0.1:20221/tenant/login
 <br>PC 端前台：http://127.0.0.1:20221/pc/
 <br>手机端前台：http://127.0.0.1:20221/mobile/
 
 ## 👀 体验后台
 
-### 管理后台
+### 平台管理后台
+
+**地址：https://php.likeadmin.cn/admin <br>
+账号：admin 密码：123456**
+
+### 租户管理后台
 
 **地址：https://php.likeadmin.cn/admin <br>
 账号：admin 密码：123456**
 
 ### 微信小程序前台
 
-<img  width="40%"  src="/server/public/readme/mnp.jpg" /><br>
+<img width="40%" src="/server/public/readme/mnp.jpg"/><br>
 
 ### 手机端网页前台
 
@@ -90,6 +96,10 @@ https://php.likeadmin.cn/pc/
 地址：[https://www.likeadmin.cn](https://www.likeadmin.cn "https://www.likeadmin.cn")
 
 ### 🖥️ 界面预览
+
+![](/server/public/readme/platform-1.png)
+![](/server/public/readme/platform-2.png)
+![](/server/public/readme/platform-3.png)
 
 ![](/server/public/readme/admin-1.png)
 ![](/server/public/readme/admin-2.png)
@@ -132,7 +142,7 @@ https://php.likeadmin.cn/pc/
 
 #### 后台
 
-1.使用最流性的前后端分离方案 typescript、vue3、vite 开发，保持了代码的简洁、一致和规范。<br> 2.后台界面使用 element-plus UI 框架，简单精美的后台界面，丰富的组件库，方便快速开发，满足各种后台交互。
+1.使用最流性的前后端分离方案 typescript、vue3.5、vite5 开发，保持了代码的简洁、一致和规范。<br> 2.后台界面使用 element-plus UI 框架，简单精美的后台界面，丰富的组件库，方便快速开发，满足各种后台交互。
 
 #### 手机前台
 
