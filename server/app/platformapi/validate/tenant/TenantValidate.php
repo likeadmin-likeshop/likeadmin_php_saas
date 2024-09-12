@@ -85,6 +85,26 @@ class TenantValidate extends BaseValidate
         return true;
     }
 
+    /**
+     * @notes 域名校验
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return string|true
+     * @author JXDN
+     * @date 2024/09/11 15:30
+     */
+    public function checkDomainAliasEdit($value, $rule, $data)
+    {
+        $tenant = Tenant::where('domain_alias', $value)
+            ->where('id', '<>', $data['id']) // 排除当前租户
+            ->findOrEmpty();
+        if (!$tenant->isEmpty()) {
+            return '租户别名已存在';
+        }
+        return true;
+    }
+
 
     /**
      * @notes 添加场景
@@ -105,7 +125,7 @@ class TenantValidate extends BaseValidate
      */
     public function sceneEdit()
     {
-        return $this->only(['id', 'name', 'domain_alias']);
+        return $this->only(['id', 'name'])->append('domain_alias', 'checkDomainAliasEdit');
     }
 
     /**

@@ -661,4 +661,16 @@ const textCopy = (uri: string) => {
         }
     }
 }
+
+.dark {
+    .material {
+        &__center {
+            .list-icon {
+                &.select {
+                    @apply text-white;
+                }
+            }
+        }
+    }
+}
 </style>

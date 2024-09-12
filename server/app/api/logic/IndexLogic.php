@@ -43,7 +43,7 @@ class IndexLogic extends BaseLogic
     public static function getIndexData()
     {
         // 装修配置
-        $decoratePage = DecoratePage::findOrEmpty(1);
+        $decoratePage = DecoratePage::where(['type' => 1])->findOrEmpty();
 
         // 首页文章
         $field = [

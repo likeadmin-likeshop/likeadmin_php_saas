@@ -45,7 +45,7 @@ class PcLogic extends BaseLogic
     public static function getIndexData()
     {
         // 装修配置
-        $decoratePage = DecoratePage::findOrEmpty(4);
+        $decoratePage = DecoratePage::where(['type' => 4])->findOrEmpty();
         // 最新资讯
         $newArticle = self::getLimitArticle('new', 7);
         // 全部资讯

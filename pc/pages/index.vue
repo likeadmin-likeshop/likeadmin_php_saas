@@ -75,11 +75,7 @@ const getSwiperData = computed(() => {
     }
 })
 const showList = computed(() => {
-    return (
-        getSwiperData.value?.data ||
-        []
-    )
+    return getSwiperData.value?.data || []
 })
-
 </script>
 <style lang="scss" scoped></style>

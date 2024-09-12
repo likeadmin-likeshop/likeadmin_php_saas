@@ -201,4 +201,11 @@
     .el-dropdown-menu__item:not(.is-disabled):hover {
         color: var(--el-text-color-primary);
     }
+
+    .el-menu-item.is-active {
+        color: var(--el-menu-text-color) !important;
+        border-right-width: 2px;
+        border-color: var(--el-text-color-primary) !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
 }

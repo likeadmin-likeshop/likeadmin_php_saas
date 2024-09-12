@@ -64,18 +64,19 @@ class BaseModel extends Model
      */
     public static function scopeTenantId($query): void
     {
-        $tenantId = self::checkTenant();
+        $tenantId = self::checkTenant() ?: self::checkUser();
         if ($tenantId) {
             // 获取当前查询模型表名
             $table = $query->getTable();
             // 获取对应表字段
             $fields = $query->getConnection()->getTableInfo($table, 'fields');
-            // 获取对应查询对象实体表中是否有对应的tenant_id字段
+            // 判断是否存在 tenant_id 字段
             if (in_array('tenant_id', $fields)) {
                 self::$hasTenantId = true;
                 $query->where($table . '.tenant_id', $tenantId);
             }
         }
+
     }
 
     /**
@@ -105,6 +106,26 @@ class BaseModel extends Model
     {
         $token = Request::header('token');
         if (AdminTerminalEnum::isTenant() && $token !== "null") {
+            $tenant_id = \request()->tenantId;
+            if ($tenant_id) {
+                return $tenant_id;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @notes 判断是否为用户端
+     * @return false|mixed|void
+     * @author JXDN
+     * @date 2024/09/04 16:01
+     */
+    private static function checkUser()
+    {
+        if (AdminTerminalEnum::isUser()) {
             $tenant_id = \request()->tenantId;
             if ($tenant_id) {
                 return $tenant_id;
