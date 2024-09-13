@@ -1005,10 +1005,10 @@ VALUES (30, 29, 'C', '网站信息', '', 1, 'setting.web.web_setting/getWebsite'
         'setting/website/information', '', '', 0, 1, 0, 1657100306, 1657164412);
 INSERT INTO `la_system_menu`
 VALUES (31, 29, 'C', '网站备案', '', 1, 'setting.web.web_setting/getCopyright', 'filing', 'setting/website/filing', '',
-        '', 0, 1, 0, 1657100434, 1657164723);
+        '', 0, 1, 1, 1657100434, 1657164723);
 INSERT INTO `la_system_menu`
 VALUES (32, 29, 'C', '政策协议', '', 1, 'setting.web.web_setting/getAgreement', 'protocol', 'setting/website/protocol',
-        '', '', 0, 1, 0, 1657100571, 1657164770);
+        '', '', 0, 1, 1, 1657100571, 1657164770);
 INSERT INTO `la_system_menu`
 VALUES (33, 28, 'C', '存储设置', 'el-icon-FolderOpened', 70, 'setting.storage/lists', 'storage',
         'setting/storage/index', '', '', 0, 1, 0, 1657160959, 1710473095);
@@ -1097,7 +1097,7 @@ VALUES (108, 107, 'A', '设置', '', 0, 'notice.sms_config/setConfig', '', '', '
 INSERT INTO `la_system_menu`
 VALUES (109, 107, 'A', '详情', '', 0, 'notice.sms_config/detail', '', '', '', '', 0, 1, 0, 1663898661, 1663898661);
 INSERT INTO `la_system_menu`
-VALUES (112, 28, 'M', '用户设置', 'local-icon-keziyuyue', 90, '', 'user', '', '', '', 0, 1, 0, 1663903302, 1710473056);
+VALUES (112, 28, 'M', '用户设置', 'local-icon-keziyuyue', 90, '', 'user', '', '', '', 0, 1, 1, 1663903302, 1710473056);
 INSERT INTO `la_system_menu`
 VALUES (113, 112, 'C', '用户设置', '', 0, 'setting.user.user/getConfig', 'setup', 'setting/user/setup', '', '', 0, 1, 1,
         1663903506, 1663903506);
@@ -1130,7 +1130,7 @@ VALUES (147, 143, 'A', '删除', '', 0, 'crontab.crontab/delete', '', '', '', ''
 INSERT INTO `la_system_menu`
 VALUES (158, 0, 'M', '应用管理', 'el-icon-Postcard', 800, '', 'app', '', '', '', 0, 1, 0, 1677143430, 1710472079);
 INSERT INTO `la_system_menu`
-VALUES (161, 28, 'M', '支付设置', 'local-icon-set_pay', 80, '', 'pay', '', '', '', 0, 1, 0, 1677148075, 1710473061);
+VALUES (161, 28, 'M', '支付设置', 'local-icon-set_pay', 80, '', 'pay', '', '', '', 0, 1, 1, 1677148075, 1710473061);
 INSERT INTO `la_system_menu`
 VALUES (162, 161, 'C', '支付方式', '', 0, 'setting.pay.pay_way/getPayWay', 'method', 'setting/pay/method/index', '', '',
         0, 1, 0, 1677148207, 1677148207);

@@ -55,6 +55,9 @@ return [
     // 默认密码
     'default_password' => env('project.default_password', '123456'),
 
+    //平台端访问路径
+    'http_host' => env('project.http_host', ''),
+
     // 平台管理员token（登录令牌）配置
     'admin_token' => [
         'expire_duration' => 3600 * 8,//管理后台token过期时长(单位秒）

@@ -19,6 +19,7 @@ namespace app\common\http\middleware;
 use app\common\model\tenant\Tenant;
 use app\common\service\JsonService;
 use Closure;
+use think\facade\Config;
 
 /**
  * 自定义跨域中间件
@@ -71,6 +72,10 @@ class LikeAdminAllowMiddleware
             // 处理页面请求
             if ($firstSegment !== 'platform') {
                 return $this->handleTenantAccess($tenantModel, $domain, $request, $next, true);
+            } else {
+                if ($domain !== Config::get('project.http_host')) {
+                    return view(app()->getRootPath() . 'public/error/platform/404.html');
+                }
             }
         }
 
@@ -131,7 +136,7 @@ class LikeAdminAllowMiddleware
         }
 
         // 租户不存在或域名错误
-        return $isPage ? view(app()->getRootPath() . 'public/404.html') : JsonService::fail('接口域名错误或租户不存在', [], 4, 0);
+        return $isPage ? view(app()->getRootPath() . 'public/error/tenant/404.html') : JsonService::fail('接口域名错误或租户不存在', [], 4, 0);
     }
 
     /**
@@ -143,6 +148,6 @@ class LikeAdminAllowMiddleware
      */
     private function tenantDisabledResponse(bool $isPage)
     {
-        return $isPage ? view(app()->getRootPath() . 'public/403.html') : JsonService::fail('该租户已停用', [], 3, 0);
+        return $isPage ? view(app()->getRootPath() . 'public/error/tenant/403.html') : JsonService::fail('该租户已停用', [], 3, 0);
     }
 }

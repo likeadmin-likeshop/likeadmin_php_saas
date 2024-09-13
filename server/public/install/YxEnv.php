@@ -92,6 +92,7 @@ class YxEnv
     public function putEnv($envFilePath, array $databaseEnv)
     {
         $applyDbEnv = [
+            'HTTP_HOST' => $_SERVER['HTTP_HOST'],
             'DATABASE.HOSTNAME' => $databaseEnv['host'],
             'DATABASE.DATABASE' => $databaseEnv['name'],
             'DATABASE.USERNAME' => $databaseEnv['user'],
