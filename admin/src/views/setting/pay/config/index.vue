@@ -63,10 +63,6 @@ const getConfig = async () => {
 }
 const handleEdit = async (data: any) => {
     editNewRef.value?.openHandle(data.id, false)
-    // showEdit.value = true
-    // await nextTick()
-    // editRef.value?.open()
-    // editRef.value?.getDetail(data)
 }
 getConfig()
 </script>
