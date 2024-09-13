@@ -215,6 +215,10 @@ $subTheme: #efc49b;
     .el-button.el-button--primary:hover {
         color: var(--el-color-primary);
     }
+    .el-button.el-button--primary.is-link {
+        background-color: unset !important;
+        color: var(--sub-theme);
+    }
     .el-tag {
         --el-tag-text-color: var(--el-text-color-primary) !important;
     }
@@ -240,6 +244,11 @@ $subTheme: #efc49b;
     }
 
     .el-checkbox__input.is-checked + .el-checkbox__label {
+        color: var(--el-text-color-primary);
+    }
+
+    .el-dropdown-menu__item:not(.is-disabled):hover {
+        background-color: rgba($subTheme, 0.1) !important;
         color: var(--el-text-color-primary);
     }
 
