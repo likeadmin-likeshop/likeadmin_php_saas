@@ -39,7 +39,8 @@ class WebSettingLogic extends BaseLogic
         return [
             'name' => ConfigService::get('platform', 'name'),
             'web_favicon' => FileService::getFileUrl(ConfigService::get('platform', 'web_favicon')),
-            'web_logo' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo')),
+            'web_logo_light' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_light')),
+            'web_logo_dark' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_dark')),
             'login_image' => FileService::getFileUrl(ConfigService::get('platform', 'login_image')),
         ];
     }
@@ -54,12 +55,14 @@ class WebSettingLogic extends BaseLogic
     public static function setWebsiteInfo(array $params)
     {
         $favicon = FileService::setFileUrl($params['web_favicon']);
-        $logo = FileService::setFileUrl($params['web_logo']);
+        $logo_light = FileService::setFileUrl($params['web_logo_light']);
+        $logo_dark = FileService::setFileUrl($params['web_logo_dark']);
         $login = FileService::setFileUrl($params['login_image']);
 
         ConfigService::set('platform', 'name', $params['name']);
         ConfigService::set('platform', 'web_favicon', $favicon);
-        ConfigService::set('platform', 'web_logo', $logo);
+        ConfigService::set('platform', 'web_logo_light', $logo_light);
+        ConfigService::set('platform', 'web_logo_dark', $logo_dark);
         ConfigService::set('platform', 'login_image', $login);
     }
 

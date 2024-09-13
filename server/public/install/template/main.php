@@ -320,10 +320,10 @@
                                                     <td><?php if ($modelInstall->checkDirWrite('public/platform') == 'fail') echo '请给public/platform，若目录不存在先新建'; ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>/public/tenant</td>
-                                                    <td>tenant目录可写</td>
-                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/tenant')) ?>
-                                                    <td><?php if ($modelInstall->checkDirWrite('public/tenant') == 'fail') echo '请给public/tenant，若目录不存在先新建'; ?></td>
+                                                    <td>/public/admin</td>
+                                                    <td>admin目录可写</td>
+                                                    <?php echo $modelInstall->correctOrFail($modelInstall->checkDirWrite('public/admin')) ?>
+                                                    <td><?php if ($modelInstall->checkDirWrite('public/admin') == 'fail') echo '请给public/admin，若目录不存在先新建'; ?></td>
                                                 </tr>
                                                 <tr>
                                                     <td>../config</td>

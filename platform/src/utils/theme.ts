@@ -52,7 +52,7 @@ export const setCssVar = (key: string, value: string, dom = document.documentEle
  * @author Jason
  * @description 设置主题
  */
-export const setTheme = (options: Record<string, string>, isDark = false) => {
+export const setTheme = (options: Record<string, string>, isDark = false, subTheme: string) => {
     const varsMap: Record<string, string> = Object.keys(options).reduce((prev, key) => {
         return Object.assign(prev, generateVars(options[key], key, isDark))
     }, {})
@@ -61,6 +61,9 @@ export const setTheme = (options: Record<string, string>, isDark = false) => {
         const color = colors.convert(varsMap[key])
         return `${prev}${key}:${color};`
     }, '')
+
+    theme = `${theme}--sub-theme:${subTheme};`
+
     theme = `:root{${theme}}`
     let style = document.getElementById(themeId)
     if (style) {

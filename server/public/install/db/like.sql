@@ -1341,8 +1341,10 @@ CREATE TABLE `la_tenant_dept`
 -- ----------------------------
 -- Records of la_tenant_dept
 -- ----------------------------
+BEGIN;
 INSERT INTO `la_tenant_dept`
 VALUES (1, 0, '公司', 0, 0, 'boss', '12345698745', 1, 1650592684, 1653640368, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for la_tenant_file

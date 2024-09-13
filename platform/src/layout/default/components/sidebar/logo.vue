@@ -1,6 +1,12 @@
 <template>
     <div class="logo" @click="handleClick">
-        <image-contain :width="szie" :height="szie" :src="config.web_logo" />
+        <image-contain
+            v-if="settingStore.mode === 'dark'"
+            :width="szie"
+            :height="szie"
+            :src="config.web_logo_dark"
+        />
+        <image-contain v-else :width="szie" :height="szie" :src="config.web_logo_light" />
         <transition name="title-width">
             <div
                 v-show="showTitle"
@@ -23,6 +29,7 @@
 <script setup lang="ts">
 import { ThemeEnum } from '@/enums/appEnums'
 import useAppStore from '@/stores/modules/app'
+import useSettingStore from '@/stores/modules/setting'
 
 defineProps({
     szie: { type: Number, default: 34 },
@@ -31,6 +38,7 @@ defineProps({
     showTitle: { type: Boolean, default: true }
 })
 const appStore = useAppStore()
+const settingStore = useSettingStore()
 const config = computed(() => appStore.config)
 const router = useRouter()
 
@@ -48,6 +56,7 @@ const handleClick = () => {
     .logo-title {
         width: 70%;
         position: absolute;
+        color: var(--sub-theme);
         @apply text-xl;
     }
 
@@ -64,6 +73,14 @@ const handleClick = () => {
     .title-width-leave-to {
         width: 0;
         opacity: 0;
+    }
+}
+
+.dark {
+    .logo {
+        .logo-title {
+            color: var(--el-menu-text-color);
+        }
     }
 }
 </style>

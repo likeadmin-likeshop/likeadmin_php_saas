@@ -32,16 +32,18 @@ const isCollapsed = computed(() => {
 
 const settingStore = useSettingStore()
 const sideTheme = computed(() => settingStore.sideTheme)
+const themeMode = computed(() => settingStore.mode)
 const userStore = useUserStore()
 
 const routes = computed(() => userStore.routes)
 
 const sideStyle = computed(() => {
-    return sideTheme.value == 'dark'
-        ? {
-              '--side-dark-color': settingStore.sideDarkColor
-          }
-        : ''
+    if (themeMode.value === 'light') {
+        return { '--side-dark-color': settingStore.sideDarkColor }
+    } else {
+        console.log('dark-sss')
+        return { '--side-dark-color': 'var(--el-bg-color)' }
+    }
 })
 const menuProp = computed(() => {
     return {

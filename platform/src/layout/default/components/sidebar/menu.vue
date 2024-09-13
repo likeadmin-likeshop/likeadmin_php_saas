@@ -7,10 +7,11 @@
         <el-scrollbar>
             <el-menu
                 v-bind="config"
+                mode="vertical"
                 :default-active="activeMenu"
                 :collapse="isCollapsed"
-                mode="vertical"
                 :unique-opened="uniqueOpened"
+                style="background-color: var(--side-dark-color)"
                 @select="$emit('select')"
             >
                 <menu-item

@@ -18,14 +18,18 @@
                         <div class="w-20">获取渠道</div>
                         <div>
                             <a :href="workbenchData.version.channel.website" target="_blank">
-                                <el-button type="info" size="small">官网</el-button>
+                                <el-button type="info" size="small" :color="settingStore.subTheme"
+                                    >官网</el-button
+                                >
                             </a>
                             <a
                                 class="ml-3"
                                 :href="workbenchData.version.channel.gitee"
                                 target="_blank"
                             >
-                                <el-button type="primary" size="small">Gitee</el-button>
+                                <el-button type="primary" size="small">
+                                    <span :style="`color: ${settingStore.subTheme}`">Gitee</span>
+                                </el-button>
                             </a>
                         </div>
                     </div>
@@ -136,19 +140,12 @@ const settingStore = useSettingStore()
 const saleChart = useComponentRef(vCharts)
 const visitorChart = useComponentRef(vCharts)
 const isDark = useDark()
-const themeColor = ref<string>(isDark.value ? '#ffffff' : settingStore.theme)
-
-watch(
-    () => settingStore.theme,
-    () => {
-        updateColor()
-    }
-)
+const themeColor = ref<string>(isDark.value ? '#ffffff' : settingStore.subTheme)
 
 watch(
     () => settingStore.mode,
     (mode) => {
-        themeColor.value = mode === 'light' ? settingStore.theme : '#ffffff'
+        themeColor.value = mode === 'light' ? settingStore.subTheme : '#ffffff'
         updateColor()
     }
 )

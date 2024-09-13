@@ -63,9 +63,9 @@ class TenantLogic extends BaseLogic
             $user['user_total'] = User::where(['tenant_id' => $userId])->count();
 
             $domain = self::getRootDmain(request()->domain());
-            $user['default_domain'] = (self::checkHttp() ? 'https://' : 'http://') . $user['sn'] . '.' . $domain . '/tenant/';
+            $user['default_domain'] = (self::checkHttp() ? 'https://' : 'http://') . $user['sn'] . '.' . $domain . '/admin/';
             if ($user['domain_alias_enable'] === 0) {
-                $user['domain'] = $user['domain_alias'] . '/tenant/';
+                $user['domain'] = $user['domain_alias'] . '/admin/';
             } else {
                 $user['domain'] = $user['default_domain'];
             }

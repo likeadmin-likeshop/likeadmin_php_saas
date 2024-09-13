@@ -21,16 +21,26 @@
                         />
                     </div>
                 </el-form-item>
-                <el-form-item label="平台图标" prop="web_favicon" required>
+                <el-form-item label="平台网站图标" prop="web_favicon" required>
                     <div>
                         <material-picker v-model="formData.web_favicon" :limit="1" />
                         <div class="form-tips">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
                     </div>
                 </el-form-item>
-                <el-form-item label="平台LOGO" prop="web_logo" required>
+                <el-form-item label="亮色主题LOGO" prop="web_logo_light" required>
                     <div>
-                        <material-picker v-model.trim="formData.web_logo" :limit="1" />
-                        <div class="form-tips">建议尺寸：100*100像素，支持jpg，jpeg，png格式</div>
+                        <material-picker v-model.trim="formData.web_logo_light" :limit="1" />
+                        <div class="form-tips">
+                            建议尺寸：100*100像素，支持jpg，jpeg，png格式，将在后台亮色主题下显示
+                        </div>
+                    </div>
+                </el-form-item>
+                <el-form-item label="暗色主题LOGO" prop="web_logo_dark" required>
+                    <div>
+                        <material-picker v-model.trim="formData.web_logo_dark" :limit="1" />
+                        <div class="form-tips">
+                            建议尺寸：100*100像素，支持jpg，jpeg，png格式，将在后台暗色主题下显示
+                        </div>
                     </div>
                 </el-form-item>
                 <el-form-item label="登录页配图" prop="login_image" required>
@@ -60,7 +70,8 @@ const appStore = useAppStore()
 const formData = reactive({
     name: '', // 网站名称
     web_favicon: '', // 网站图标
-    web_logo: '', // 网站logo
+    web_logo_light: '', // 网站亮色主题logo
+    web_logo_dark: '', // 网站暗色主题logo
     login_image: '' // 登录页广告图
 })
 

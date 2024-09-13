@@ -202,6 +202,7 @@ defineExpose({
 
 <style lang="scss" scoped>
 .form_header {
-    @apply text-lg font-bold mb-4 bg-page p-2 rounded;
+    @apply text-lg font-bold mb-4 p-2 rounded;
+    background-color: rgba(204, 204, 204, 0.2);
 }
 </style>

@@ -8,24 +8,6 @@
             title="主题设置"
         >
             <div class="h-full flex flex-col">
-                <div class="setting-item mb-5">
-                    <span class="text-tx-secondary">风格设置</span>
-                    <div class="flex mt-4 cursor-pointer">
-                        <div
-                            class="mr-4 flex relative text-primary"
-                            v-for="item in sideThemeList"
-                            :key="item.type"
-                            @click="sideTheme = item.type"
-                        >
-                            <img :src="item.image" width="52" height="36" />
-                            <icon
-                                v-if="sideTheme == item.type"
-                                class="icon-select"
-                                name="el-icon-Select"
-                            />
-                        </div>
-                    </div>
-                </div>
                 <div class="setting-item mb-5 flex justify-between items-center">
                     <span class="text-tx-secondary">开启黑暗模式</span>
                     <div>
@@ -89,33 +71,9 @@
 <script setup lang="ts">
 import { useDark, useToggle } from '@vueuse/core'
 
-import theme_dark from '@/assets/images/theme_black.png'
-import theme_light from '@/assets/images/theme_white.png'
 import useSettingStore from '@/stores/modules/setting'
 
 const settingStore = useSettingStore()
-const sideThemeList = [
-    {
-        type: 'dark',
-        image: theme_dark
-    },
-    {
-        type: 'light',
-        image: theme_light
-    }
-]
-
-const sideTheme = computed({
-    get() {
-        return settingStore.sideTheme
-    },
-    set(value) {
-        settingStore.setSetting({
-            key: 'sideTheme',
-            value
-        })
-    }
-})
 
 const openMultipleTabs = computed({
     get() {

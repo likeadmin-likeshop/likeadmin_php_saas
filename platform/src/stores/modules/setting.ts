@@ -43,7 +43,8 @@ export const useSettingStore = defineStore({
                     error: this.errorTheme,
                     info: this.infoTheme
                 },
-                isDark
+                isDark,
+                this.subTheme
             )
         },
         resetTheme() {

@@ -55,7 +55,8 @@ class ConfigLogic
             // 网站图标
             'web_favicon' => FileService::getFileUrl(ConfigService::get('platform', 'web_favicon')),
             // 网站logo
-            'web_logo' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo')),
+            'web_logo_light' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_light')),
+            'web_logo_dark' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_dark')),
             // 登录页
             'login_image' => FileService::getFileUrl(ConfigService::get('platform', 'login_image')),
 

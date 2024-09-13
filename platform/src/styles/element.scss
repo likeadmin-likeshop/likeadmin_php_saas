@@ -1,3 +1,5 @@
+$subTheme: #efc49b;
+
 :root {
     // 弹窗居中
     .el-overlay-dialog {
@@ -160,7 +162,59 @@
     }
 }
 
+.theme-dark {
+    .el-menu-item.is-active {
+        color: var(--sub-theme) !important;
+        border-color: var(--sub-theme) !important;
+        background-color: rgba($subTheme, 0.1) !important;
+        border-right-width: 2px;
+    }
+
+    .el-menu .el-menu-item {
+        color: var(--sub-theme) !important;
+    }
+
+    .el-menu .el-menu-item:hover {
+        color: var(--sub-theme) !important;
+        background-color: rgba($subTheme, 0.1) !important;
+    }
+
+    .el-menu .el-sub-menu__title {
+        color: var(--sub-theme) !important;
+    }
+
+    .el-menu .el-sub-menu__title:hover {
+        color: var(--sub-theme) !important;
+        background-color: rgba($subTheme, 0.1) !important;
+    }
+
+    .el-dropdown-menu__item:not(.is-disabled):focus,
+    .el-dropdown-menu__item:not(.is-disabled):hover {
+        color: var(--sub-theme) !important;
+    }
+}
+
+.el-button.el-button--primary {
+    color: var(--sub-theme);
+}
+.el-button.el-button--primary:hover {
+    color: var(--sub-theme);
+}
+.el-button.el-button--primary.is-link {
+    color: var(--el-button-text-color);
+}
 .dark {
+    .el-pager li.is-active,
+    .el-pager li:hover {
+        color: var(--el-text-color-primary);
+    }
+    .el-button.el-button--primary {
+        background-color: var(--el-button-text-color) !important;
+        color: var(--el-color-primary);
+    }
+    .el-button.el-button--primary:hover {
+        color: var(--el-color-primary);
+    }
     .el-tag {
         --el-tag-text-color: var(--el-text-color-primary) !important;
     }
@@ -181,16 +235,6 @@
         color: var(--el-text-color-secondary);
     }
 
-    .el-menu .el-sub-menu__title:hover {
-        color: var(--el-text-color-primary) !important;
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .el-menu .el-menu-item:hover {
-        color: var(--el-text-color-primary) !important;
-        background-color: rgba(255, 255, 255, 0.2);
-    }
-
     .el-radio__input.is-checked + .el-radio__label {
         color: var(--el-text-color-primary);
     }
@@ -199,20 +243,42 @@
         color: var(--el-text-color-primary);
     }
 
-    .el-select-dropdown__item.is-selected {
-        color: var(--el-text-color-primary);
-        background-color: var(--el-color-primary-light-9);
-    }
+    .theme-dark {
+        .el-menu {
+            background-color: unset;
+        }
+        .el-menu .el-menu-item {
+            color: var(--el-text-color-primary) !important;
+        }
 
-    .el-dropdown-menu__item:not(.is-disabled):focus,
-    .el-dropdown-menu__item:not(.is-disabled):hover {
-        color: var(--el-text-color-primary);
-    }
+        .el-menu .el-sub-menu__title {
+            color: var(--el-text-color-primary) !important;
+        }
+        .el-menu .el-sub-menu__title:hover {
+            color: var(--el-text-color-primary) !important;
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
 
-    .el-menu-item.is-active {
-        color: var(--el-menu-text-color) !important;
-        border-right-width: 2px;
-        border-color: var(--el-text-color-primary) !important;
-        background-color: rgba(255, 255, 255, 0.1) !important;
+        .el-menu .el-menu-item:hover {
+            color: var(--el-text-color-primary) !important;
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .el-select-dropdown__item.is-selected {
+            color: var(--el-text-color-primary);
+            background-color: var(--el-color-primary-light-9);
+        }
+
+        .el-dropdown-menu__item:not(.is-disabled):focus,
+        .el-dropdown-menu__item:not(.is-disabled):hover {
+            color: var(--el-text-color-primary);
+        }
+
+        .el-menu-item.is-active {
+            color: var(--el-menu-text-color) !important;
+            border-right-width: 2px;
+            border-color: var(--el-text-color-primary) !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
     }
 }

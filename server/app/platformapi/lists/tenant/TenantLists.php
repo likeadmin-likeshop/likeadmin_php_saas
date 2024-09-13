@@ -64,12 +64,12 @@ class TenantLists extends BaseAdminDataLists implements ListsExcelInterface
 
         // 遍历结果，添加 link 字段
         return array_map(function ($item) use ($domain) {
-            // 拼接租户的链接 http://[sn].likeadmin-saas.localhost/tenant/
+            // 拼接租户的链接 http://[sn].likeadmin-saas.localhost/admin/
             $http_prefix = self::checkHttp() ? 'https://' : 'http://';
-            $item['default_domain'] = $http_prefix . $item['sn'] . '.' . $domain . '/tenant/';
+            $item['default_domain'] = $http_prefix . $item['sn'] . '.' . $domain . '/admin/';
 
             if ($item['domain_alias_enable'] === 0) {
-                $item['domain'] = $http_prefix . $item['domain_alias'] . '/tenant/';
+                $item['domain'] = $http_prefix . $item['domain_alias'] . '/admin/';
             } else {
                 $item['domain'] = $item['default_domain'];
             }

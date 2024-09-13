@@ -24,7 +24,7 @@ return [
         'name' => env('project.web_name', 'SaaS租户端'), // 网站名称
         'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
         'login_image' => 'resource/image/tenantapi/default/login_image.png',
-        'web_logo' => 'resource/image/tenantapi/default/web_logo.jpg', // 网站logo
+        'web_logo' => 'resource/image/tenantapi/default/web_logo.png', // 网站logo
         'web_favicon' => 'resource/image/tenantapi/default/web_favicon.ico', // 网站图标
     ],
 
@@ -34,7 +34,8 @@ return [
         'name' => env('project.web_name', 'SaaS平台端'), // 网站名称
         'url' => env('project.web_url', 'www.likeadmin.cn/'), // 网站地址
         'login_image' => 'resource/image/platformapi/default/login_image.png',
-        'web_logo' => 'resource/image/platformapi/default/web_logo.jpg', // 网站logo
+        'web_logo_light' => 'resource/image/platformapi/default/web_logo_light.png', // 网站logo
+        'web_logo_dark' => 'resource/image/platformapi/default/web_logo_dark.png', // 网站logo
         'web_favicon' => 'resource/image/platformapi/default/web_favicon.ico', // 网站图标
     ],
 
