@@ -234,8 +234,8 @@ $subTheme: #efc49b;
         color: var(--el-button-text-color);
     }
 
-    .el-tabs__item.is-active,
-    .el-tabs__item:hover {
+    .el-tabs .el-tabs__item.is-active,
+    .el-tabs .el-tabs__item:hover {
         color: var(--el-text-color-secondary);
     }
 

@@ -73,10 +73,10 @@ const axiosHooks: AxiosHooks = {
                 window.location.href = data.url
                 return data
             case RequestCodeEnum.FORBIDDEN:
-                window.location.href = '403.html'
+                router.push(PageEnum.ENTRANCE_403)
                 break
             case RequestCodeEnum.NOT_FOUND:
-                window.location.href = '404.html'
+                router.push(PageEnum.ENTRANCE_404)
                 break
             default:
                 return data

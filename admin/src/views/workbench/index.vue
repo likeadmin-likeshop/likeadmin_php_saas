@@ -14,21 +14,6 @@
                         <div class="w-20">当前版本</div>
                         <span> {{ workbenchData.version.version }}</span>
                     </div>
-                    <div class="flex leading-9">
-                        <div class="w-20">获取渠道</div>
-                        <div>
-                            <a :href="workbenchData.version.channel.website" target="_blank">
-                                <el-button type="success" size="small">官网</el-button>
-                            </a>
-                            <a
-                                class="ml-3"
-                                :href="workbenchData.version.channel.gitee"
-                                target="_blank"
-                            >
-                                <el-button type="danger" size="small">Gitee</el-button>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </el-card>
             <el-card class="!border-none mb-4 flex-1" shadow="never">

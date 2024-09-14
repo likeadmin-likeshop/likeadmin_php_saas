@@ -63,7 +63,14 @@ const handleSelect = () => {
 .side {
     position: relative;
     z-index: 999;
-    @apply border-r border-br-light h-full flex flex-col;
+    @apply border-r h-full flex flex-col;
     background-color: var(--side-dark-color, var(--el-bg-color));
+    border-right-color: var(--el-color-primary);
+}
+
+.dark {
+    .side {
+        border-right-color: var(--el-border-color);
+    }
 }
 </style>

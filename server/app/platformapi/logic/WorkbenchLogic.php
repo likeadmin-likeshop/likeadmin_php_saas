@@ -80,17 +80,17 @@ class WorkbenchLogic extends BaseLogic
             [
                 'name' => '字典管理',
                 'image' => FileService::getFileUrl(config('project.default_image.menu_dict')),
-                'url' => '/dev_tools/dict'
+                'url' => '/setting/dev_tools/dict'
             ],
             [
                 'name' => '代码生成器',
                 'image' => FileService::getFileUrl(config('project.default_image.menu_generator')),
-                'url' => '/dev_tools/code'
+                'url' => '/setting/dev_tools/code'
             ],
             [
                 'name' => '素材中心',
                 'image' => FileService::getFileUrl(config('project.default_image.menu_file')),
-                'url' => '/material/index'
+                'url' => '/app/material/index'
             ],
             [
                 'name' => '菜单权限',

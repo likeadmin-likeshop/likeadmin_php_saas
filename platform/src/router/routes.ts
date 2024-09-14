@@ -32,6 +32,14 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import('@/views/error/403.vue')
     },
     {
+        path: PageEnum.ENTRANCE_403,
+        component: () => import('@/views/error/entrance/403.vue')
+    },
+    {
+        path: PageEnum.ENTRANCE_404,
+        component: () => import('@/views/error/entrance/404.vue')
+    },
+    {
         path: PageEnum.LOGIN,
         component: () => import('@/views/account/login.vue')
     },
