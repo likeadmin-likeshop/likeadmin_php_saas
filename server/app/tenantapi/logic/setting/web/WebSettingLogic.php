@@ -37,7 +37,7 @@ class WebSettingLogic extends BaseLogic
     public static function getWebsiteInfo(): array
     {
         return [
-            'name' => ConfigService::get('website', 'name'),
+            'name' => ConfigService::get('tenant', 'name'),
             'web_favicon' => FileService::getFileUrl(ConfigService::get('tenant', 'web_favicon')),
             'web_logo' => FileService::getFileUrl(ConfigService::get('tenant', 'web_logo')),
             'login_image' => FileService::getFileUrl(ConfigService::get('tenant', 'login_image')),

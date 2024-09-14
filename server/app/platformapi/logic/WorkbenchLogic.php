@@ -118,7 +118,7 @@ class WorkbenchLogic extends BaseLogic
         return [
             'version' => config('project.version'),
             'website' => config('project.website.url'),
-            'name' => config('project.project_name'),
+            'name' => ConfigService::get('platform', 'name'),
             'based' => 'vue3.x、ElementUI、MySQL',
             'channel' => [
                 'website' => 'https://www.likeadmin.cn',

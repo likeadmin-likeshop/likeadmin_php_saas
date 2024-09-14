@@ -16,6 +16,7 @@ namespace app\tenantapi\logic;
 
 
 use app\common\logic\BaseLogic;
+use app\common\model\user\User;
 use app\common\service\ConfigService;
 use app\common\service\FileService;
 
@@ -117,7 +118,7 @@ class WorkbenchLogic extends BaseLogic
         return [
             'version' => config('project.version'),
             'website' => config('project.website.url'),
-            'name' => config('project.project_name'),
+            'name' => ConfigService::get('tenant', 'name'),
             'based' => 'vue3.x、ElementUI、MySQL',
             'channel' => [
                 'website' => 'https://www.likeadmin.cn',
@@ -148,9 +149,9 @@ class WorkbenchLogic extends BaseLogic
             'total_visitor' => 100,
 
             // 今日新增用户量
-            'today_new_user' => 30,
+            'today_new_user' => User::where('create_time', '>=', strtotime('today'))->count(),
             // 总用户量
-            'total_new_user' => 3000,
+            'total_new_user' => User::count(),
 
             // 订单量 (笔)
             'order_num' => 12,
