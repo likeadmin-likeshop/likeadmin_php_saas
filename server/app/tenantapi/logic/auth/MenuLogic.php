@@ -20,6 +20,7 @@ use app\common\logic\BaseLogic;
 use app\common\model\auth\TenantAdmin;
 use app\common\model\auth\TenantSystemMenu;
 use app\common\model\auth\SystemRoleMenu;
+use app\common\model\auth\TenantSystemRoleMenu;
 
 
 /**
@@ -50,7 +51,7 @@ class MenuLogic extends BaseLogic
         $where[] = ['is_disable', '=', 0];
 
         if ($admin['root'] != 1) {
-            $roleMenu = SystemRoleMenu::whereIn('role_id', $admin['role_id'])->column('menu_id');
+            $roleMenu = TenantSystemRoleMenu::whereIn('role_id', $admin['role_id'])->column('menu_id');
             $where[] = ['id', 'in', $roleMenu];
         }
 

@@ -53,13 +53,14 @@ class FileLists extends BaseAdminDataLists implements ListsSearchInterface
     public function queryWhere(): array
     {
         $where = [];
-
-        if (!empty($this->params['cid'])) {
+        // 如果cid为0则为未分组
+        if("0" === $this->params['cid']){
+            $where[] = ['cid', '=', '0'];
+        }else if (!empty($this->params['cid'])) {
             $cateChild = FileLogic::getCateIds($this->params['cid']);
-            array_push($cateChild, $this->params['cid']);
+            $cateChild[] = (int)$this->params['cid'];
             $where[] = ['cid', 'in', $cateChild];
         }
-
         return $where;
     }
 
