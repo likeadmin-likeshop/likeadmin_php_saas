@@ -85,8 +85,8 @@ class IndexController extends BaseApiController
      */
     public function decorate()
     {
-        $id = $this->request->get('id/d');
-        $result = IndexLogic::getDecorate($id);
+        $type = $this->request->get('type/d');
+        $result = IndexLogic::getDecorate($type);
         return $this->data($result);
     }
 

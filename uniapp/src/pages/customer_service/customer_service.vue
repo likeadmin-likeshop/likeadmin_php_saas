@@ -1,10 +1,7 @@
 <template>
     <page-meta :page-style="$theme.pageStyle">
         <!-- #ifndef H5 -->
-        <navigation-bar
-            :front-color="$theme.navColor"
-            :background-color="$theme.navBgColor"
-        />
+        <navigation-bar :front-color="$theme.navColor" :background-color="$theme.navBgColor" />
         <!-- #endif -->
     </page-meta>
     <view class="customer-service">
@@ -25,7 +22,7 @@ const state = reactive<{
     pages: []
 })
 const getData = async () => {
-    const data = await getDecorate({ id: 3 })
+    const data = await getDecorate({ type: 3 })
     state.pages = JSON.parse(data.data)
 }
 getData()

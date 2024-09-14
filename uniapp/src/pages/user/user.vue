@@ -1,10 +1,7 @@
 <template>
     <page-meta :page-style="$theme.pageStyle">
         <!-- #ifndef H5 -->
-        <navigation-bar
-            :front-color="$theme.navColor"
-            :background-color="$theme.navBgColor"
-        />
+        <navigation-bar :front-color="$theme.navColor" :background-color="$theme.navBgColor" />
         <!-- #endif -->
     </page-meta>
     <view class="user">
@@ -43,7 +40,7 @@ const state = reactive<{
     pages: []
 })
 const getData = async () => {
-    const data = await getDecorate({ id: 2 })
+    const data = await getDecorate({ type: 2 })
     state.meta = JSON.parse(data.meta)
     state.pages = JSON.parse(data.data)
     uni.setNavigationBarTitle({

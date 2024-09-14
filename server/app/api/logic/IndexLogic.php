@@ -88,10 +88,10 @@ class IndexLogic extends BaseLogic
      * @author 段誉
      * @date 2022/9/21 18:37
      */
-    public static function getDecorate($id)
+    public static function getDecorate($type)
     {
-        return DecoratePage::field(['type', 'name', 'data', 'meta'])
-            ->findOrEmpty($id)->toArray();
+        return DecoratePage::where(['type' => $type])->field(['type', 'name', 'data', 'meta'])
+            ->findOrEmpty()->toArray();
     }
 
 
@@ -156,5 +156,4 @@ class IndexLogic extends BaseLogic
             'copyright' => $copyright,
         ];
     }
-
 }

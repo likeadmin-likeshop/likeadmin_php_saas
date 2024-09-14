@@ -23,15 +23,10 @@ export const useThemeStore = defineStore({
     actions: {
         async getTheme() {
             const data = await getDecorate({
-                id: 5
+                type: 5
             })
-            const {
-                themeColor1,
-                themeColor2,
-                buttonColor,
-                navigationBarColor,
-                topTextColor
-            } = JSON.parse(data.data)
+            const { themeColor1, themeColor2, buttonColor, navigationBarColor, topTextColor } =
+                JSON.parse(data.data)
             this.primaryColor = themeColor1
             this.minorColor = themeColor2
             this.btnColor = buttonColor
