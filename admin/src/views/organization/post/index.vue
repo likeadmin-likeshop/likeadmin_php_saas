@@ -18,8 +18,8 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="岗位状态">
-                    <el-select class="w-[280px]" v-model="queryParams.status">
+                <el-form-item label="岗位状态" class="w-[280px]">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />
@@ -54,7 +54,7 @@
                 <el-table-column label="添加时间" prop="create_time" min-width="180" />
                 <el-table-column label="状态" prop="status" min-width="100">
                     <template #default="{ row }">
-                        <el-tag class="ml-2" :type="row.status ? '' : 'danger'">
+                        <el-tag class="ml-2" :type="row.status ? 'primary' : 'danger'">
                             {{ row.status_desc }}
                         </el-tag>
                     </template>

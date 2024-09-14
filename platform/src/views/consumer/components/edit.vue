@@ -20,7 +20,7 @@
                         <el-avatar :src="formData.avatar" :size="58" />
                         <div class="flex flex-col justify-center gap-1">
                             <span class="font-bold text-lg">{{ formData.name }}</span>
-                            <span class="text-info text-xs">ID：{{ formData.id }}</span>
+                            <span class="text-info text-xs">编号：{{ formData.sn }}</span>
                         </div>
                     </div>
                     <div>
@@ -58,9 +58,14 @@
                         label-position="right"
                         :model="formData"
                         label-width="100px"
-                        :rules="rules"
+                        :rules="formRules"
                     >
-                        <el-form-item v-if="!editStatus" label="默认域名：" class="col-span-2">
+                        <el-form-item
+                            v-if="!editStatus"
+                            label="默认域名："
+                            class="col-span-2"
+                            prop="default_domain"
+                        >
                             <a
                                 :href="formData.default_domain"
                                 target="_blank"
@@ -76,9 +81,6 @@
                                 复制
                             </span>
                         </el-form-item>
-                        <el-form-item v-if="!editStatus" label="租户编码：">
-                            {{ formData.sn }}
-                        </el-form-item>
                         <el-form-item v-if="editStatus" label="头像：" prop="avatar">
                             <material-picker v-model="formData.avatar" :limit="1" />
                         </el-form-item>
@@ -93,7 +95,7 @@
                                 {{ formData.name || '--' }}
                             </span>
                         </el-form-item>
-                        <el-form-item label="联系方式：">
+                        <el-form-item label="联系方式：" prop="tel">
                             <el-input
                                 v-if="editStatus"
                                 v-model="formData.tel"
@@ -115,7 +117,7 @@
                                 {{ formData.domain_alias || '--' }}
                             </span>
                         </el-form-item>
-                        <el-form-item label="启用别名：" prop="disable">
+                        <el-form-item label="启用别名：" prop="domain_alias_enable">
                             <div v-if="editStatus">
                                 <el-radio-group v-model="formData.domain_alias_enable">
                                     <el-radio :value="0">启用</el-radio>
@@ -129,7 +131,7 @@
                             <el-tag
                                 v-else
                                 disable-transitions
-                                :type="formData.disable === 0 ? 'primary' : 'danger'"
+                                :type="formData.domain_alias_enable === 0 ? 'primary' : 'info'"
                             >
                                 {{ formData.domain_alias_enable === 0 ? '启用' : '禁用' }}
                             </el-tag>
@@ -142,7 +144,7 @@
                             <el-tag
                                 v-else
                                 disable-transitions
-                                :type="formData.disable === 0 ? 'primary' : 'danger'"
+                                :type="formData.disable === 0 ? 'primary' : 'info'"
                             >
                                 {{ formData.disable === 0 ? '开启' : '关闭' }}
                             </el-tag>
@@ -177,7 +179,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { FormInstance } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { cloneDeep } from 'lodash-es'
 
 import { getUserDetail, userEdit } from '@/api/consumer'
@@ -223,12 +225,27 @@ const formData = ref<DetailType>({
     notes: ''
 })
 
-const rules = {
+const formRules: FormRules = {
     name: [
         {
             required: true,
             message: '请输入租户名称',
             trigger: ['blur']
+        }
+    ],
+    domain_alias_enable: [
+        {
+            validator: (rule, value, callback) => {
+                if (
+                    formData.value.domain_alias === '' &&
+                    formData.value.domain_alias_enable === 0
+                ) {
+                    callback(new Error('请先设置域名别名再启用'))
+                } else {
+                    callback()
+                }
+            },
+            trigger: ['change']
         }
     ]
 }
@@ -318,6 +335,6 @@ defineExpose({
     }
 }
 :deep(.el-form-item__content) {
-    align-items: start;
+    align-items: center;
 }
 </style>

@@ -71,10 +71,10 @@ class WebSettingLogic extends BaseLogic
         $pcLogo = FileService::setFileUrl($params['pc_logo']);
         $pcIco = FileService::setFileUrl($params['pc_ico'] ?? '');
 
-        ConfigService::set('website', 'name', $params['name']);
-        ConfigService::set('website', 'web_favicon', $favicon);
-        ConfigService::set('website', 'web_logo', $logo);
-        ConfigService::set('website', 'login_image', $login);
+        ConfigService::set('tenant', 'name', $params['name']);
+        ConfigService::set('tenant', 'web_favicon', $favicon);
+        ConfigService::set('tenant', 'web_logo', $logo);
+        ConfigService::set('tenant', 'login_image', $login);
 
         ConfigService::set('website', 'pc_logo', $pcLogo);
         ConfigService::set('website', 'pc_title', $params['pc_title']);

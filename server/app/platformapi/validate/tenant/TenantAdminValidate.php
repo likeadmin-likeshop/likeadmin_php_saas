@@ -29,17 +29,23 @@ class TenantAdminValidate extends BaseValidate
     protected $rule = [
         'id'        => 'require|checkUser',
         'tenant_id' => 'require|checkTenant',
-        'account'   => 'require',
+        'account'   => 'require|length:1,32|checkAccount',
         'name'      => 'require',
-        'password'  => 'require',
+        'password' => 'require|length:6,32|edit',
+        'password_confirm' => 'requireWith:password|confirm',
     ];
 
     protected $message = [
-        'id.require'        => '请选择用户',
-        'name.require'      => '请输入用户名',
-        'account.require'   => '请输入账户',
-        'tenant_id.require' => '请选择对应的租户',
-        'password.require'  => '请输入账号密码',
+        'id.require'           => '请选择用户',
+        'name.require'         => '请输入用户名',
+        'account.require'      => '请输入账户',
+        'account.checkAccount' => '账号已存在',
+        'account.length' => '账号长度须在1-32位字符',
+        'tenant_id.require'    => '请选择对应的租户',
+        'password.require' => '密码不能为空',
+        'password.length' => '密码长度须在6-32位字符',
+        'password_confirm.requireWith' => '确认密码不能为空',
+        'password_confirm.confirm' => '两次输入的密码不一致',
     ];
 
 
@@ -69,6 +75,15 @@ class TenantAdminValidate extends BaseValidate
         $userIds = TenantAdmin::findOrEmpty($value);
         if ($userIds->isEmpty()) {
             return '租户管理员不存在';
+        }
+        return true;
+    }
+
+    public function checkAccount($value, $rule, $data)
+    {
+        $adminAccount = TenantAdmin::where(['account' => $value, 'tenant_id' => $data['tenant_id']])->findOrEmpty();
+        if (!$adminAccount->isEmpty()) {
+            return '账号已存在';
         }
         return true;
     }
@@ -132,5 +147,26 @@ class TenantAdminValidate extends BaseValidate
     public function sceneResetPassword()
     {
         return $this->only(['id']);
+    }
+
+    /**
+     * @notes 编辑情况下，检查是否填密码
+     * @param $value
+     * @param $rule
+     * @param $data
+     * @return bool|string
+     * @author 段誉
+     * @date 2021/12/29 10:19
+     */
+    public function edit($value, $rule, $data)
+    {
+        if (empty($data['password']) && empty($data['password_confirm'])) {
+            return true;
+        }
+        $len = strlen($value);
+        if ($len < 6 || $len > 32) {
+            return '密码长度须在6-32位字符';
+        }
+        return true;
     }
 }

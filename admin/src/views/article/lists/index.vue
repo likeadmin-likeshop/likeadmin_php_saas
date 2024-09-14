@@ -10,8 +10,8 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="栏目名称">
-                    <el-select class="w-[280px]" v-model="queryParams.cid">
+                <el-form-item label="栏目名称" class="w-[280px]">
+                    <el-select v-model="queryParams.cid">
                         <el-option label="全部" value />
                         <el-option
                             v-for="item in optionsData.article_cate"
@@ -21,8 +21,8 @@
                         />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="文章状态">
-                    <el-select class="w-[280px]" v-model="queryParams.is_show">
+                <el-form-item label="文章状态" class="w-[280px]">
+                    <el-select v-model="queryParams.is_show">
                         <el-option label="全部" value />
                         <el-option label="显示" :value="1" />
                         <el-option label="隐藏" :value="0" />

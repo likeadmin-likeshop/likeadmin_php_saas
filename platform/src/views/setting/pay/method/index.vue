@@ -63,7 +63,9 @@
                                     </el-radio>
                                 </template>
                                 <template v-else>
-                                    <el-tag v-if="row.is_default == 1">默认</el-tag>
+                                    <el-tag disable-transitions v-if="row.is_default == 1">
+                                        默认
+                                    </el-tag>
                                     <span v-else>-</span>
                                 </template>
                             </div>

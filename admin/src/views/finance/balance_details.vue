@@ -17,8 +17,8 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="变动类型">
-                    <el-select class="w-[280px]" v-model="queryParams.change_type">
+                <el-form-item label="变动类型" class="w-[280px]">
+                    <el-select v-model="queryParams.change_type">
                         <el-option label="全部" value />
                         <el-option
                             v-for="(value, key) in optionsData.change_type"

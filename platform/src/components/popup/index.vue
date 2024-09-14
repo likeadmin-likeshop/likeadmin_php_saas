@@ -11,6 +11,7 @@
             :append-to-body="true"
             :width="width"
             :close-on-click-modal="clickModalClose"
+            :destroy-on-close="destroyOnClose"
             @closed="close"
         >
             <!-- 弹窗内容 -->
@@ -88,6 +89,10 @@ export default defineComponent({
         customClass: {
             type: String,
             default: ''
+        },
+        destroyOnClose: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['confirm', 'cancel', 'close', 'open'],

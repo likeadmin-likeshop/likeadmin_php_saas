@@ -26,14 +26,14 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="支付方式">
-                    <el-select class="w-[280px]" v-model="queryParams.pay_way">
+                <el-form-item label="支付方式" class="w-[280px]">
+                    <el-select v-model="queryParams.pay_way">
                         <el-option label="全部" value />
                         <el-option label="微信支付" :value="2" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="支付状态">
-                    <el-select class="w-[280px]" v-model="queryParams.pay_status">
+                <el-form-item label="支付状态" class="w-[280px]">
+                    <el-select v-model="queryParams.pay_status">
                         <el-option label="全部" value />
                         <el-option label="未支付" :value="0" />
                         <el-option label="已支付" :value="1" />

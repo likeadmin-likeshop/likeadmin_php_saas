@@ -18,9 +18,9 @@
                         <div class="w-20">获取渠道</div>
                         <div>
                             <a :href="workbenchData.version.channel.website" target="_blank">
-                                <el-button type="info" size="small" :color="settingStore.subTheme"
-                                    >官网</el-button
-                                >
+                                <el-button type="info" size="small" :color="settingStore.subTheme">
+                                    官网
+                                </el-button>
                             </a>
                             <a
                                 class="ml-3"
@@ -61,14 +61,14 @@
                         </div>
                     </div>
                     <div class="w-1/2 md:w-1/4">
-                        <div class="leading-10">新增用户</div>
+                        <div class="leading-10">新增租户</div>
                         <div class="text-6xl">{{ workbenchData.today.today_new_user }}</div>
                         <div class="text-tx-secondary text-xs">
                             总：{{ workbenchData.today.total_new_user }}
                         </div>
                     </div>
                     <div class="w-1/2 md:w-1/4">
-                        <div class="leading-10">租户数量</div>
+                        <div class="leading-10">新增访问量</div>
                         <div class="text-6xl">{{ workbenchData.today.today_visitor }}</div>
                         <div class="text-tx-secondary text-xs">
                             总：{{ workbenchData.today.total_visitor }}

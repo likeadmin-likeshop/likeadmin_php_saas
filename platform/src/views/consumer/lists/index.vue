@@ -2,11 +2,11 @@
     <div>
         <el-card class="!border-none" shadow="never">
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" :inline="true">
-                <el-form-item label="用户信息">
+                <el-form-item label="租户信息">
                     <el-input
                         class="w-[280px]"
                         v-model="queryParams.keyword"
-                        placeholder="账号/租户名"
+                        placeholder="租户名/编号/联系方式/域名别名"
                         clearable
                         @keyup.enter="resetPage"
                     />
@@ -49,9 +49,9 @@
                         <el-avatar :src="row.avatar" :size="50" />
                     </template>
                 </el-table-column>
-                <el-table-column label="租户名称" prop="name" min-width="100" />
-                <el-table-column label="联系方式" prop="tel" min-width="130" />
-                <el-table-column label="用户数量" prop="users_count" min-width="100" align="center">
+                <el-table-column label="租户名称" prop="name" min-width="200" />
+                <el-table-column label="联系方式" prop="tel" min-width="150" />
+                <el-table-column label="用户数量" prop="users_count" min-width="100">
                     <template #default="{ row }">
                         <el-button
                             type="primary"
@@ -69,17 +69,7 @@
                         </el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="默认域名" prop="default_domain" min-width="200" />
-                <el-table-column label="域名别名" prop="domain_alias" min-width="200" />
-                <el-table-column label="启用别名" prop="domain_alias_enable" min-width="100">
-                    <template #default="{ row }">
-                        <el-tag :type="row.domain_alias_enable === 0 ? 'primary' : 'info'">
-                            {{ row.domain_alias_enable === 0 ? '启用' : '禁用' }}
-                        </el-tag>
-                    </template>
-                </el-table-column>
                 <el-table-column label="创建时间" prop="create_time" min-width="200" />
-                <el-table-column label="备注" prop="notes" min-width="150" show-overflow-tooltip />
 
                 <el-table-column label="操作" width="120" fixed="right">
                     <template #default="{ row }">

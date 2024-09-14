@@ -8,13 +8,15 @@
                 </el-table-column>
                 <el-table-column label="退款状态" prop="" min-width="100">
                     <template #default="{ row }">
-                        <el-tag type="warning" v-if="row.refund_status == 0">
-                            {{ row.refund_status_text }}
-                        </el-tag>
-                        <el-tag v-if="row.refund_status == 1">
-                            {{ row.refund_status_text }}
-                        </el-tag>
-                        <el-tag type="danger" v-if="row.refund_status == 2">
+                        <el-tag
+                            :type="
+                                row.refund_status == 0
+                                    ? 'warning'
+                                    : row.refund_status == 1
+                                      ? 'primary'
+                                      : 'danger'
+                            "
+                        >
                             {{ row.refund_status_text }}
                         </el-tag>
                     </template>

@@ -27,9 +27,13 @@
                 <el-table-column prop="expression" label="规则" min-width="100" />
                 <el-table-column prop="status" label="状态" min-width="100">
                     <template #default="{ row }">
-                        <el-tag v-if="row.status == 1" type="success">运行中</el-tag>
-                        <el-tag v-if="row.status == 2" type="info">已停止</el-tag>
-                        <el-tag v-if="row.status == 3" type="danger">错误</el-tag>
+                        <el-tag
+                            :type="
+                                row.status == 1 ? 'success' : row.status == 2 ? 'info' : 'danger'
+                            "
+                        >
+                            {{ row.status == 1 ? '运行中' : row.status == 2 ? '已停止' : '错误' }}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column prop="error" label="错误原因" min-width="120" />

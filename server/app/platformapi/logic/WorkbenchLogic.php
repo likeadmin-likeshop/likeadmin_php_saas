@@ -16,6 +16,7 @@ namespace app\platformapi\logic;
 
 
 use app\common\logic\BaseLogic;
+use app\common\model\tenant\Tenant;
 use app\common\service\ConfigService;
 use app\common\service\FileService;
 
@@ -148,9 +149,9 @@ class WorkbenchLogic extends BaseLogic
             'total_visitor' => 100,
 
             // 今日新增用户量
-            'today_new_user' => 30,
+            'today_new_user' => Tenant::where('create_time', '>=', strtotime('today'))->count(),
             // 总用户量
-            'total_new_user' => 3000,
+            'total_new_user' => Tenant::count(),
 
             // 订单量 (笔)
             'order_num' => 12,

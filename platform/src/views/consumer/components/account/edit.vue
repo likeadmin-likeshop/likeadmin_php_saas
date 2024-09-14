@@ -5,6 +5,7 @@
             :title="popupTitle"
             :async="true"
             width="550px"
+            destroy-on-close
             @confirm="handleSubmit"
             @close="handleClose"
         >
@@ -19,7 +20,7 @@
                     />
                 </el-form-item>
                 <!-- 管理员头像 -->
-                <el-form-item label="头像">
+                <el-form-item label="头像" prop="avatar">
                     <div>
                         <div>
                             <material-picker v-model="formData.avatar" :limit="1" />
@@ -285,6 +286,7 @@ const setFormData = async (id: number) => {
 }
 
 const handleClose = () => {
+    formRef.value?.clearValidate()
     formRef.value?.resetFields()
 }
 

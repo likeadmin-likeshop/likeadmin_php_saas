@@ -49,8 +49,8 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="退款类型">
-                    <el-select class="w-[280px]" v-model="queryParams.refund_type">
+                <el-form-item label="退款类型" class="w-[280px]">
+                    <el-select v-model="queryParams.refund_type">
                         <el-option label="全部" value />
                         <el-option label="后台退款" :value="1" />
                     </el-select>
@@ -106,13 +106,15 @@
                         <el-table-column label="退款类型" prop="refund_type_text" min-width="100" />
                         <el-table-column label="退款状态" prop="" min-width="100">
                             <template #default="{ row }">
-                                <el-tag type="warning" v-if="row.refund_status == 0">
-                                    {{ row.refund_status_text }}
-                                </el-tag>
-                                <el-tag v-if="row.refund_status == 1">
-                                    {{ row.refund_status_text }}
-                                </el-tag>
-                                <el-tag type="danger" v-if="row.refund_status == 2">
+                                <el-tag
+                                    :type="
+                                        row.refund_status == 0
+                                            ? 'warning'
+                                            : row.refund_status == 1
+                                              ? 'primary'
+                                              : 'danger'
+                                    "
+                                >
                                     {{ row.refund_status_text }}
                                 </el-tag>
                             </template>

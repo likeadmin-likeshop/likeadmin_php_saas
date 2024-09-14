@@ -55,7 +55,7 @@ class Tenant extends BaseModel
     public function searchKeywordAttr($query, $value, $data)
     {
         if ($value) {
-            $query->where('sn|name', 'like', '%' . $value . '%');
+            $query->where('sn|name|tel|domain_alias', 'like', '%' . $value . '%');
         }
     }
 

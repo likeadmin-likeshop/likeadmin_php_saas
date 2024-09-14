@@ -22,8 +22,9 @@
                 <el-table-column label="储存位置" prop="path" min-width="160" />
                 <el-table-column label="状态" min-width="80">
                     <template #default="{ row }">
-                        <el-tag v-if="row.status == 1">开启</el-tag>
-                        <el-tag type="danger" v-else>关闭</el-tag>
+                        <el-tag :type="row.status == 1 ? 'primary' : 'danger'">
+                            {{ row.status == 1 ? '开启' : '关闭' }}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column label="操作" min-width="80" fixed="right">

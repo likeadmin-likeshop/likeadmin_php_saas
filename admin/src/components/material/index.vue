@@ -160,7 +160,7 @@
                     placeholder="请选择文件来源"
                     clearable
                     style="margin-right: 20px"
-                    class="w-50"
+                    class="max-w-52 ml-3"
                 >
                     <el-option
                         v-for="item in options"
@@ -657,6 +657,18 @@ const textCopy = (uri: string) => {
             .select-item {
                 width: 100px;
                 height: 100px;
+            }
+        }
+    }
+}
+
+.dark {
+    .material {
+        &__center {
+            .list-icon {
+                &.select {
+                    @apply text-white;
+                }
             }
         }
     }

@@ -47,8 +47,9 @@
                 />
                 <el-table-column label="状态" prop="is_disable" min-width="100">
                     <template #default="{ row }">
-                        <el-tag v-if="row.is_disable == 0">正常</el-tag>
-                        <el-tag v-else type="danger">停用</el-tag>
+                        <el-tag :type="row.is_disable == 0 ? 'primary' : 'danger'">
+                            {{ row.is_disable == 0 ? '正常' : '停用' }}
+                        </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column label="排序" prop="sort" min-width="100" />

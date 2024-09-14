@@ -89,9 +89,9 @@
                     style="max-width: 250px"
                 />
             </el-form-item>
-            <el-form-item label="确认密码：" prop="repassword">
+            <el-form-item label="确认密码：" prop="password_confirm">
                 <el-input
-                    v-model="formData.repassword"
+                    v-model="formData.password_confirm"
                     type="password"
                     placeholder="请再次输入密码"
                     style="max-width: 250px"
@@ -123,7 +123,7 @@ interface DetailType {
     notes: string
     account: string
     password: string
-    repassword: string
+    password_confirm: string
 }
 
 const drawer = ref<boolean>(false)
@@ -142,7 +142,7 @@ const formData = ref<DetailType>({
     notes: '',
     account: '',
     password: '',
-    repassword: ''
+    password_confirm: ''
 })
 
 const rules: FormRules = {
@@ -184,7 +184,7 @@ const afterClose = () => {
 
 const submitAdd = async () => {
     await formRef.value?.validate()
-    if (formData.value.password !== formData.value.repassword) {
+    if (formData.value.password !== formData.value.password_confirm) {
         return ElMessage.error('两次密码输入不一致')
     }
     await userAdd(formData.value)

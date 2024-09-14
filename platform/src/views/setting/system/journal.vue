@@ -13,8 +13,8 @@
                     />
                 </el-form-item>
 
-                <el-form-item label="访问方式">
-                    <el-select class="w-[280px]" v-model="formData.type" placeholder="请选择">
+                <el-form-item label="访问方式" class="w-[280px]">
+                    <el-select v-model="formData.type" placeholder="请选择">
                         <el-option
                             v-for="(item, index) in visitType"
                             :key="index"

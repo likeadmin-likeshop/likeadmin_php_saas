@@ -17,8 +17,8 @@
                         v-model:endTime="queryParams.create_time_end"
                     />
                 </el-form-item>
-                <el-form-item label="注册来源">
-                    <el-select class="w-[280px]" v-model="queryParams.channel">
+                <el-form-item label="注册来源" class="w-[280px]">
+                    <el-select v-model="queryParams.channel">
                         <el-option
                             v-for="(item, key) in ClientMap"
                             :key="key"

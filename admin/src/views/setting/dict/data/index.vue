@@ -3,8 +3,8 @@
         <el-card class="!border-none" shadow="never">
             <el-page-header class="mb-4" content="数据管理" @back="$router.back()" />
             <el-form ref="formRef" class="mb-[-16px]" :model="queryParams" inline>
-                <el-form-item label="字典名称">
-                    <el-select class="w-[280px]" v-model="queryParams.type_id" @change="getLists">
+                <el-form-item label="字典名称" class="w-[280px]">
+                    <el-select v-model="queryParams.type_id" @change="getLists">
                         <el-option
                             v-for="item in optionsData.dict_type"
                             :label="item.name"
@@ -21,8 +21,8 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="数据状态">
-                    <el-select class="w-[280px]" v-model="queryParams.status">
+                <el-form-item label="数据状态" class="w-[280px]">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />
@@ -70,9 +70,10 @@
                         <el-table-column label="数据名称" prop="name" min-width="120" />
                         <el-table-column label="数据值" prop="value" min-width="120" />
                         <el-table-column label="状态">
-                            <template v-slot="{ row }">
-                                <el-tag v-if="row.status == 1">正常</el-tag>
-                                <el-tag v-else type="danger">停用</el-tag>
+                            <template #default="{ row }">
+                                <el-tag :type="row.status == 1 ? 'primary' : 'danger'">
+                                    {{ row.status == 1 ? '正常' : '停用' }}
+                                </el-tag>
                             </template>
                         </el-table-column>
                         <el-table-column

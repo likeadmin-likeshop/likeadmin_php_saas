@@ -18,8 +18,8 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="状态">
-                    <el-select class="w-[280px]" v-model="queryParams.status">
+                <el-form-item label="状态" class="w-[280px]">
+                    <el-select v-model="queryParams.status">
                         <el-option label="全部" value />
                         <el-option label="正常" :value="1" />
                         <el-option label="停用" :value="0" />
@@ -67,9 +67,10 @@
                         <el-table-column label="字典名称" prop="name" min-width="120" />
                         <el-table-column label="字典类型" prop="type" min-width="120" />
                         <el-table-column label="状态">
-                            <template v-slot="{ row }">
-                                <el-tag v-if="row.status == 1">正常</el-tag>
-                                <el-tag v-else type="danger">停用</el-tag>
+                            <template #default="{ row }">
+                                <el-tag :type="row.status == 1 ? 'primary' : 'danger'">
+                                    {{ row.status == 1 ? '正常' : '停用' }}
+                                </el-tag>
                             </template>
                         </el-table-column>
                         <el-table-column label="备注" prop="remark" show-tooltip-when-overflow />

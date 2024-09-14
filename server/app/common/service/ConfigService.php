@@ -44,15 +44,15 @@ class ConfigService
         ];
         $query = ['type' => $type, 'name' => $name];
 
-        if(AdminTerminalEnum::isTenant()) {
+        if(!AdminTerminalEnum::isPlatform()) {
             $options['tenant_id'] = request()->tenantId;
             $query['tenant_id'] = request()->tenantId;
         }
-        $data = (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->where($query)->findOrEmpty();
+        $data = (!AdminTerminalEnum::isPlatform() ? new TenantConfig() : new Config())->where($query)->findOrEmpty();
 
         if ($data->isEmpty()) {
 
-            (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->create($options);
+            (!AdminTerminalEnum::isPlatform() ? new TenantConfig() : new Config())->create($options);
         } else {
             $data->value = $value;
             $data->save();
@@ -75,11 +75,11 @@ class ConfigService
     {
         $query = ['type' => $type, 'name' => $name];
 
-        if(AdminTerminalEnum::isTenant()) {
+        if(!AdminTerminalEnum::isPlatform()) {
             $query['tenant_id'] = request()->tenantId;
         }
         if (!empty($name)) {
-            $value = (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->where($query)->value('value');
+            $value = (!AdminTerminalEnum::isPlatform() ? new TenantConfig() : new Config())->where($query)->value('value');
 
             if (!is_null($value)) {
                 $json = json_decode($value, true);
@@ -101,7 +101,7 @@ class ConfigService
         }
 
         // 取某个类型下的所有name的值
-        $data = (AdminTerminalEnum::isTenant() ? new TenantConfig() : new Config())->where(['type' => $type])->column('value', 'name');
+        $data = (!AdminTerminalEnum::isPlatform() ? new TenantConfig() : new Config())->where(['type' => $type])->column('value', 'name');
         foreach ($data as $k => $v) {
             $json = json_decode($v, true);
             if (json_last_error() === JSON_ERROR_NONE) {

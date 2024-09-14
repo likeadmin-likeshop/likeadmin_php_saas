@@ -18,8 +18,8 @@
                         @keyup.enter="resetPage"
                     />
                 </el-form-item>
-                <el-form-item label="管理员角色">
-                    <el-select class="w-[280px]" v-model="formData.role_id">
+                <el-form-item label="管理员角色" class="w-[280px]">
+                    <el-select v-model="formData.role_id">
                         <el-option label="全部" value="" />
                         <el-option
                             v-for="(item, index) in optionsData.role"
