@@ -78,16 +78,16 @@ class WorkbenchLogic extends BaseLogic
                 'image' => FileService::getFileUrl(config('project.default_image.menu_dept')),
                 'url' => '/organization/department'
             ],
-            [
-                'name' => '字典管理',
-                'image' => FileService::getFileUrl(config('project.default_image.menu_dict')),
-                'url' => '/setting/dev_tools/dict'
-            ],
-            [
-                'name' => '代码生成器',
-                'image' => FileService::getFileUrl(config('project.default_image.menu_generator')),
-                'url' => '/setting/dev_tools/code'
-            ],
+            // [
+            //     'name' => '字典管理',
+            //     'image' => FileService::getFileUrl(config('project.default_image.menu_dict')),
+            //     'url' => '/setting/dev_tools/dict'
+            // ],
+            // [
+            //     'name' => '代码生成器',
+            //     'image' => FileService::getFileUrl(config('project.default_image.menu_generator')),
+            //     'url' => '/setting/dev_tools/code'
+            // ],
             [
                 'name' => '素材中心',
                 'image' => FileService::getFileUrl(config('project.default_image.menu_file')),

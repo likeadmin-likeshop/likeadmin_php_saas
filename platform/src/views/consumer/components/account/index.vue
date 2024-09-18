@@ -18,7 +18,7 @@
             <el-form-item class="!mr-0">
                 <el-button type="primary" @click="resetPage">查询</el-button>
                 <el-button @click="resetParams">重置</el-button>
-                <el-button @click="editRef?.open('add')">新增</el-button>
+                <el-button @click="handleShow('add')">新增</el-button>
                 <export-data
                     class="ml-2.5"
                     :fetch-fun="getTenantAccountList"
@@ -50,7 +50,7 @@
                         class="mr-1"
                         type="primary"
                         link
-                        @click="editRef?.open('edit', row.id)"
+                        @click="handleShow('edit', row.id)"
                     >
                         编辑
                     </el-button>
@@ -69,7 +69,13 @@
         <div class="flex justify-end mt-4">
             <pagination v-model="pager" @change="getLists" />
         </div>
-        <Edit ref="editRef" :tenant_id="props.tenant_id" @refresh="getLists" />
+        <Edit
+            v-if="showEdit"
+            ref="editRef"
+            :tenant_id="props.tenant_id"
+            @refresh="getLists"
+            @close="showEdit = false"
+        />
     </div>
 </template>
 
@@ -88,6 +94,7 @@ const props = defineProps({
     }
 })
 
+const showEdit = ref<boolean>(false)
 const editRef = useComponentRef(Edit)
 
 const queryParams = reactive({
@@ -104,6 +111,12 @@ const { pager, getLists, resetPage, resetParams } = usePaging({
 onActivated(() => {
     getLists()
 })
+
+const handleShow = async (type: 'add' | 'edit', id?: number) => {
+    showEdit.value = true
+    await nextTick()
+    editRef.value?.open(type, id)
+}
 
 const handleDelete = async (id: number) => {
     await feedback.confirm('确定要删除？')
