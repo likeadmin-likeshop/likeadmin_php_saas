@@ -115,7 +115,6 @@ class Driver
     {
         $engineName = is_null($storage) ? $this->config['default'] : $storage;
         $classSpace = __NAMESPACE__ . '\\engine\\' . ucfirst($engineName);
-
         if (!class_exists($classSpace)) {
             throw new Exception('未找到存储引擎类: ' . $engineName);
         }

@@ -39,11 +39,8 @@ class UploadService
     public static function image($cid, int $sourceId = 0, int $source = FileEnum::SOURCE_ADMIN, string $saveDir = 'uploads/images')
     {
         try {
-            $config = [
-                'default' => ConfigService::get('storage', 'default', 'local'),
-                'engine'  => ConfigService::get('storage') ?? ['local'=>[]],
-            ];
-
+            // 租户端文件配置默认获取平台端
+            $config = self::getUploadFileConfig();
             // 2、执行文件上传
             $StorageDriver = new StorageDriver($config);
             $StorageDriver->setUploadFile('file');
@@ -243,4 +240,23 @@ class UploadService
     {
         return $saveDir . '/' . date('Ymd');
     }
+
+
+    /**
+     * @notes 获取文件上传存储配置
+     * @return array
+     * @author yfdong
+     * @date 2024/09/15 19:37
+     */
+    private static function getUploadFileConfig()
+    {
+        // 默认开启的存储配置
+        $inUse = ConfigService::get('storage', 'default', 'local');
+        $config = [
+            'default' => $inUse,
+            'engine' => 'local' === $inUse ? ['local' => []] : [$inUse => ConfigService::get('storage', $inUse)],
+        ];
+        return $config;
+    }
+
 }

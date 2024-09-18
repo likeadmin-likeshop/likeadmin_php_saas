@@ -73,23 +73,35 @@ class ConfigService
      */
     public static function get(string $type, string $name = '', $default_value = null)
     {
+        // 初始化查询条件
         $query = ['type' => $type, 'name' => $name];
-
-        if(!AdminTerminalEnum::isPlatform()) {
-            $query['tenant_id'] = request()->tenantId;
+        // 当查询的为文件存储配置时获取平台端配置
+        if($type === 'storage') {
+            $configClass = new Config();
+        }else{
+            // 根据是否为平台决定查询类
+            $configClass = AdminTerminalEnum::isPlatform() ? new Config() : new TenantConfig();
+            //判断是否为租户端
+            if (!AdminTerminalEnum::isPlatform()) {
+                $query['tenant_id'] = request()->tenantId;
+            }
         }
         if (!empty($name)) {
-            $value = (!AdminTerminalEnum::isPlatform() ? new TenantConfig() : new Config())->where($query)->value('value');
-
-            if (!is_null($value)) {
+            // 查询配置值
+            $value = $configClass->where($query)->value('value');
+            // 处理 JSON 数据
+            if ($value !== null) {
                 $json = json_decode($value, true);
-                $value = json_last_error() === JSON_ERROR_NONE ? $json : $value;
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $value = $json;
+                }
             }
-            if ($value) {
-                return $value;
-            }
-            // 返回特殊值 0 '0'
-            if ($value === 0 || $value === '0') {
+            // 返回配置值
+            if ($value !== null) {
+                // 处理特殊值
+                if ($value === 0 || $value === '0') {
+                    return $value;
+                }
                 return $value;
             }
             // 返回默认值
@@ -99,18 +111,7 @@ class ConfigService
             // 返回本地配置文件中的值
             return config('project.' . $type . '.' . $name);
         }
-
-        // 取某个类型下的所有name的值
-        $data = (!AdminTerminalEnum::isPlatform() ? new TenantConfig() : new Config())->where(['type' => $type])->column('value', 'name');
-        foreach ($data as $k => $v) {
-            $json = json_decode($v, true);
-            if (json_last_error() === JSON_ERROR_NONE) {
-                $data[$k] = $json;
-            }
-        }
-        if ($data) {
-            return $data;
-        }
-        return null;
+        // 返回默认值或本地配置文件中的值
+        return $default_value !== null ? $default_value : config('project.' . $type . '.' . $name);
     }
 }
