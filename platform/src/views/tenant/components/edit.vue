@@ -126,7 +126,7 @@
                             </el-tag>
                         </el-form-item>
                         <el-form-item
-                            v-if="formData.domain_alias_enable === 0"
+                            v-if="formData.domain_alias_enable === 0 || !editStatus"
                             label="域名别名："
                             prop="domain_alias"
                         >

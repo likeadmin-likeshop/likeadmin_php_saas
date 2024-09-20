@@ -33,32 +33,6 @@
 </div>
 <br>
 
-## 🚀🚀🚀docker 本地一句命令快速部署体验
-
-### 🐳 快速部署
-
-安装启动 [docker](https://www.docker.com/) 之后，在终端运行以下命令即可体验。<br>
-
-```shell
- docker run -d --name likeadmin_php  -p 20221:80 -e MYSQL_ROOT_PASSWORD=root  registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
-```
-
-如果需要自定义参数永久挂载数据，在终端运行以下命令，其中"[]"改成自定义参数。
-
-```shell
-docker run -d --name likeadmin_php \
--v 【主机存储数据库路径】:/var/lib/mysql \
--v 【主机存储项目代码文件路径】:/var/www/html/likeadmin_php \
--p 【访问端口】:80 \
--e MYSQL_ROOT_PASSWORD=【Mysql密码】 \
-registry.cn-guangzhou.aliyuncs.com/likeadmin/likeadmin_php:latest
-```
-
-### ⚠️ 注意
-
-1.如果出现无法访问，请等待 1 分钟，docker 部署每次会下载最新源码。<br> 2.安装的时候，数据默认帐号为 root，默认密码为 root。<br>
-3.docker 快速部署只适合本地部署体验，不熟悉 docker 请勿用于生产环境，可能造成数据丢失等问题。
-
 ### 🛜 访问
 
 访问安装程序：http://127.0.0.1:20221
