@@ -28,42 +28,28 @@
 <a href="https://www.qiniu.com/"><img src="https://img.shields.io/badge/七牛云-OSS-07beff"></a>
 </p>
 </p>
-<div align="center">
-  <img src="/server/public/readme/platform-1.png" /><br>
-</div>
-<br>
 
-### 🛜 访问
-
-访问安装程序：http://127.0.0.1:20221
-<br>平台管理后台：http://127.0.0.1:20221/platform/login
-<br>租户管理后台：http://127.0.0.1:20221/tenant/login
-<br>PC 端前台：http://127.0.0.1:20221/pc/
-<br>手机端前台：http://127.0.0.1:20221/mobile/
+![](/server/public/readme/platform-1.png)
 
 ## 👀 体验后台
 
 ### 平台管理后台
 
-**地址：https://php.likeadmin.cn/admin <br>
+**地址：https://php-likeadmin-saas.yixiangonline.com/platform/ <br>
 账号：admin 密码：123456**
 
 ### 租户管理后台
 
-**地址：https://php.likeadmin.cn/admin <br>
+**地址：https://ctragis5.yixiangonline.com/admin/ <br>
 账号：admin 密码：123456**
-
-### 微信小程序前台
-
-<img width="40%" src="/server/public/readme/mnp.jpg"/><br>
 
 ### 手机端网页前台
 
-https://php.likeadmin.cn/mobile
+https://ctragis5.yixiangonline.com/mobile/
 
 ### PC（电脑）端网页前台
 
-https://php.likeadmin.cn/pc/
+https://ctragis5.yixiangonline.com/pc/
 
 ### 开发文档
 
@@ -78,7 +64,6 @@ https://php.likeadmin.cn/pc/
 ![](/server/public/readme/admin-1.png)
 ![](/server/public/readme/admin-2.png)
 ![](/server/public/readme/admin-3.png)
-![](/server/public/readme/admin-4.png)
 <br>
 
 ### 📱 手机端前台界面
@@ -94,7 +79,6 @@ https://php.likeadmin.cn/pc/
 
 ![](/server/public/readme/pc-1.png)
 ![](/server/public/readme/pc-2.png)
-![](/server/public/readme/pc-3.png)
 
 ## 👨‍💻‍ 简介
 
@@ -128,4 +112,4 @@ PC 端前台使用 Nuxt.js，支持服务器端渲染(SSR)，对 SEO 友好。
 
 ### 🛠️  代码生成器
 
-一键生成前后端业务代码，大大提示开发效率。
+一键生成前后端业务代码，大大提升开发效率。
