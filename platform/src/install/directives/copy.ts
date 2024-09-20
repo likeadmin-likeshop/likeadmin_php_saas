@@ -1,7 +1,5 @@
 /**
- * perm 操作权限处理
- * 指令用法：
- *  <el-button v-perms="['auth.menu/edit']">编辑</el-button>
+ * 复制文本
  */
 
 import useClipboard from 'vue-clipboard3'

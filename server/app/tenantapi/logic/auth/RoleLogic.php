@@ -18,7 +18,7 @@ use app\common\logic\BaseLogic;
 use app\common\model\auth\TenantSystemRole;
 use app\common\model\auth\TenantSystemRoleMenu;
 use app\common\{
-    cache\AdminAuthCache
+    cache\TenantAdminAuthCache
 };
 use think\facade\Db;
 
@@ -104,7 +104,7 @@ class RoleLogic extends BaseLogic
                 (new TenantSystemRoleMenu)->insertAll($data);
             }
 
-            (new AdminAuthCache())->deleteTag();
+            (new TenantAdminAuthCache())->deleteTag();
 
             Db::commit();
             return true;
@@ -125,7 +125,7 @@ class RoleLogic extends BaseLogic
     public static function delete(int $id)
     {
         TenantSystemRole::destroy(['id' => $id]);
-        (new AdminAuthCache())->deleteTag();
+        (new TenantAdminAuthCache())->deleteTag();
         return true;
     }
 

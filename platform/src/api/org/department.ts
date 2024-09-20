@@ -26,6 +26,6 @@ export function deptDetail(params: any) {
 }
 
 /** 部门列表全部 */
-export function deptAll() {
-    return request.get({ url: '/dept.dept/all' })
+export function deptAll(params: any) {
+    return request.get({ url: '/dept.dept/all', params })
 }

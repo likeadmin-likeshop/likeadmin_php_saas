@@ -104,10 +104,10 @@ class ArticleController extends BaseAdminController
     {
         $params = (new ArticleValidate())->post()->goCheck('status');
         $result = ArticleLogic::updateStatus($params);
-        if (true === $result) {
-            return $this->success('修改成功', [], 1, 1);
+        if (false === $result) {
+            return $this->fail(ArticleLogic::getError());
         }
-        return $this->fail(ArticleLogic::getError());
+        return $this->success('修改成功', [], 1, 1);
     }
 
 

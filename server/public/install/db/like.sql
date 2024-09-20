@@ -1143,6 +1143,14 @@ VALUES (164, 162, 'A', '设置支付方式', '', 0, 'setting.pay.pay_way/setPayW
 INSERT INTO `la_system_menu`
 VALUES (165, 163, 'A', '配置', '', 0, 'setting.pay.pay_config/setConfig', '', '', '', '', 0, 1, 0, 1677219655,
         1677219655);
+INSERT INTO `la_system_menu`
+VALUES (166, 118, 'A', '新增租户', '', 0, 'tenant.tenant/add', '', '', '', '', 1, 1, 0, 1726822307, 1726822435);
+INSERT INTO `la_system_menu`
+VALUES (167, 118, 'A', '编辑租户', '', 0, 'tenant.tenant/edit', '', '', '', '', 1, 1, 0, 1726822372, 1726822440);
+INSERT INTO `la_system_menu`
+VALUES (168, 118, 'A', '租户详情', '', 0, 'tenant.tenant/detail', '', '', '', '', 1, 1, 0, 1726822396, 1726822444);
+INSERT INTO `la_system_menu`
+VALUES (169, 118, 'A', '删除租户', '', 0, 'tenant.tenant/delete', '', '', '', '', 1, 1, 0, 1726822416, 1726822449);
 COMMIT;
 
 -- ----------------------------
@@ -1767,8 +1775,6 @@ VALUES (104, 0, 101, 'C', '通知设置编辑', '', 0, 'notice.notice/set', 'not
         '/message/notice', '', 0, 0, 0, 1663839873, 1663898477);
 INSERT INTO `la_tenant_system_menu`
 VALUES (105, 0, 71, 'A', '编辑', '', 0, 'article.article/edit', '', '', '', '', 0, 1, 0, 1663840043, 1663840053);
-INSERT INTO `la_tenant_system_menu`
-VALUES (106, 0, 71, 'A', '详情', '', 0, 'article.article/detail', '', '', '', '', 0, 1, 0, 1663840284, 1663840494);
 INSERT INTO `la_tenant_system_menu`
 VALUES (107, 0, 101, 'C', '短信设置', '', 0, 'notice.sms_config/getConfig', 'short_letter',
         'message/short_letter/index', '', '', 0, 1, 0, 1663898591, 1664355708);

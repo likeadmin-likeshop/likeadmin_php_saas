@@ -6,7 +6,7 @@ export function isDevMode(): boolean {
 }
 
 /**
- * @description: 生成模式
+ * @description: 生产模式
  */
 export function isProdMode(): boolean {
     return import.meta.env.PROD

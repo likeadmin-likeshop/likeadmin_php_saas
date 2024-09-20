@@ -19,7 +19,6 @@ use app\common\enum\YesNoEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\auth\TenantAdmin;
 use app\common\model\auth\TenantSystemMenu;
-use app\common\model\auth\SystemRoleMenu;
 use app\common\model\auth\TenantSystemRoleMenu;
 
 
@@ -142,7 +141,7 @@ class MenuLogic extends BaseLogic
         // 删除菜单
         TenantSystemMenu::destroy($params['id']);
         // 删除角色-菜单表中 与该菜单关联的记录
-        SystemRoleMenu::where(['menu_id' => $params['id']])->delete();
+        TenantSystemRoleMenu::where(['menu_id' => $params['id']])->delete();
     }
 
 

@@ -65,7 +65,7 @@ class TenantLogic extends BaseLogic
             $domain = self::getRootDmain(request()->domain());
             $user['default_domain'] = (self::checkHttp() ? 'https://' : 'http://') . $user['sn'] . '.' . $domain . '/admin/';
             if ($user['domain_alias_enable'] === 0) {
-                $user['domain'] = $user['domain_alias'] . '/admin/';
+                $user['domain'] = (self::checkHttp() ? 'https://' : 'http://') . $user['domain_alias'] . '/admin/';
             } else {
                 $user['domain'] = $user['default_domain'];
             }
@@ -88,13 +88,14 @@ class TenantLogic extends BaseLogic
     public static function edit(array $params)
     {
         try {
+            $domain_alias = preg_replace('/^https?:\/\/|\/$/', '', $params['domain_alias']);
             Tenant::update([
                 'id'                  => $params['id'],
                 'name'                => $params['name'],
                 'avatar'              => $params['avatar'],
                 'disable'             => $params['disable'] ?? 0,
                 'tel'                 => $params['tel'],
-                'domain_alias'        => $params['domain_alias'],
+                'domain_alias'        => $domain_alias,
                 'domain_alias_enable' => $params['domain_alias_enable'],
                 'notes'               => $params['notes'] ?? '',
             ]);

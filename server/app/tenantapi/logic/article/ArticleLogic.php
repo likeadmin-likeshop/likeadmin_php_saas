@@ -35,16 +35,16 @@ class ArticleLogic extends BaseLogic
     public static function add(array $params)
     {
         Article::create([
-            'title' => $params['title'],
-            'desc' => $params['desc'] ?? '',
-            'author' => $params['author'] ?? '', //作者
-            'sort' => $params['sort'] ?? 0, // 排序
-            'abstract' => $params['abstract'], // 文章摘要
+            'title'         => $params['title'],
+            'desc'          => $params['desc'] ?? '',
+            'author'        => $params['author'] ?? '', //作者
+            'sort'          => $params['sort'] ?? 0, // 排序
+            'abstract'      => $params['abstract'], // 文章摘要
             'click_virtual' => $params['click_virtual'] ?? 0,
-            'image' => $params['image'] ? FileService::setFileUrl($params['image']) : '',
-            'cid' => $params['cid'],
-            'is_show' => $params['is_show'],
-            'content' => $params['content'] ?? '',
+            'image'         => $params['image'] ? FileService::setFileUrl($params['image']) : '',
+            'cid'           => $params['cid'],
+            'is_show'       => $params['is_show'],
+            'content'       => $params['content'] ?? '',
         ]);
     }
 
@@ -56,22 +56,21 @@ class ArticleLogic extends BaseLogic
      * @author heshihu
      * @date 2022/2/22 10:12
      */
-    public static function edit(array $params) : bool
+    public static function edit(array $params): bool
     {
         try {
             Article::update([
-                'id' => $params['id'],
-                'title' => $params['title'],
-                'desc' => $params['desc'] ?? '', // 简介
-                'author' => $params['author'] ?? '', //作者
-                'sort' => $params['sort'] ?? 0, // 排序
-                'abstract' => $params['abstract'], // 文章摘要
+                'title'         => $params['title'],
+                'desc'          => $params['desc'] ?? '', // 简介
+                'author'        => $params['author'] ?? '', //作者
+                'sort'          => $params['sort'] ?? 0, // 排序
+                'abstract'      => $params['abstract'], // 文章摘要
                 'click_virtual' => $params['click_virtual'] ?? 0,
-                'image' => $params['image'] ? FileService::setFileUrl($params['image']) : '',
-                'cid' => $params['cid'],
-                'is_show' => $params['is_show'],
-                'content' => $params['content'] ?? '',
-            ]);
+                'image'         => $params['image'] ? FileService::setFileUrl($params['image']) : '',
+                'cid'           => $params['cid'],
+                'is_show'       => $params['is_show'],
+                'content'       => $params['content'] ?? '',
+            ], ['id' => $params['id']]);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());
@@ -98,7 +97,7 @@ class ArticleLogic extends BaseLogic
      * @author heshihu
      * @date 2022/2/22 10:15
      */
-    public static function detail($params) : array
+    public static function detail($params): array
     {
         return Article::findOrEmpty($params['id'])->toArray();
     }
@@ -106,17 +105,20 @@ class ArticleLogic extends BaseLogic
     /**
      * @notes  更改资讯状态
      * @param array $params
-     * @return bool
+     * @return false|void
      * @author heshihu
      * @date 2022/2/22 10:18
      */
     public static function updateStatus(array $params)
     {
-        Article::update([
-            'id' => $params['id'],
-            'is_show' => $params['is_show']
-        ]);
-        return true;
+        try {
+            Article::update([
+                'is_show' => $params['is_show']
+            ], ['id' => $params['id']]);
+        } catch (\Exception $e) {
+            self::setError($e->getMessage());
+            return false;
+        }
     }
 
     /**

@@ -14,8 +14,11 @@ export default {
         const all_permission = '*'
         if (Array.isArray(value)) {
             if (value.length > 0) {
-                const hasPermission = permissions.some((key: string) => {
-                    return all_permission == key || value.includes(key)
+                let hasPermission = true
+                value.forEach((key: string) => {
+                    if (!permissions.includes(key) && !permissions.includes(all_permission)) {
+                        hasPermission = false
+                    }
                 })
 
                 if (!hasPermission) {

@@ -6,6 +6,7 @@
                     <el-input
                         class="w-[280px]"
                         v-model="queryParams.title"
+                        placeholder="请输入文章标题"
                         clearable
                         @keyup.enter="resetPage"
                     />
@@ -77,7 +78,7 @@
                 <el-table-column label="状态" min-width="100">
                     <template #default="{ row }">
                         <el-switch
-                            v-perms="['article.article/updateStatus']"
+                            :disabled="!hasPermission(['article.article/updateStatus'])"
                             v-model="row.is_show"
                             :active-value="1"
                             :inactive-value="0"
@@ -87,7 +88,15 @@
                 </el-table-column>
                 <el-table-column label="排序" prop="sort" min-width="100" />
                 <el-table-column label="发布时间" prop="create_time" min-width="120" />
-                <el-table-column label="操作" width="120" fixed="right">
+                <el-table-column
+                    v-if="
+                        hasPermission(['article.article/edit', 'article.article/add:edit']) ||
+                        hasPermission(['article.article/delete'])
+                    "
+                    label="操作"
+                    width="120"
+                    fixed="right"
+                >
                     <template #default="{ row }">
                         <el-button
                             v-perms="['article.article/edit', 'article.article/add:edit']"
@@ -128,6 +137,7 @@ import { useDictOptions } from '@/hooks/useDictOptions'
 import { usePaging } from '@/hooks/usePaging'
 import { getRoutePath } from '@/router'
 import feedback from '@/utils/feedback'
+import { hasPermission } from '@/utils/perm'
 
 const queryParams = reactive({
     title: '',

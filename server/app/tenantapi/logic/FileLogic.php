@@ -66,7 +66,7 @@ class FileLogic extends BaseLogic
      */
     public static function delete($params)
     {
-        $result = File::whereIn('id', $params['ids'])->select();
+        $result = TenantFile::whereIn('id', $params['ids'])->select();
         $StorageDriver = new StorageDriver([
             'default' => ConfigService::get('storage', 'default', 'local'),
             'engine'  => ConfigService::get('storage') ?? ['local'=>[]],
@@ -74,7 +74,7 @@ class FileLogic extends BaseLogic
         foreach ($result as $item) {
             $StorageDriver->delete($item['uri']);
         }
-        File::destroy($params['ids']);
+        TenantFile::destroy($params['ids']);
     }
 
     /**
