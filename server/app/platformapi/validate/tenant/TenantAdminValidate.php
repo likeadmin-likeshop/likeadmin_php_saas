@@ -27,25 +27,25 @@ class TenantAdminValidate extends BaseValidate
 {
 
     protected $rule = [
-        'id'        => 'require|checkUser',
-        'tenant_id' => 'require|checkTenant',
-        'account'   => 'require|length:1,32|checkAccount',
-        'name'      => 'require',
-        'password' => 'require|length:6,32|edit',
+        'id'               => 'require|checkUser',
+        'tenant_id'        => 'require|checkTenant',
+        'account'          => 'require|length:1,32|checkAccount',
+        'name'             => 'require',
+        'password'         => 'require|length:6,32|edit',
         'password_confirm' => 'requireWith:password|confirm',
     ];
 
     protected $message = [
-        'id.require'           => '请选择用户',
-        'name.require'         => '请输入用户名',
-        'account.require'      => '请输入账户',
-        'account.checkAccount' => '账号已存在',
-        'account.length' => '账号长度须在1-32位字符',
-        'tenant_id.require'    => '请选择对应的租户',
-        'password.require' => '密码不能为空',
-        'password.length' => '密码长度须在6-32位字符',
+        'id.require'                   => '请选择用户',
+        'name.require'                 => '请输入用户名',
+        'account.require'              => '请输入账户',
+        'account.checkAccount'         => '账号已存在',
+        'account.length'               => '账号长度须在1-32位字符',
+        'tenant_id.require'            => '请选择对应的租户',
+        'password.require'             => '密码不能为空',
+        'password.length'              => '密码长度须在6-32位字符',
         'password_confirm.requireWith' => '确认密码不能为空',
-        'password_confirm.confirm' => '两次输入的密码不一致',
+        'password_confirm.confirm'     => '两次输入的密码不一致',
     ];
 
 
@@ -123,7 +123,7 @@ class TenantAdminValidate extends BaseValidate
      */
     public function sceneEdit()
     {
-        return $this->remove('password', true);
+        return $this->remove('password', true)->remove('account', true);
     }
 
     /**

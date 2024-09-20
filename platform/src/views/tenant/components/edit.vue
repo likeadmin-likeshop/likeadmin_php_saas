@@ -106,17 +106,6 @@
                                 {{ formData.tel || '--' }}
                             </span>
                         </el-form-item>
-                        <el-form-item label="域名别名：" prop="domain_alias">
-                            <el-input
-                                v-if="editStatus"
-                                v-model="formData.domain_alias"
-                                placeholder="请输入域名别名"
-                                style="max-width: 250px"
-                            />
-                            <span v-else class="break-all">
-                                {{ formData.domain_alias || '--' }}
-                            </span>
-                        </el-form-item>
                         <el-form-item label="启用别名：" prop="domain_alias_enable">
                             <div v-if="editStatus">
                                 <el-radio-group v-model="formData.domain_alias_enable">
@@ -135,6 +124,21 @@
                             >
                                 {{ formData.domain_alias_enable === 0 ? '启用' : '禁用' }}
                             </el-tag>
+                        </el-form-item>
+                        <el-form-item
+                            v-if="formData.domain_alias_enable === 0"
+                            label="域名别名："
+                            prop="domain_alias"
+                        >
+                            <el-input
+                                v-if="editStatus"
+                                v-model="formData.domain_alias"
+                                placeholder="请输入域名别名"
+                                style="max-width: 250px"
+                            />
+                            <span v-else class="break-all">
+                                {{ formData.domain_alias || '--' }}
+                            </span>
                         </el-form-item>
                         <el-form-item label="租户状态：" prop="disable">
                             <el-radio-group v-if="editStatus" v-model="formData.disable">
@@ -240,7 +244,7 @@ const formRules: FormRules = {
                     formData.value.domain_alias === '' &&
                     formData.value.domain_alias_enable === 0
                 ) {
-                    callback(new Error('请先设置域名别名再启用'))
+                    callback(new Error('请设置域名别名'))
                 } else {
                     callback()
                 }
