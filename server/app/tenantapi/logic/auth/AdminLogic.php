@@ -90,7 +90,6 @@ class AdminLogic extends BaseLogic
         try {
             // 基础信息
             $data = [
-                'id' => $params['id'],
                 'name' => $params['name'],
                 'account' => $params['account'],
                 'disable' => $params['disable'],
@@ -120,7 +119,7 @@ class AdminLogic extends BaseLogic
                 }
             }
 
-            TenantAdmin::update($data);
+            TenantAdmin::update($data, ['id' => $params['id']]);
             (new TenantAdminAuthCache($params['id']))->clearAuthCache();
 
             // 删除旧的关联信息
@@ -248,7 +247,6 @@ class AdminLogic extends BaseLogic
     public static function editSelf($params)
     {
         $data = [
-            'id' => $params['admin_id'],
             'name' => $params['name'],
             'avatar' => FileService::setFileUrl($params['avatar']),
         ];
@@ -258,7 +256,7 @@ class AdminLogic extends BaseLogic
             $data['password'] = create_password($params['password'], $passwordSalt);
         }
 
-        return TenantAdmin::update($data);
+        return TenantAdmin::update($data, ['id' => $params['admin_id']]);
     }
 
 

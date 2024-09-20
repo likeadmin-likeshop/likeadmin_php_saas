@@ -138,14 +138,13 @@ class DeptLogic extends BaseLogic
             }
 
             TenantDept::update([
-                'id' => $params['id'],
                 'pid' => $pid,
                 'name' => $params['name'],
                 'leader' => $params['leader'] ?? '',
                 'mobile' => $params['mobile'] ?? '',
                 'status' => $params['status'],
                 'sort' => $params['sort'] ?? 0
-            ]);
+            ], ['id' => $params['id']]);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());

@@ -99,7 +99,6 @@ class MenuLogic extends BaseLogic
     public static function edit(array $params)
     {
         return TenantSystemMenu::update([
-            'id' => $params['id'],
             'pid' => $params['pid'],
             'type' => $params['type'],
             'name' => $params['name'],
@@ -113,7 +112,7 @@ class MenuLogic extends BaseLogic
             'is_cache' => $params['is_cache'],
             'is_show' => $params['is_show'],
             'is_disable' => $params['is_disable'],
-        ]);
+        ], ['id' => $params['id']]);
     }
 
 
@@ -155,9 +154,8 @@ class MenuLogic extends BaseLogic
     public static function updateStatus(array $params)
     {
         return TenantSystemMenu::update([
-            'id' => $params['id'],
             'is_disable' => $params['is_disable']
-        ]);
+        ], ['id' => $params['id']]);
     }
 
 

@@ -54,11 +54,10 @@ class ArticleCateLogic extends BaseLogic
     {
         try {
             ArticleCate::update([
-                'id' => $params['id'],
                 'name' => $params['name'],
                 'is_show' => $params['is_show'],
                 'sort' => $params['sort'] ?? 0
-            ]);
+            ], ['id' => $params['id']]);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());
@@ -100,9 +99,8 @@ class ArticleCateLogic extends BaseLogic
     public static function updateStatus(array $params)
     {
         ArticleCate::update([
-            'id' => $params['id'],
             'is_show' => $params['is_show']
-        ]);
+        ], ['id' => $params['id']]);
         return true;
     }
 

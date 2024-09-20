@@ -86,11 +86,10 @@ class RoleLogic extends BaseLogic
             $menuId = !empty($params['menu_id']) ? $params['menu_id'] : [];
 
             TenantSystemRole::update([
-                'id' => $params['id'],
                 'name' => $params['name'],
                 'desc' => $params['desc'] ?? '',
                 'sort' => $params['sort'] ?? 0,
-            ]);
+            ], ['id' => $params['id']]);
 
             if (!empty($menuId)) {
                 TenantSystemRoleMenu::where(['role_id' => $params['id']])->delete();

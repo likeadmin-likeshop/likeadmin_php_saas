@@ -55,11 +55,10 @@ class DecoratePageLogic extends BaseLogic
             return false;
         }
         DecoratePage::update([
-            'id' => $params['id'],
             'type' => $params['type'],
             'data' => $params['data'],
             'meta' => $params['meta'] ?? '',
-        ]);
+        ], ['id' => $params['id']]);
         return true;
     }
 

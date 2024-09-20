@@ -90,7 +90,7 @@ class OfficialAccountReplyLogic extends BaseLogic
                 // 非关键词回复只能有一条记录处于启用状态，所以将该回复类型下的已有记录置为禁用状态
                 OfficialAccountReply::where(['reply_type' => $params['reply_type']])->update(['status' => YesNoEnum::NO]);
             }
-            OfficialAccountReply::update($params);
+            OfficialAccountReply::update($params, ['id' => $params['id']]);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());
@@ -120,7 +120,7 @@ class OfficialAccountReplyLogic extends BaseLogic
     public static function sort($params)
     {
         $params['sort'] = $params['new_sort'];
-        OfficialAccountReply::update($params);
+        OfficialAccountReply::update($params, ['id' => $params['id']]);
     }
 
 

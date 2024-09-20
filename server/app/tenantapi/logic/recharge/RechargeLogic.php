@@ -93,9 +93,8 @@ class RechargeLogic extends BaseLogic
 
             // 更新订单信息, 标记已发起退款状态,具体退款成功看退款日志
             RechargeOrder::update([
-                'id' => $order['id'],
                 'refund_status' => YesNoEnum::YES,
-            ]);
+            ], ['id' => $order['id']]);
 
             // 更新用户余额及累计充值金额
             User::where(['id' => $order['user_id']])

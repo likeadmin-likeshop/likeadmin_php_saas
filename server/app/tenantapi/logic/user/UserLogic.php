@@ -62,9 +62,8 @@ class UserLogic extends BaseLogic
     public static function setUserInfo(array $params)
     {
         return User::update([
-            'id' => $params['id'],
             $params['field'] => $params['value']
-        ]);
+        ], ['id' => $params['id']]);
     }
 
 
