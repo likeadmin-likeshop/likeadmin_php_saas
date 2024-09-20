@@ -96,9 +96,7 @@ class UserLogic extends BaseLogic
                 $params['value'] = FileService::setFileUrl($params['value']);
             }
 
-            return User::update([
-                    'id' => $userId,
-                    $params['field'] => $params['value']]
+            return User::update([$params['field'] => $params['value'], ['id' => $userId]]
             );
         } catch (\Exception $e) {
             self::$error = $e->getMessage();
@@ -228,9 +226,8 @@ class UserLogic extends BaseLogic
 
             // 绑定手机号
             User::update([
-                'id' => $params['user_id'],
                 'mobile' => $phoneNumber
-            ]);
+            ], ['id' => $params['user_id']]);
 
             return true;
         } catch (\Exception $e) {
@@ -277,9 +274,8 @@ class UserLogic extends BaseLogic
             }
 
             User::update([
-                'id' => $params['user_id'],
                 'mobile' => $params['mobile'],
-            ]);
+            ], ['id' => $params['user_id']]);
 
             return true;
         } catch (\Exception $e) {

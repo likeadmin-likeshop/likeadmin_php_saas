@@ -67,9 +67,8 @@ class ArticleLogic extends BaseLogic
             ]);
         } else {
             ArticleCollect::update([
-                'id' => $collect['id'],
                 'status' => YesNoEnum::YES
-            ]);
+            ], ['id' => $collect['id']]);
         }
     }
 

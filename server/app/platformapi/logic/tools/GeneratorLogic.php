@@ -97,7 +97,6 @@ class GeneratorLogic extends BaseLogic
             $options = self::formatConfigByTableData($params);
             // 更新主表-数据表信息
             GenerateTable::update([
-                'id' => $params['id'],
                 'table_name' => $params['table_name'],
                 'table_comment' => $params['table_comment'],
                 'template_type' => $params['template_type'],
@@ -111,12 +110,11 @@ class GeneratorLogic extends BaseLogic
                 'delete' => $options['delete'],
                 'tree' => $options['tree'],
                 'relations' => $options['relations'],
-            ]);
+            ], ['id' => $params['id']]);
 
             // 更新从表-数据表字段信息
             foreach ($params['table_column'] as $item) {
                 GenerateColumn::update([
-                    'id' => $item['id'],
                     'column_comment' => $item['column_comment'] ?? '',
                     'is_required' => $item['is_required'] ?? 0,
                     'is_insert' => $item['is_insert'] ?? 0,
@@ -126,7 +124,7 @@ class GeneratorLogic extends BaseLogic
                     'query_type' => $item['query_type'],
                     'view_type' => $item['view_type'],
                     'dict_type' => $item['dict_type'] ?? '',
-                ]);
+                ], ['id' => $item['id']]);
             }
             Db::commit();
             return true;

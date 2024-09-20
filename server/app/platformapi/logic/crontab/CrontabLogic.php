@@ -80,7 +80,7 @@ class CrontabLogic extends BaseLogic
             $params['remark'] = $params['remark'] ?? '';
             $params['params'] = $params['params'] ?? '';
 
-            Crontab::update($params);
+            Crontab::update($params, ['id' => $params['id']]);
 
             return true;
         } catch (\Exception $e) {

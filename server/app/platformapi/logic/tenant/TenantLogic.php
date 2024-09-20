@@ -90,7 +90,6 @@ class TenantLogic extends BaseLogic
         try {
             $domain_alias = preg_replace('/^https?:\/\/|\/$/', '', $params['domain_alias']);
             Tenant::update([
-                'id'                  => $params['id'],
                 'name'                => $params['name'],
                 'avatar'              => $params['avatar'],
                 'disable'             => $params['disable'] ?? 0,
@@ -98,7 +97,7 @@ class TenantLogic extends BaseLogic
                 'domain_alias'        => $domain_alias,
                 'domain_alias_enable' => $params['domain_alias_enable'],
                 'notes'               => $params['notes'] ?? '',
-            ]);
+            ], ['id' => $params['id']]);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());

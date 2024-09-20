@@ -172,14 +172,12 @@ class QueryRefund extends Command
     {
         // 更新日志
         RefundLog::update([
-            'id' => $logId,
             'refund_status' => RefundEnum::REFUND_SUCCESS,
-        ]);
+        ], ['id' => $logId]);
         // 更新记录
         RefundRecord::update([
-            'id' => $recordId,
             'refund_status' => RefundEnum::REFUND_SUCCESS,
-        ]);
+        ], ['id' => $recordId]);
     }
 
 
@@ -194,9 +192,8 @@ class QueryRefund extends Command
     {
         // 更新日志
         RefundLog::update([
-            'id' => $logId,
             'refund_msg' => $msg,
-        ]);
+        ], ['id' => $logId]);
     }
 
 }

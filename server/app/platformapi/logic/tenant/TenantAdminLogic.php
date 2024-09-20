@@ -109,7 +109,6 @@ class TenantAdminLogic extends BaseLogic
         try {
             // 基础信息
             $data = [
-                'id'               => $params['id'],
                 'name'             => $params['name'],
                 'account'          => $params['account'],
                 'disable'          => $params['disable'],
@@ -138,7 +137,7 @@ class TenantAdminLogic extends BaseLogic
                     self::expireToken($token['token']);
                 }
             }
-            TenantAdmin::update($data);
+            TenantAdmin::update($data, ['id' => $params['id']]);
             (new TenantAdminAuthCache($params['id']))->clearAuthCache();
 
             // 删除旧的关联信息

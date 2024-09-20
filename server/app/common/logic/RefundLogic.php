@@ -149,9 +149,8 @@ class RefundLogic extends BaseLogic
             // 更新订单信息
             if ($refundRecord['order_type'] == 'recharge') {
                 RechargeOrder::update([
-                    'id' => $refundRecord['order_id'],
                     'refund_transaction_id' => $result['tradeNo'] ?? '',
-                ]);
+                ], ['id' => $refundRecord['order_id']]);
             }
         }
     }
@@ -168,17 +167,15 @@ class RefundLogic extends BaseLogic
     {
         // 更新退款日志记录
         RefundLog::update([
-            'id' => self::$refundLog['id'],
             'refund_status' => RefundEnum::REFUND_ERROR,
             'refund_msg' => $msg,
-        ]);
+        ], ['id' => self::$refundLog['id']]);
 
         //  更新退款记录状态为退款失败
         RefundRecord::update([
-            'id' => $refundRecordId,
             'refund_status' => RefundEnum::REFUND_ERROR,
             'refund_msg' => $msg,
-        ]);
+        ], ['id' => $refundRecordId]);
     }
 
 

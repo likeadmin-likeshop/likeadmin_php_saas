@@ -55,12 +55,11 @@ class DictTypeLogic extends BaseLogic
     public static function edit(array $params)
     {
          DictType::update([
-            'id' => $params['id'],
             'name' => $params['name'],
             'type' => $params['type'],
             'status' => $params['status'],
             'remark' => $params['remark'] ?? '',
-        ]);
+        ], ['id' => $params['id']]);
 
          DictData::where(['type_id' => $params['id']])
              ->update(['type_value' => $params['type']]);

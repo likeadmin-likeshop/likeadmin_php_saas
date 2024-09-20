@@ -60,13 +60,12 @@ class JobsLogic extends BaseLogic
     {
         try {
             Jobs::update([
-                'id' => $params['id'],
                 'name' => $params['name'],
                 'code' => $params['code'],
                 'sort' => $params['sort'] ?? 0,
                 'status' => $params['status'],
                 'remark' => $params['remark'] ?? '',
-            ]);
+            ], ['id' => $params['id']]);
             return true;
         } catch (\Exception $e) {
             self::setError($e->getMessage());
