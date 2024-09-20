@@ -1110,10 +1110,10 @@ INSERT INTO `la_system_menu`
 VALUES (116, 115, 'A', '保存', '', 0, 'setting.user.user/setRegisterConfig', '', '', '', '', 0, 1, 0, 1663903852,
         1663903852);
 INSERT INTO `la_system_menu`
-VALUES (117, 0, 'M', '租户管理', 'local-icon-user_biaoqian', 900, '', 'consumer', '', '', '', 0, 1, 0, 1663904351,
+VALUES (117, 0, 'M', '租户管理', 'local-icon-user_biaoqian', 900, '', 'tenant', '', '', '', 0, 1, 0, 1663904351,
         1724998415);
 INSERT INTO `la_system_menu`
-VALUES (118, 117, 'C', '租户列表', 'local-icon-user_guanli', 100, 'user.user/lists', 'lists', 'consumer/lists/index',
+VALUES (118, 117, 'C', '租户列表', 'local-icon-user_guanli', 100, 'user.user/lists', 'lists', 'tenant/lists/index',
         '', '', 0, 1, 0, 1663904392, 1724998428);
 INSERT INTO `la_system_menu`
 VALUES (143, 35, 'C', '定时任务', '', 100, 'crontab.crontab/lists', 'scheduled_task',
