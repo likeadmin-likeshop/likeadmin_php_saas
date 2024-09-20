@@ -9,7 +9,7 @@
                     @keyup.enter="resetPage"
                 />
             </el-form-item>
-            <el-form-item label="创建时间" class="flex-1 min-w-[350px] max-w-full m-0">
+            <el-form-item label="创建时间" class="flex-1 min-w-[350px] max-w-full !mr-0">
                 <daterange-picker
                     v-model:startTime="queryParams.create_time_start"
                     v-model:endTime="queryParams.create_time_end"

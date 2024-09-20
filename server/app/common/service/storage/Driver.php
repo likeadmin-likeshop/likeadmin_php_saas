@@ -49,7 +49,7 @@ class Driver
 
     /**
      * 执行文件上传
-     * @param $save_dir (保存路径)
+     * @param $save_dir
      * @return mixed
      */
     public function upload($save_dir)

@@ -51,7 +51,7 @@
                 <el-tab-pane label="基础信息" name="profile">
                     <el-form
                         ref="formRef"
-                        class="grid grid-cols-2 gap-x-4 pt-2"
+                        class="profile grid grid-cols-2 gap-x-4 pt-2"
                         :class="{
                             '!grid-cols-1': editStatus
                         }"
@@ -165,7 +165,7 @@
                                 type="textarea"
                                 :maxlength="100"
                             />
-                            <span v-else>
+                            <span class="break-all" v-else>
                                 {{ formData.notes || '--' }}
                             </span>
                         </el-form-item>
@@ -340,7 +340,10 @@ defineExpose({
         height: 100%;
     }
 }
-:deep(.el-form-item__content) {
-    align-items: center;
+
+.profile {
+    :deep(.el-form-item__content) {
+        align-items: center;
+    }
 }
 </style>
