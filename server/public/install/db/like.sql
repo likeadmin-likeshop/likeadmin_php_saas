@@ -1689,7 +1689,7 @@ INSERT INTO `la_tenant_system_menu`
 VALUES (71, 0, 70, 'C', '文章管理', 'el-icon-ChatDotSquare', 0, 'article.article/lists', 'lists', 'article/lists/index',
         '', '', 0, 1, 0, 1663750101, 1664354615);
 INSERT INTO `la_tenant_system_menu`
-VALUES (72, 0, 71, 'C', '文章添加/编辑', '', 0, 'article.article/add:edit', 'lists/edit', 'article/lists/edit',
+VALUES (72, 0, 70, 'C', '文章添加/编辑', '', 0, 'article.article/add:edit', 'lists/edit', 'article/lists/edit',
         '/article/lists', '', 0, 0, 0, 1663750153, 1664356275);
 INSERT INTO `la_tenant_system_menu`
 VALUES (73, 0, 70, 'C', '文章栏目', 'el-icon-CollectionTag', 0, 'article.articleCate/lists', 'column',

@@ -1,7 +1,12 @@
 <template>
     <div class="h-full flex flex-col">
-        <el-form ref="formRef" class="-mb-4 flex flex-wrap" :model="queryParams" :inline="true">
-            <el-form-item label="账号信息" class="flex-1 min-w-[200px] max-w-[300px]">
+        <el-form
+            ref="formRef"
+            class="-mb-4 flex flex-wrap gap-x-4"
+            :model="queryParams"
+            :inline="true"
+        >
+            <el-form-item label="账号信息" class="flex-1 min-w-[200px] max-w-[300px] !mr-0">
                 <el-input
                     v-model="queryParams.keyword"
                     placeholder="账号/名称"
