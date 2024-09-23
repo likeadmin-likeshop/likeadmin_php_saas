@@ -16,6 +16,7 @@ namespace app\tenantapi\logic\article;
 
 use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
+use app\common\model\article\ArticleCate;
 use app\common\service\FileService;
 
 /**
@@ -130,12 +131,19 @@ class ArticleLogic extends BaseLogic
      */
     public static function initialization(mixed $tenant_id)
     {
-        $field = 'tenant_id,cid,title,desc,abstract,image,author,content,click_virtual,click_actual,is_show,sort';
-        // 初始化文章
-        $templateArticle = Article::where('tenant_id', 0)->field($field)->select()->toArray();
+        $articleField = 'tenant_id,cid,title,desc,abstract,image,author,content,click_virtual,click_actual,is_show,sort';
+        $articleCateField = 'tenant_id,name,sort,is_show';
+
+        $templateArticle = Article::where('tenant_id', 0)->field($articleField)->select()->toArray();
+        $templateArticleCate = ArticleCate::where('tenant_id', 0)->field($articleCateField)->select()->toArray();
+
         foreach ($templateArticle as $item) {
             $item['tenant_id'] = $tenant_id;
             Article::create($item);
+        }
+        foreach ($templateArticleCate as $item) {
+            $item['tenant_id'] = $tenant_id;
+            ArticleCate::create($item);
         }
     }
 }

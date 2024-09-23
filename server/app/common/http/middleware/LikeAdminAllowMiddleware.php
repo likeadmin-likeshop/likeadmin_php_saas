@@ -57,6 +57,12 @@ class LikeAdminAllowMiddleware
             return response();
         }
 
+        // 安装检测
+        $install = file_exists(root_path() . '/config/install.lock');
+        if (!$install) {
+            return JsonService::fail('程序未安装', [], -2);
+        }
+
         // 获取租户信息
         $tenantModel = new Tenant();
         $domain = preg_replace('/^https?:\/\/|\/$/', '', $request->domain());
@@ -88,10 +94,10 @@ class LikeAdminAllowMiddleware
     private function setCorsHeaders()
     {
         $headers = [
-            'Access-Control-Allow-Origin' => '*',
-            'Access-Control-Allow-Headers' => implode(', ', self::ALLOWED_HEADERS),
-            'Access-Control-Allow-Methods' => 'GET, POST, PATCH, PUT, DELETE, post',
-            'Access-Control-Max-Age' => '1728000',
+            'Access-Control-Allow-Origin'      => '*',
+            'Access-Control-Allow-Headers'     => implode(', ', self::ALLOWED_HEADERS),
+            'Access-Control-Allow-Methods'     => 'GET, POST, PATCH, PUT, DELETE, post',
+            'Access-Control-Max-Age'           => '1728000',
             'Access-Control-Allow-Credentials' => 'true'
         ];
 

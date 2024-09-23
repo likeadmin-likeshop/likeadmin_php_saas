@@ -20,7 +20,7 @@ module.exports = {
             {
                 semi: false,
                 singleQuote: true,
-                printWidth: 80,
+                printWidth: 100,
                 proseWrap: 'preserve',
                 bracketSameLine: false,
                 endOfLine: 'auto',

@@ -46,19 +46,24 @@ class ConfigLogic
      */
     public static function getConfig(): array
     {
+        $install = file_exists(root_path() . '/config/install.lock');
+        if (!$install) {
+            return ['install' => $install] ?? [];
+        }
+
         $config = [
             // 文件域名
-            'oss_domain' => FileService::getFileUrl(),
+            'oss_domain'       => FileService::getFileUrl(),
 
             // 网站名称
-            'web_name' => ConfigService::get('platform', 'name'),
+            'web_name'         => ConfigService::get('platform', 'name'),
             // 网站图标
-            'web_favicon' => FileService::getFileUrl(ConfigService::get('platform', 'web_favicon')),
+            'web_favicon'      => FileService::getFileUrl(ConfigService::get('platform', 'web_favicon')),
             // 网站logo
-            'web_logo_light' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_light')),
-            'web_logo_dark' => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_dark')),
+            'web_logo_light'   => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_light')),
+            'web_logo_dark'    => FileService::getFileUrl(ConfigService::get('platform', 'web_logo_dark')),
             // 登录页
-            'login_image' => FileService::getFileUrl(ConfigService::get('platform', 'login_image')),
+            'login_image'      => FileService::getFileUrl(ConfigService::get('platform', 'login_image')),
 
             // 版权信息
             'copyright_config' => ConfigService::get('copyright', 'config', []),
@@ -82,7 +87,7 @@ class ConfigLogic
         if (!is_string($type)) {
             return [];
         }
-        
+
         $type = explode(',', $type);
         $lists = DictData::whereIn('type_value', $type)->select()->toArray();
 
@@ -100,7 +105,6 @@ class ConfigLogic
         }
         return $result;
     }
-
 
 
 }

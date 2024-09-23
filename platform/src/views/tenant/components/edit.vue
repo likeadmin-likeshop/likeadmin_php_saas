@@ -75,7 +75,7 @@
                             </a>
                             <span
                                 class="flex items-center ml-2 cursor-pointer"
-                                v-copy="formData.domain"
+                                v-copy="formData.default_domain"
                             >
                                 <icon name="el-icon-DocumentCopy" />
                                 复制
@@ -320,9 +320,13 @@ const handleEdit = async (save?: boolean) => {
 
 const submitEdit = async () => {
     loading.value = true
-    await userEdit(formData.value)
-    await getDetails(tenantId.value)
-    emits('refresh')
+    try {
+        await userEdit(formData.value)
+        await getDetails(tenantId.value)
+        emits('refresh')
+    } catch (error) {
+        loading.value = false
+    }
 }
 
 const { isLock, lockFn: lockSubmit } = useLockFn(submitEdit)

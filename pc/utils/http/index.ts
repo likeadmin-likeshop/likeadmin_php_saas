@@ -24,8 +24,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
             withToken: true,
             isParamsToData: true,
             requestInterceptorsHook(options) {
-                const { apiPrefix, isParamsToData, withToken } =
-                    options.requestOptions
+                const { apiPrefix, isParamsToData, withToken } = options.requestOptions
                 // 拼接请求前缀
                 if (apiPrefix) {
                     options.url = `${apiPrefix}${options.url}`
@@ -49,8 +48,7 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                 return options
             },
             async responseInterceptorsHook(response, options) {
-                const { isTransformResponse, isReturnDefaultResponse } =
-                    options.requestOptions
+                const { isTransformResponse, isReturnDefaultResponse } = options.requestOptions
                 //返回默认响应，当需要获取响应头及其他数据时可使用
                 if (isReturnDefaultResponse) {
                     return response
@@ -74,6 +72,9 @@ export function createRequest(opt?: Partial<FetchOptions>) {
                     case RequestCodeEnum.LOGIN_FAILURE:
                         userStore.logout()
                         return Promise.reject(data)
+                    case RequestCodeEnum.NOT_INSTALL:
+                        window.location.replace('/install/install.php')
+                        break
                     default:
                         return data
                 }
