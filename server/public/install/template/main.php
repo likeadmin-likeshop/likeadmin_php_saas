@@ -14,6 +14,7 @@
 <body>
     <div class="header">
         <div class="logo" style="width: 220px;">
+        <div class="logo" style="width: 220px;">
             <img src="./images/slogn.png?v=1" />
         </div>
     </div>
@@ -467,7 +468,7 @@
                                             <img src="./images/icon_mountSuccess.png" />
                                         </div>
                                         <div class="mt16 result">安装完成，进入管理后台</div>
-                                        <div style="margin-top: 5px;font-size:14px;">版本号：1.0.0</div>
+                                        <div style="margin-top: 5px;font-size:14px;">版本号：1.0.2</div>
                                         <div class="tips">
                                             为了您站点的安全，安装完成后即可将网站根目录下的“install”文件夹删除，或者config/目录下创建install.lock文件防止重复安装。
                                         </div>
