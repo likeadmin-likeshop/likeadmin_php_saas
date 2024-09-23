@@ -78,9 +78,9 @@ const axiosHooks: AxiosHooks = {
             case RequestCodeEnum.NOT_FOUND:
                 router.push(PageEnum.ENTRANCE_404)
                 break
-            // case RequestCodeEnum.NOT_INSTALL:
-            //     window.location.replace('/install/install.php')
-            //     break
+            case RequestCodeEnum.NOT_INSTALL:
+                window.location.replace('/install/install.php')
+                break
             default:
                 return data
         }

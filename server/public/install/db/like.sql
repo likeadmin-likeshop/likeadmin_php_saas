@@ -1897,6 +1897,10 @@ INSERT INTO `la_tenant_system_menu`
 VALUES (175, 0, 96, 'M', '移动端', '', 100, '', 'mobile', '', '', '', 0, 1, 0, 1710901543, 1710929294);
 INSERT INTO `la_tenant_system_menu`
 VALUES (176, 0, 96, 'M', 'PC端', '', 90, '', 'pc', '', '', '', 0, 1, 0, 1710901592, 1710929299);
+INSERT INTO `la_tenant_system_menu`
+VALUES (177, 0,29, 'C', '站点统计', '', 0, 'setting.web.web_setting/getSiteStatistics', 'statistics', 'setting/website/statistics', '', '', 0, 1, 0, 1726841481, 1726843434);
+INSERT INTO `la_tenant_system_menu`
+VALUES (178, 0,177, 'A', '保存', '', 0, 'setting.web.web_setting/saveSiteStatistics', '', '', '', '', 1, 1, 0, 1726841507, 1726841507);
 COMMIT;
 
 -- ----------------------------
