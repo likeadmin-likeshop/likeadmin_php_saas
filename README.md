@@ -40,7 +40,8 @@
 
 ### 租户管理后台
 
-**地址：https://ctragis5.yixiangonline.com/admin/ <br>
+**地址：https://e81kfkag.yixiangonline.com/admin/<br>
+或者：https://saas.fishblog.cn/admin/login<br>
 账号：admin 密码：123456**
 
 ### 手机端网页前台
