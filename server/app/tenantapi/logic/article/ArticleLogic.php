@@ -18,6 +18,8 @@ use app\common\logic\BaseLogic;
 use app\common\model\article\Article;
 use app\common\model\article\ArticleCate;
 use app\common\service\FileService;
+use Exception;
+use think\facade\Db;
 
 /**
  * 资讯管理逻辑
@@ -73,7 +75,7 @@ class ArticleLogic extends BaseLogic
                 'content'       => $params['content'] ?? '',
             ], ['id' => $params['id']]);
             return true;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             self::setError($e->getMessage());
             return false;
         }
@@ -116,7 +118,7 @@ class ArticleLogic extends BaseLogic
             Article::update([
                 'is_show' => $params['is_show']
             ], ['id' => $params['id']]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             self::setError($e->getMessage());
             return false;
         }
@@ -126,24 +128,36 @@ class ArticleLogic extends BaseLogic
      * @notes 初始化租户文章列表
      * @param mixed $tenant_id
      * @return void
+     * @throws Exception
      * @author yfdong
      * @date 2024/09/10 20:59
      */
-    public static function initialization(mixed $tenant_id)
+    public static function initialization(mixed $tenant_id): void
     {
-        $articleField = 'tenant_id,cid,title,desc,abstract,image,author,content,click_virtual,click_actual,is_show,sort';
-        $articleCateField = 'tenant_id,name,sort,is_show';
+        Db::startTrans();
+        try {
+            $articleField = 'tenant_id,cid,title,desc,abstract,image,author,content,click_virtual,click_actual,is_show,sort';
+            $articleCateField = 'id,tenant_id,name,sort,is_show';
 
-        $templateArticle = Article::where('tenant_id', 0)->field($articleField)->select()->toArray();
-        $templateArticleCate = ArticleCate::where('tenant_id', 0)->field($articleCateField)->select()->toArray();
+            $templateArticle = Article::where('tenant_id', 0)->field($articleField)->select()->toArray();
+            $templateArticleCate = ArticleCate::where('tenant_id', 0)->field($articleCateField)->select()->toArray();
 
-        foreach ($templateArticle as $item) {
-            $item['tenant_id'] = $tenant_id;
-            Article::create($item);
-        }
-        foreach ($templateArticleCate as $item) {
-            $item['tenant_id'] = $tenant_id;
-            ArticleCate::create($item);
+            foreach ($templateArticle as $item) {
+                $item['tenant_id'] = $tenant_id;
+                foreach ($templateArticleCate as $citem) {
+                    if ($item['cid'] === $citem['id']) {
+                        $citem['tenant_id'] = $tenant_id;
+                        unset($citem['id']);
+                        $cate = ArticleCate::create($citem);
+                        $item['cid'] = $cate->id;
+                    }
+                }
+                Article::create($item);
+            }
+            Db::commit();
+        } catch (Exception) {
+            Db::rollback();
+            throw new Exception('文章初始化失败');
         }
     }
 }
