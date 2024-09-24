@@ -21,12 +21,14 @@
         <div class="mounted-box">
             <form method="post" action="#" name="main_form">
                 <div class="mounted-container" id="tab">
-                    <ul class="mounted-nav" id="nav">
-                        <li <?php if ($step == "1") { ?>class="active" <?php } ?>>许可协议</li>
-                        <li <?php if ($step == "2") { ?>class="active" <?php } ?>>环境监测</li>
-                        <li <?php if ($step == "3") { ?>class="active" <?php } ?>>参数配置</li>
-                        <li <?php if ($step == "4" or $step == '5') { ?>class="active" <?php } ?>>安装</li>
-                    </ul>
+                    <div class="mounted-nav-container">
+                        <ul class="mounted-nav" id="nav">
+                            <li <?php if ($step == "1") { ?>class="active" <?php } ?>>许可协议</li>
+                            <li <?php if ($step == "2") { ?>class="active" <?php } ?>>环境监测</li>
+                            <li <?php if ($step == "3") { ?>class="active" <?php } ?>>参数配置</li>
+                            <li <?php if ($step == "4" or $step == '5') { ?>class="active" <?php } ?>>安装</li>
+                        </ul>
+                    </div>
 
                     <!-- 阅读许可 -->
                     <?php if ($step == '1') { ?>
@@ -473,7 +475,7 @@
                                             <img src="./images/icon_mountSuccess.png"/>
                                         </div>
                                         <div class="mt16 result">安装完成，进入管理后台</div>
-                                        <div style="margin-top: 5px;font-size:14px;">版本号：1.0.2</div>
+                                        <div style="margin-top: 10px;font-size:14px;color: #444444">版本号：1.0.2</div>
                                         <div class="tips">
                                             为了您站点的安全，安装完成后即可将网站根目录下的“install”文件夹删除，或者config/目录下创建install.lock文件防止重复安装。
                                         </div>

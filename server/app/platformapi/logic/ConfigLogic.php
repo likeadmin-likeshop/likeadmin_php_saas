@@ -46,11 +46,6 @@ class ConfigLogic
      */
     public static function getConfig(): array
     {
-        $install = file_exists(root_path() . '/config/install.lock');
-        if (!$install) {
-            return ['install' => $install] ?? [];
-        }
-
         $config = [
             // 文件域名
             'oss_domain'       => FileService::getFileUrl(),
