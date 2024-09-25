@@ -1,7 +1,7 @@
 <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
 
 <a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
-
+<br><br>
  <h1 align="center">likeadmin-SaaS（PHP）
  通用管理后台</h1>
 <h4 align="center">🚀快速开发 🏘️多租户管理 📊租户独立配置 🌍自定义域名</h4> 
@@ -30,6 +30,15 @@
 </p>
 
 ![](/server/public/readme/platform-1.png)
+<br>
+<br>
+
+## ⤵️ SaaS架构图
+![](/server/public/readme/architecture.png)
+
+
+<br>
+<br>
 
 ## 👀 体验后台
 
