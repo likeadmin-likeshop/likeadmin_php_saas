@@ -1,7 +1,7 @@
 <a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
 
 <a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
-<br><br>
+
  <h1 align="center">likeadmin-SaaS（PHP）
  通用管理后台</h1>
 <h4 align="center">🚀快速开发 🏘️多租户管理 📊租户独立配置 🌍自定义域名</h4> 
@@ -31,35 +31,37 @@
 
 ![](/server/public/readme/platform-1.png)
 <br>
-<br>
 
-## ⤵️ SaaS架构图
+## ⤵️ SaaS 架构图
+
 ![](/server/public/readme/architecture.png)
 
+<br>
 
-<br>
-<br>
+![](/server/public/readme/platform-2.png)
 
 ## 👀 体验后台
 
 ### 平台管理后台
 
-**地址：https://php-likeadmin-saas.yixiangonline.com/platform/ <br>
-账号：admin 密码：123456**
+**地址：https://php-saas.likeadmin.cn/platform/ <br>
+账号：admin 密码：likeadmin**
 
 ### 租户管理后台
 
-**地址：https://e81kfkag.yixiangonline.com/admin/<br>
-或者：https://saas.fishblog.cn/admin/login<br>
-账号：admin 密码：123456**
+**地址：https://xvfnu1ob.likeadmin.cn/admin/<br>
+或者：https://saas.fishblog.cn/admin/<br>
+账号：admin 密码：likeadmin**
 
 ### 手机端网页前台
 
-https://ctragis5.yixiangonline.com/mobile/
+https://xvfnu1ob.likeadmin.cn/mobile/<br>
+https://saas.fishblog.cn/mobile/
 
 ### PC（电脑）端网页前台
 
-https://ctragis5.yixiangonline.com/pc/
+https://xvfnu1ob.likeadmin.cn/pc/<br>
+https://saas.fishblog.cn/pc/
 
 ### 开发文档
 
@@ -70,10 +72,12 @@ https://ctragis5.yixiangonline.com/pc/
 ![](/server/public/readme/platform-1.png)
 ![](/server/public/readme/platform-2.png)
 ![](/server/public/readme/platform-3.png)
+![](/server/public/readme/platform-4.png)
 
 ![](/server/public/readme/admin-1.png)
 ![](/server/public/readme/admin-2.png)
 ![](/server/public/readme/admin-3.png)
+![](/server/public/readme/admin-4.png)
 <br>
 
 ### 📱 手机端前台界面
@@ -89,6 +93,8 @@ https://ctragis5.yixiangonline.com/pc/
 
 ![](/server/public/readme/pc-1.png)
 ![](/server/public/readme/pc-2.png)
+![](/server/public/readme/pc-3.png)
+![](/server/public/readme/pc-4.png)
 
 ## 👨‍💻‍ 简介
 
@@ -99,8 +105,8 @@ https://ctragis5.yixiangonline.com/pc/
 
 ### 🧰 场景介绍
 
-1.likeadmin 已经搭建好前后端分离的底层，包含程序安装、登录、登出、工作台、菜单权限控制、角色、管理员、部门管理、岗位管理、素材管理、网站设置、图库管理等基础功能，无需重复造轮子。更有开发者工具功能，一键生成代码，大大节省开发时间。<br> 2.可视化系统程序安装界面，可自定义安装数据，开发者可快速扩展发行自己的软件产品。<br>
-3.likeadmin 定位为通用的软件系统管理后台，方便开发者快速开发软件系统，文档清晰、代码易懂、简单易用。<br> 4.集成通用的微信支付（API3）、微信小程序公众号登录、阿里云、腾讯云短信，阿里云 OSS、腾讯云 COS、七牛云 OSS 等通用模块。
+1.likeadmin-saas 已经搭建好前后端分离的底层，包含程序安装、登录、登出、工作台、菜单权限控制、租户管理、角色、管理员、部门管理、岗位管理、素材管理、网站设置、图库管理等基础功能，无需重复造轮子。更有开发者工具功能，一键生成代码，大大节省开发时间。<br> 2.可视化系统程序安装界面，可自定义安装数据，开发者可快速扩展发行自己的软件产品。<br>
+3.likeadmin 定位为通用的软件系统管理后台，方便开发者快速开发软件系统，文档清晰、代码易懂、简单易用。<br> 4.集成通用的微信支付（API3）、微信小程序公众号登录、阿里云、腾讯云短信，阿里云 OSS、腾讯云 COS、七牛云 OSS 等通用模块。<br>5.租户支持自定义域名，并且支付、微信小程序公众号配置、装修配置都可以独立配置。
 
 ### 🐙 后端架构方面
 
