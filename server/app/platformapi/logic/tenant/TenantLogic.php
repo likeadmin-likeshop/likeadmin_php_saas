@@ -44,6 +44,7 @@ class TenantLogic extends BaseLogic
             'domain_alias_enable' => $params['domain_alias_enable'],
             'disable'             => $params['disable'] ?? 0,
             'notes'               => $params['notes'] ?? '',
+            'tactics'             => $params['tactics'] ?? 0,
         ]);
     }
 

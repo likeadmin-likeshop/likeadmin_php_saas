@@ -81,7 +81,7 @@ class ConfigService
         }else{
             // 根据是否为平台决定查询类
             $configClass = AdminTerminalEnum::isPlatform() ? new Config() : new TenantConfig();
-            //判断是否为租户端
+            // 判断是否为租户端
             if (!AdminTerminalEnum::isPlatform()) {
                 $query['tenant_id'] = request()->tenantId;
             }

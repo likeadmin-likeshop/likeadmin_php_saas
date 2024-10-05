@@ -21,6 +21,7 @@ use app\platformapi\logic\setting\pay\PayWayLogic;
 use app\platformapi\logic\tenant\TenantAdminLogic;
 use app\platformapi\logic\tenant\TenantLogic;
 use app\platformapi\logic\tenant\TenantSystemMenuLogic;
+use app\platformapi\service\TenantCreatService;
 use app\platformapi\validate\tenant\TenantValidate;
 use app\tenantapi\logic\article\ArticleLogic;
 use app\tenantapi\logic\decorate\DecorateDataLogic;
@@ -77,20 +78,28 @@ class TenantController extends BaseAdminController
             // 验证参数
             // 创建租户基本信息
             $tenant = TenantLogic::add($params);
-            // 创建默认装修数据
-            DecorateDataLogic::initialization($tenant['id']);
-            // 初始化租户文章列表
-            ArticleLogic::initialization($tenant['id']);
-            // 创建租户菜单权限
-            TenantSystemMenuLogic::initialization($tenant['id']);
-            // 初始化租户管理员账号
-            $managerInfo = TenantAdminLogic::initialization($tenant['id'], $tenant['sn'], $params);
-            // 初始化管理员部门信息
-            TenantDept::initialization($tenant['id'],$managerInfo['id']);
-            // 初始化支付方式配置
-            PayConfigLogic::initialization($tenant['id']);
-            // 初始化支付配置是否开启
-            PayWayLogic::initialization($tenant['id']);
+            //判断用户是否采用分表模式
+            // todo 测试模式，全部采用分表模式
+//            $params['suitable'] = '1';
+            if (isset($params['tactics']) && $params['tactics'] == '1') {
+                (new TenantCreatService)->createTenantTable($tenant['sn']);
+                (new TenantCreatService)->initializationTenantData($tenant['id'],$tenant['sn'],$params);
+            }else{
+                // 初始化租户文章列表
+                ArticleLogic::initialization($tenant['id']);
+                // 初始化租户管理员账号
+                $managerInfo = TenantAdminLogic::initialization($tenant['id'], $tenant['sn'], $params);
+                // 初始化管理员部门信息
+                TenantDept::initialization($tenant['id'], $managerInfo['id']);
+                // 创建租户菜单权限
+                TenantSystemMenuLogic::initialization($tenant['id']);
+                // 初始化支付方式配置
+                PayConfigLogic::initialization($tenant['id']);
+                // 初始化支付配置是否开启
+                PayWayLogic::initialization($tenant['id']);
+                // 创建默认装修数据
+                DecorateDataLogic::initialization($tenant['id']);
+            }
             // 提交事务
             DB::commit();
             // 返回成功
@@ -113,8 +122,8 @@ class TenantController extends BaseAdminController
     {
         $params = (new TenantValidate())->post()->goCheck('edit');
         $result = TenantLogic::edit($params);
-        if(true === $result) {
-        return $this->success('操作成功', [], 1, 1);
+        if (true === $result) {
+            return $this->success('操作成功', [], 1, 1);
         }
         return $this->fail(TenantLogic::getError());
     }
@@ -129,7 +138,7 @@ class TenantController extends BaseAdminController
     {
         $params = (new TenantValidate())->post()->goCheck('delete');
         $result = TenantLogic::delete($params);
-        if(true === $result) {
+        if (true === $result) {
             return $this->success('删除成功', [], 1, 1);
         }
         return $this->fail(TenantLogic::getError());

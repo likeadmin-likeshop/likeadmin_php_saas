@@ -1198,6 +1198,7 @@ CREATE TABLE `la_tenant`
     `avatar`              varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '租户头像',
     `tel`                 varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  NULL     DEFAULT NULL COMMENT '联系方式',
     `disable`             tinyint(1) UNSIGNED                                           NULL     DEFAULT 0 COMMENT '是否禁用：0-否；1-是；',
+    `tactics`             tinyint(1) UNSIGNED                                           NOT NULL DEFAULT 0 COMMENT '分表策略: [0=否, 1=是]',
     `notes`               varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '租户备注',
     `domain_alias`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL     DEFAULT NULL COMMENT '域名别名',
     `domain_alias_enable` tinyint(10)                                                   NOT NULL DEFAULT 1 COMMENT '启用域名别名：0-启用；1-禁用',
