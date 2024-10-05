@@ -41,6 +41,12 @@
                     style="max-width: 250px"
                 />
             </el-form-item>
+            <el-form-item label="分表策略：" prop="tactics">
+                <el-radio-group v-model="formData.tactics">
+                    <el-radio :value="0">公表模式</el-radio>
+                    <el-radio :value="1">分表模式</el-radio>
+                </el-radio-group>
+            </el-form-item>
             <el-form-item label="域名别名：" prop="domain_alias">
                 <el-input
                     v-model="formData.domain_alias"
@@ -118,6 +124,7 @@ interface DetailType {
     id: string
     disable: number
     tel: string
+    tactics: number
     domain_alias: string
     domain_alias_enable: number
     notes: string
@@ -137,6 +144,7 @@ const formData = ref<DetailType>({
     id: '',
     disable: 0,
     tel: '',
+    tactics: 0,
     domain_alias: '',
     domain_alias_enable: 1,
     notes: '',
@@ -157,6 +165,13 @@ const rules: FormRules = {
         {
             required: true,
             message: '请选择租户状态',
+            trigger: ['blur']
+        }
+    ],
+    tactics: [
+        {
+            required: true,
+            message: '请选择分表策略',
             trigger: ['blur']
         }
     ]
