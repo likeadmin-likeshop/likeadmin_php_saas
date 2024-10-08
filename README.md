@@ -29,7 +29,9 @@
 </p>
 </p>
 
-![](/server/public/readme/platform-1.png)
+![](/server/public/readme/platform-2.png)
+
+![](/server/public/readme/admin-2.png)
 <br>
 
 ## ⤵️ SaaS 架构图
@@ -37,8 +39,6 @@
 ![](/server/public/readme/architecture.png)
 
 <br>
-
-![](/server/public/readme/platform-2.png)
 
 ## 👀 体验后台
 
