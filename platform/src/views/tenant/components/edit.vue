@@ -60,27 +60,6 @@
                         label-width="100px"
                         :rules="formRules"
                     >
-                        <el-form-item
-                            v-if="!editStatus"
-                            label="默认域名："
-                            class="col-span-2"
-                            prop="default_domain"
-                        >
-                            <a
-                                :href="formData.default_domain"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {{ formData.default_domain || '--' }}
-                            </a>
-                            <span
-                                class="flex items-center ml-2 cursor-pointer"
-                                v-copy="formData.default_domain"
-                            >
-                                <icon name="el-icon-DocumentCopy" />
-                                复制
-                            </span>
-                        </el-form-item>
                         <el-form-item v-if="editStatus" label="头像：" prop="avatar">
                             <material-picker v-model="formData.avatar" :limit="1" />
                         </el-form-item>
@@ -169,6 +148,72 @@
                                 {{ formData.notes || '--' }}
                             </span>
                         </el-form-item>
+                        <el-form-item
+                            v-if="!editStatus"
+                            label="默认域名："
+                            class="col-span-2"
+                            prop="default_domain"
+                        >
+                            <a
+                                :href="formData.default_domain"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {{ formData.default_domain || '--' }}
+                            </a>
+                            <span
+                                class="flex items-center ml-2 cursor-pointer"
+                                v-copy="formData.default_domain"
+                            >
+                                <icon name="el-icon-DocumentCopy" />
+                                复制
+                            </span>
+                        </el-form-item>
+                        <el-form-item
+                            v-if="!editStatus"
+                            label="前台PC："
+                            class="col-span-2"
+                            prop="default_domain"
+                        >
+                            <a
+                                :href="replaceStr(formData.default_domain, '/admin/', '/pc/')"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {{ replaceStr(formData.default_domain, '/admin/', '/pc/') || '--' }}
+                            </a>
+                            <span
+                                class="flex items-center ml-2 cursor-pointer"
+                                v-copy="replaceStr(formData.default_domain, '/admin/', '/pc/')"
+                            >
+                                <icon name="el-icon-DocumentCopy" />
+                                复制
+                            </span>
+                        </el-form-item>
+                        <el-form-item
+                            v-if="!editStatus"
+                            label="移动端："
+                            class="col-span-2"
+                            prop="default_domain"
+                        >
+                            <a
+                                :href="replaceStr(formData.default_domain, '/admin/', '/mobile/')"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {{
+                                    replaceStr(formData.default_domain, '/admin/', '/mobile/') ||
+                                    '--'
+                                }}
+                            </a>
+                            <span
+                                class="flex items-center ml-2 cursor-pointer"
+                                v-copy="replaceStr(formData.default_domain, '/admin/', '/mobile/')"
+                            >
+                                <icon name="el-icon-DocumentCopy" />
+                                复制
+                            </span>
+                        </el-form-item>
                     </el-form>
                 </el-tab-pane>
                 <el-tab-pane lazy label="账号列表" name="accounts">
@@ -188,6 +233,7 @@ import { cloneDeep } from 'lodash-es'
 
 import { getUserDetail, userEdit } from '@/api/consumer'
 import { useLockFn } from '@/hooks/useLockFn'
+import { replaceStr } from '@/utils/util'
 
 import Accounts from './account/index.vue'
 import Users from './user/index.vue'

@@ -91,15 +91,32 @@
                                 </span>
                                 <template #dropdown>
                                     <el-dropdown-menu>
-                                        <el-dropdown-item>
-                                            <a :href="row.domain" target="_blank">进入后台</a>
-                                        </el-dropdown-item>
                                         <el-dropdown-item
                                             v-if="hasPermission(['tenant.tenant/edit'])"
                                             @click="editRef?.openHandle(row.id, true)"
                                         >
                                             编辑
                                         </el-dropdown-item>
+                                        <el-dropdown-item>
+                                            <a :href="row.domain" target="_blank">进入后台</a>
+                                        </el-dropdown-item>
+                                        <el-dropdown-item>
+                                            <a
+                                                :href="replaceStr(row.domain, '/admin/', '/pc/')"
+                                                target="_blank"
+                                                >进入前台PC</a
+                                            >
+                                        </el-dropdown-item>
+                                        <el-dropdown-item>
+                                            <a
+                                                :href="
+                                                    replaceStr(row.domain, '/admin/', '/mobile/')
+                                                "
+                                                target="_blank"
+                                                >进入移动端</a
+                                            >
+                                        </el-dropdown-item>
+
                                         <el-dropdown-item
                                             v-if="hasPermission(['tenant.tenant/delete'])"
                                             divided
@@ -128,6 +145,7 @@ import { usePaging } from '@/hooks/usePaging'
 import feedback from '@/utils/feedback'
 import { useComponentRef } from '@/utils/getExposeType'
 import { hasPermission } from '@/utils/perm'
+import { replaceStr } from '@/utils/util'
 
 import Add from './../components/add.vue'
 import Edit from './../components/edit.vue'
