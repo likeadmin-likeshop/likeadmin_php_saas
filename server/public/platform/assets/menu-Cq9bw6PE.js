@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:server/public/platform/assets/menu-2pH7QAuD.js
-import{r as t}from"./index-OWYZf8Ma.js";function n(u){return t.get({url:"/auth.menu/lists",params:u})}function r(u){return t.get({url:"/auth.menu/all",params:u})}function a(u){return t.post({url:"/auth.menu/add",params:u})}function l(u){return t.post({url:"/auth.menu/edit",params:u})}function m(u){return t.post({url:"/auth.menu/delete",params:u})}function s(u){return t.get({url:"/auth.menu/detail",params:u})}export{m as a,n as b,l as c,a as d,s as e,r as m};
-========
-import{r as t}from"./index-s2XVwHMG.js";function n(u){return t.get({url:"/auth.menu/lists",params:u})}function r(u){return t.get({url:"/auth.menu/all",params:u})}function a(u){return t.post({url:"/auth.menu/add",params:u})}function l(u){return t.post({url:"/auth.menu/edit",params:u})}function m(u){return t.post({url:"/auth.menu/delete",params:u})}function s(u){return t.get({url:"/auth.menu/detail",params:u})}export{m as a,n as b,l as c,a as d,s as e,r as m};
->>>>>>>> master:server/public/platform/assets/menu-Cq9bw6PE.js

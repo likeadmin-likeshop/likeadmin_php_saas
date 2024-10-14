@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:server/public/platform/assets/post-DYM-xW4D.js
-import{r as e}from"./index-OWYZf8Ma.js";function o(t){return e.get({url:"/dept.jobs/lists",params:t},{ignoreCancelToken:!0})}function r(t){return e.post({url:"/dept.jobs/add",params:t})}function n(t){return e.post({url:"/dept.jobs/edit",params:t})}function u(t){return e.post({url:"/dept.jobs/delete",params:t})}function l(t){return e.get({url:"/dept.jobs/detail",params:t})}function d(t){return e.get({url:"/dept.jobs/all",params:t})}export{u as a,n as b,r as c,l as d,d as e,o as j};
-========
-import{r as e}from"./index-s2XVwHMG.js";function o(t){return e.get({url:"/dept.jobs/lists",params:t},{ignoreCancelToken:!0})}function r(t){return e.post({url:"/dept.jobs/add",params:t})}function n(t){return e.post({url:"/dept.jobs/edit",params:t})}function u(t){return e.post({url:"/dept.jobs/delete",params:t})}function l(t){return e.get({url:"/dept.jobs/detail",params:t})}function d(t){return e.get({url:"/dept.jobs/all",params:t})}export{u as a,n as b,r as c,l as d,d as e,o as j};
->>>>>>>> master:server/public/platform/assets/post-ClaJ3mv3.js

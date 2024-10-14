@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:server/public/platform/assets/message-BF4_aoHh.js
-import{r as n}from"./index-OWYZf8Ma.js";function i(t){return n.get({url:"/notice.notice/settingLists",params:t})}function s(t){return n.get({url:"/notice.notice/detail",params:t})}function o(t){return n.post({url:"/notice.notice/set",params:t})}function r(){return n.get({url:"/notice.sms_config/getConfig"})}function c(t){return n.get({url:"/notice.sms_config/detail",params:t})}function u(t){return n.post({url:"/notice.sms_config/setConfig",params:t})}export{i as a,r as b,u as c,c as d,s as n,o as s};
-========
-import{r as n}from"./index-s2XVwHMG.js";function i(t){return n.get({url:"/notice.notice/settingLists",params:t})}function s(t){return n.get({url:"/notice.notice/detail",params:t})}function o(t){return n.post({url:"/notice.notice/set",params:t})}function r(){return n.get({url:"/notice.sms_config/getConfig"})}function c(t){return n.get({url:"/notice.sms_config/detail",params:t})}function u(t){return n.post({url:"/notice.sms_config/setConfig",params:t})}export{i as a,r as b,u as c,c as d,s as n,o as s};
->>>>>>>> master:server/public/platform/assets/message-lNvGqFlh.js

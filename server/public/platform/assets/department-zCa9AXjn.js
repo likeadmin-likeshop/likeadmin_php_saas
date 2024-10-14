@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:server/public/platform/assets/department-zCa9AXjn.js
-import{r as e}from"./index-OWYZf8Ma.js";function p(t){return e.get({url:"/dept.dept/lists",params:t})}function r(t){return e.post({url:"/dept.dept/add",params:t})}function u(t){return e.post({url:"/dept.dept/edit",params:t})}function n(t){return e.post({url:"/dept.dept/delete",params:t})}function l(t){return e.get({url:"/dept.dept/detail",params:t})}function s(t){return e.get({url:"/dept.dept/all",params:t})}export{n as a,s as b,u as c,p as d,r as e,l as f};
-========
-import{r as e}from"./index-s2XVwHMG.js";function p(t){return e.get({url:"/dept.dept/lists",params:t})}function r(t){return e.post({url:"/dept.dept/add",params:t})}function u(t){return e.post({url:"/dept.dept/edit",params:t})}function n(t){return e.post({url:"/dept.dept/delete",params:t})}function l(t){return e.get({url:"/dept.dept/detail",params:t})}function s(t){return e.get({url:"/dept.dept/all",params:t})}export{n as a,s as b,u as c,p as d,r as e,l as f};
->>>>>>>> master:server/public/platform/assets/department-CAtGmmt4.js
