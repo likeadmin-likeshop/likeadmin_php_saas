@@ -217,3 +217,16 @@ export const calcColor = (color: string, opacity: number): string => {
     // 返回转换后的 rgba 颜色值
     return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
+
+/**
+ * 将字符串中的所有指定子串替换为新子串
+ * @param inputStr 原始字符串
+ * @param target 需要被替换的子串
+ * @param replacement 替换后的子串
+ * @returns 替换后的新字符串
+ */
+export const replaceStr = (inputStr: string, target: string, replacement: string): string => {
+    // 使用正则表达式替换所有匹配的目标子串，'g'表示全局替换
+    const regex = new RegExp(target, 'g')
+    return inputStr.replace(regex, replacement)
+}

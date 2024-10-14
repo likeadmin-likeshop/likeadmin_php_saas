@@ -155,6 +155,20 @@ $subTheme: #efc49b;
         }
     }
 
+    .el-date-editor.el-input__wrapper,
+    .el-date-editor.el-input__wrapper:hover {
+        box-shadow: 0 0 0 2px transparent;
+        transition: box-shadow ease 0.1s;
+        border: 1px solid var(--el-input-border-color, var(--el-border-color));
+    }
+
+    .el-range-editor.is-active,
+    .el-range-editor.is-active:hover {
+        @apply shadow-[rgba(100,100,100,0.4)];
+        box-shadow: 0 0 0 2px var(--tw-shadow-color);
+        border: 1px solid var(--el-input-focus-border-color);
+    }
+
     .el-radio__input {
         border-radius: var(--el-radio-input-border-radius);
     }
@@ -241,6 +255,52 @@ $subTheme: #efc49b;
     color: var(--el-button-text-color);
 }
 .dark {
+    .el-date-table td.today .el-date-table-cell__text {
+        color: $subTheme;
+    }
+    .el-tabs__active-bar {
+        background-color: var(--el-color-white);
+    }
+
+    .el-select-dropdown__item.is-selected {
+        color: $subTheme;
+    }
+
+    .el-input__wrapper.is-focus,
+    .el-select__wrapper.is-focused,
+    .el-textarea__inner:focus,
+    .el-range-editor.is-active,
+    .el-range-editor.is-active:hover {
+        box-shadow: 0 0 0 1px rgb(228, 228, 228) inset;
+    }
+
+    .el-input,
+    .el-select,
+    .el-textarea {
+        @apply shadow-[rgba(100,100,100,0.4)];
+
+        box-shadow: 0 0 0 0 var(--tw-shadow-color);
+        &:focus-within {
+            box-shadow: 0 0 0 2px var(--tw-shadow-color);
+            border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+            transition: box-shadow ease 0.1s;
+        }
+    }
+
+    .el-date-editor.el-input__wrapper,
+    .el-date-editor.el-input__wrapper:hover {
+        box-shadow: 0 0 0 2px transparent;
+        transition: box-shadow ease 0.1s;
+        border: 1px solid var(--el-input-border-color, var(--el-border-color));
+    }
+
+    .el-range-editor.is-active,
+    .el-range-editor.is-active:hover {
+        @apply shadow-[rgba(100,100,100,0.4)];
+        box-shadow: 0 0 0 2px var(--tw-shadow-color);
+        border: 1px solid rgb(228, 228, 228);
+    }
+
     .el-pager li.is-active,
     .el-pager li:hover {
         color: var(--el-text-color-primary);
