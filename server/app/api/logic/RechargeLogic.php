@@ -43,6 +43,7 @@ class RechargeLogic extends BaseLogic
                 'sn' => generate_sn(RechargeOrder::class, 'sn'),
                 'order_terminal' => $params['terminal'],
                 'user_id' => $params['user_id'],
+                'tenant_id' => $params['tenant_id'],
                 'pay_status' => PayEnum::UNPAID,
                 'order_amount' => $params['money'],
             ];

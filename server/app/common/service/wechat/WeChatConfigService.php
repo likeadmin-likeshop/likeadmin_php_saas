@@ -15,7 +15,7 @@ namespace app\common\service\wechat;
 
 use app\common\enum\PayEnum;
 use app\common\enum\user\UserTerminalEnum;
-use app\common\model\pay\PayConfig;
+use app\common\model\pay\TenantPayConfig;
 use app\common\service\ConfigService;
 
 /**
@@ -111,7 +111,7 @@ class WeChatConfigService
                 break;
         }
 
-        $pay = PayConfig::where(['pay_way' => PayEnum::WECHAT_PAY])->findOrEmpty()->toArray();
+        $pay = TenantPayConfig::where(['pay_way' => PayEnum::WECHAT_PAY])->findOrEmpty()->toArray();
         //判断是否已经存在证书文件夹，不存在则新建
         if (!file_exists(app()->getRootPath() . 'runtime/cert')) {
             mkdir(app()->getRootPath() . 'runtime/cert', 0775, true);

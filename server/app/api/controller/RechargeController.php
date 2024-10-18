@@ -49,6 +49,7 @@ class RechargeController extends BaseApiController
         $params = (new RechargeValidate())->post()->goCheck('recharge', [
             'user_id' => $this->userId,
             'terminal' => $this->userInfo['terminal'],
+            'tenant_id' => $this->userInfo['tenant_id'],
         ]);
         $result = RechargeLogic::recharge($params);
         if (false === $result) {
