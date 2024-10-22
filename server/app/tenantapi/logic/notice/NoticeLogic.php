@@ -25,7 +25,32 @@ use app\common\model\notice\TenantNoticeSetting;
  */
 class NoticeLogic extends BaseLogic
 {
-
+    /**
+     * @notes 初始化通知场景配置
+     * @param mixed $tenant_id
+     * @return void
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @author JXDN
+     * @date 2024/10/22 11:51
+     */
+    public static function initialization(mixed $tenant_id)
+    {
+        // 支付方式配置
+        $field = "tenant_id,scene_id,scene_name,scene_desc,recipient,type,system_notice,sms_notice,oa_notice,mnp_notice,support";
+        // 查询支付方式配置 此处默认为租户号为0的模板数据
+        $NoticeSettingRecord = TenantNoticeSetting::where(['tenant_id' => 0])->field($field)->select()->toArray();
+        foreach ($NoticeSettingRecord as $item) {
+            $item['tenant_id'] = $tenant_id;
+            $item['system_notice'] = json_encode($item['system_notice'], JSON_UNESCAPED_UNICODE);
+            $item['sms_notice'] = json_encode($item['system_notice'], JSON_UNESCAPED_UNICODE);
+            $item['oa_notice'] = json_encode($item['oa_notice'], JSON_UNESCAPED_UNICODE);
+            $item['mnp_notice'] = json_encode($item['mnp_notice'], JSON_UNESCAPED_UNICODE);
+            TenantNoticeSetting::create($item);
+        }
+    }
+    
     /**
      * @notes 查看通知设置详情
      * @param $params

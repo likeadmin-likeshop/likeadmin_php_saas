@@ -25,6 +25,7 @@ use app\platformapi\service\TenantCreatService;
 use app\platformapi\validate\tenant\TenantValidate;
 use app\tenantapi\logic\article\ArticleLogic;
 use app\tenantapi\logic\decorate\DecorateDataLogic;
+use app\tenantapi\logic\notice\NoticeLogic;
 use think\facade\Db;
 
 /**
@@ -78,9 +79,9 @@ class TenantController extends BaseAdminController
             // 验证参数
             // 创建租户基本信息
             $tenant = TenantLogic::add($params);
-            //判断用户是否采用分表模式
+            // 判断用户是否采用分表模式
             // todo 测试模式，全部采用分表模式
-//            $params['suitable'] = '1';
+            // $params['suitable'] = '1';
             if (isset($params['tactics']) && $params['tactics'] == '1') {
                 (new TenantCreatService)->createTenantTable($tenant['sn']);
                 (new TenantCreatService)->initializationTenantData($tenant['id'],$tenant['sn'],$params);
@@ -97,6 +98,8 @@ class TenantController extends BaseAdminController
                 PayConfigLogic::initialization($tenant['id']);
                 // 初始化支付配置是否开启
                 PayWayLogic::initialization($tenant['id']);
+                // 初始化短信场景配置
+                NoticeLogic::initialization($tenant['id']);
                 // 创建默认装修数据
                 DecorateDataLogic::initialization($tenant['id']);
             }
