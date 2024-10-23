@@ -144,7 +144,7 @@ class SmsDriver
      */
     public function sendLimit($mobile)
     {
-        $smsLog = (AdminTerminalEnum::isTenant() ? new TenantSmsLog() : new SmsLog())->where([
+        $smsLog = (AdminTerminalEnum::isPlatform() ? new SmsLog() : new TenantSmsLog())->where([
             ['mobile', '=', $mobile],
             ['send_status', '=', SmsEnum::SEND_SUCCESS],
             ['scene_id', 'in', NoticeEnum::SMS_SCENE],
@@ -179,7 +179,7 @@ class SmsDriver
             $where[] = ['scene_id', '=', $sceneId];
         }
 
-        $smsLog = SmsLog::where($where)
+        $smsLog = (AdminTerminalEnum::isPlatform() ? new SmsLog() : new TenantSmsLog())->where($where)
             ->order('send_time', 'desc')
             ->findOrEmpty();
 
