@@ -115,7 +115,24 @@ class BaseModel extends Model
      */
     public static function onBeforeInsert($model): void
     {
-        $tenantId = self::checkTenant();
+        $tenantId = self::checkTenant() ?: self::checkUser();
+        if ($tenantId) {
+            if (self::$hasTenantId) {
+                $model->tenant_id = $tenantId;
+            }
+        }
+    }
+
+    /**
+     * @notes 更新语句前置处理
+     * @param $model
+     * @return void
+     * @author JXDN
+     * @date 2024/09/04 15:48
+     */
+    public static function onBeforeUpdate($model): void
+    {
+        $tenantId = self::checkTenant() ?: self::checkUser();
         if ($tenantId) {
             if (self::$hasTenantId) {
                 $model->tenant_id = $tenantId;
