@@ -43,7 +43,7 @@ class NoticeLogic extends BaseLogic
     public static function noticeByScene($params)
     {
         try {
-            $noticeSetting = (AdminTerminalEnum::isTenant() ? new TenantNoticeSetting() : new NoticeSetting)->where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
+            $noticeSetting = (AdminTerminalEnum::isPlatform() ? new NoticeSetting() : new TenantNoticeSetting)->where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
             if (empty($noticeSetting)) {
                 throw new \Exception('找不到对应场景的配置');
             }

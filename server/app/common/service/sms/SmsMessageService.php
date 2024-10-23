@@ -37,7 +37,7 @@ class SmsMessageService
     {
         try {
             // 通知设置
-            $noticeSetting = (AdminTerminalEnum::isTenant() ? new TenantNoticeSetting() : new NoticeSetting())->where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
+            $noticeSetting = (AdminTerminalEnum::isPlatform() ? new NoticeSetting() : new TenantNoticeSetting())->where('scene_id', $params['scene_id'])->findOrEmpty()->toArray();
             // 替换通知模板参数
             $content = $this->contentFormat($noticeSetting, $params);
             // 添加短信记录
@@ -105,7 +105,7 @@ class SmsMessageService
             'send_status'   => SmsEnum::SEND_ING,
             'send_time'     => time(),
         ];
-        return (AdminTerminalEnum::isTenant() ? new TenantSmsLog() : new SmsLog())->create($data);
+        return (AdminTerminalEnum::isPlatform() ? new SmsLog() : new TenantSmsLog())->create($data);
     }
 
 
@@ -174,7 +174,7 @@ class SmsMessageService
      */
     public function updateSmsLog($id, $status, $result)
     {
-        (AdminTerminalEnum::isTenant() ? new TenantSmsLog() : new SmsLog())->update([
+        (AdminTerminalEnum::isPlatform() ? new SmsLog() : new TenantSmsLog())->update([
             'id' => $id,
             'send_status' => $status,
             'results' => json_encode($result, JSON_UNESCAPED_UNICODE)
