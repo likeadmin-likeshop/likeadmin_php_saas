@@ -175,9 +175,8 @@ class SmsMessageService
     public function updateSmsLog($id, $status, $result)
     {
         (AdminTerminalEnum::isPlatform() ? new SmsLog() : new TenantSmsLog())->update([
-            'id' => $id,
             'send_status' => $status,
             'results' => json_encode($result, JSON_UNESCAPED_UNICODE)
-        ]);
+        ], ['id' => $id,]);
     }
 }
