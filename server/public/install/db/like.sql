@@ -1573,6 +1573,29 @@ CREATE TABLE `la_tenant_pay_way`
   ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for la_tenant_sms_log
+-- ----------------------------
+DROP TABLE IF EXISTS `la_tenant_sms_log`;
+CREATE TABLE `la_tenant_sms_log`
+(
+    `id`          int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `tenant_id`   int(11) NOT NULL COMMENT '租户ID',
+    `scene_id`    int(11) NOT NULL COMMENT '场景id',
+    `mobile`      varchar(11)  NOT NULL COMMENT '手机号码',
+    `content`     varchar(255) NOT NULL COMMENT '发送内容',
+    `code`        varchar(32) DEFAULT NULL COMMENT '发送关键字（注册、找回密码）',
+    `is_verify`   tinyint(1) DEFAULT '0' COMMENT '是否已验证；0-否；1-是',
+    `check_num`   int(5) DEFAULT '0' COMMENT '验证次数',
+    `send_status` tinyint(1) NOT NULL COMMENT '发送状态：0-发送中；1-发送成功；2-发送失败',
+    `send_time`   int(10) NOT NULL COMMENT '发送时间',
+    `results`     text COMMENT '短信结果',
+    `create_time` int(10) DEFAULT NULL COMMENT '创建时间',
+    `update_time` int(10) DEFAULT NULL COMMENT '更新时间',
+    `delete_time` int(10) DEFAULT NULL COMMENT '删除时间',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='租户短信记录表';
+
+-- ----------------------------
 -- Records of la_tenant_pay_way
 -- ----------------------------
 BEGIN;
