@@ -475,7 +475,7 @@
                                             <img src="./images/icon_mountSuccess.png"/>
                                         </div>
                                         <div class="mt16 result">安装完成，进入管理后台</div>
-                                        <div style="margin-top: 10px;font-size:14px;color: #444444">版本号：1.0.4</div>
+                                        <div style="margin-top: 10px;font-size:14px;color: #444444">版本号：1.0.5</div>
                                         <div class="tips">
                                             为了您站点的安全，安装完成后即可将网站根目录下的“install”文件夹删除，或者config/目录下创建install.lock文件防止重复安装。
                                         </div>
