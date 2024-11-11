@@ -66,7 +66,7 @@ class UploadService
             }
 
             // 4、写入数据库中
-            $file = (AdminTerminalEnum::isTenant() ? new TenantFile() : new File())->create([
+            $file = (AdminTerminalEnum::isPlatform() ? new File() : new TenantFile())->create([
                 'cid'         => $cid,
                 'type'        => FileEnum::IMAGE_TYPE,
                 'name'        => $fileInfo['name'],
@@ -135,7 +135,7 @@ class UploadService
             }
 
             // 4、写入数据库中
-            $file = (AdminTerminalEnum::isTenant() ? new TenantFile() : new File())->create([
+            $file = (AdminTerminalEnum::isPlatform() ? new File() : new TenantFile())->create([
                 'cid'         => $cid,
                 'type'        => FileEnum::VIDEO_TYPE,
                 'name'        => $fileInfo['name'],
@@ -204,7 +204,7 @@ class UploadService
             }
 
             // 4、写入数据库中
-            $file = (AdminTerminalEnum::isTenant() ? new TenantFile() : new File())->create([
+            $file = (AdminTerminalEnum::isPlatform() ? new File() : new TenantFile())->create([
                 'cid'         => $cid,
                 'type'        => FileEnum::FILE_TYPE,
                 'name'        => $fileInfo['name'],
