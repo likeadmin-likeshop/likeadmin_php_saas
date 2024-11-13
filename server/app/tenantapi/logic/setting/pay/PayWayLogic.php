@@ -72,7 +72,7 @@ class PayWayLogic extends BaseLogic
      */
     public static function setPayWay($params)
     {
-        $payWay = new PayWay;
+        $payWay = new TenantPayWay;
         $data = [];
         foreach ($params as $key => $value) {
             $isDefault = array_column($value, 'is_default');
@@ -98,7 +98,6 @@ class PayWayLogic extends BaseLogic
                     return $sceneName . '支付场景的默认支付未开启支付状态';
                 }
                 $data[] = [
-                    'id' => $val['id'],
                     'is_default' => $val['is_default'],
                     'status' => $val['status'],
                 ];
