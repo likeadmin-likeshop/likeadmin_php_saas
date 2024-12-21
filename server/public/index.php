@@ -21,6 +21,8 @@ if ($whe && !file_exists(__DIR__ . '/../config/install.lock')) {
     exit;
 }
 
+define('ROOT_PATH', __DIR__);
+
 // 执行HTTP应用并响应
 $http = (new App())->http;
 

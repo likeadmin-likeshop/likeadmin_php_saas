@@ -299,3 +299,102 @@ function format_amount($float)
     }
     return $float;
 }
+
+/**
+ * @notes 版本信息
+ * @return array
+ * @author yfdong
+ * @date 2024/11/14 22:12
+ */
+function local_version(): mixed
+{
+    if (!file_exists('./upgrade/')) {
+        // 若文件夹不存在，先创建文件夹
+        mkdir('./upgrade/', 0777, true);
+    }
+    if (!file_exists('./upgrade/version.json')) {
+        // 获取本地版本号
+        $version = config('project.version');
+        $data = ['version' => $version];
+        $src = './upgrade/version.json';
+        // 新建文件
+        file_put_contents($src, json_encode($data, JSON_UNESCAPED_UNICODE));
+    }
+
+    $json_string = file_get_contents('./upgrade/version.json');
+    // 用参数true把JSON字符串强制转成PHP数组
+    return json_decode($json_string, true);
+}
+
+
+/**
+ * @notes 解压缩
+ * @param $file
+ * @param $save_dir
+ * @return bool
+ * @author yfdong
+ * @date 2024/11/14 22:31
+ */
+function unzip($file, $save_dir): bool
+{
+    if (!file_exists($file)) {
+        return false;
+    }
+    $zip = new ZipArchive();
+    if ($zip->open($file) !== TRUE) {//中文文件名要使用ANSI编码的文件格式
+        return false;
+    }
+    $zip->extractTo($save_dir);
+    $zip->close();
+    return true;
+}
+
+
+/**
+ * @notes 遍历指定目录下的文件(目标目录,排除文件)
+ * @param mixed $dir (目标文件)
+ * @param string $exclude_file (要排除的文件)
+ * @param string $target_suffix (指定后缀)
+ * @return array|false
+ * @author 段誉
+ * @date 2021/8/14 14:44
+ */
+function get_scanDir(mixed $dir, string $exclude_file = '', string $target_suffix = ''): bool|array
+{
+    if (!file_exists($dir) || empty(trim($dir))) {
+        return [];
+    }
+
+    $files = scandir($dir);
+    $res = [];
+    foreach ($files as $item) {
+        if ($item == "." || $item == ".." || $item == $exclude_file) {
+            continue;
+        }
+        if (!empty($target_suffix)) {
+            if (get_extension($item) == $target_suffix) {
+                $res[] = $item;
+            }
+        } else {
+            $res[] = $item;
+        }
+    }
+
+    if (empty($item)) {
+        return false;
+    }
+    return $res;
+}
+
+
+/**
+ * @notes 获取文件扩展名
+ * @param $file
+ * @return array|string
+ * @author 段誉
+ * @date 2021/8/14 15:24
+ */
+function get_extension($file): array|string
+{
+    return pathinfo($file, PATHINFO_EXTENSION);
+}

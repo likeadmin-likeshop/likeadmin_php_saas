@@ -17,6 +17,7 @@ use app\common\enum\user\UserTerminalEnum;
 use app\common\logic\BaseLogic;
 use app\common\model\tenant\Tenant;
 use app\common\model\user\User;
+use Exception;
 
 /**
  * 用户逻辑层
@@ -29,14 +30,20 @@ class TenantLogic extends BaseLogic
      * @notes 新增租户
      * @param array $params
      * @return Tenant|\think\Model
+     * @throws Exception
      * @author JXDN
      * @date 2024/09/03 14:42
      */
     public static function add(array $params)
     {
         $domain_alias = preg_replace('/^https?:\/\/|\/$/', '', $params['domain_alias']);
+        $sn = $params['host_name'] ?: Tenant::createUserSn();
+        $exists = (new Tenant())->where('sn', $sn)->find();
+        if(!empty($exists)) {
+            throw new Exception('主机名已被占用，请更换');
+        }
         return Tenant::create([
-            'sn'                  => Tenant::createUserSn(),
+            'sn'                  => $sn,
             'name'                => $params['name'],
             'avatar'              => $params['avatar'],
             'tel'                 => $params['tel'],
