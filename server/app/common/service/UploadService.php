@@ -105,10 +105,8 @@ class UploadService
     public static function video($cid, int $sourceId = 0, int $source = FileEnum::SOURCE_ADMIN, string $saveDir = 'uploads/video')
     {
         try {
-            $config = [
-                'default' => ConfigService::get('storage', 'default', 'local'),
-                'engine'  => ConfigService::get('storage') ?? ['local'=>[]],
-            ];
+            // 租户端文件配置默认获取平台端
+            $config = self::getUploadFileConfig();
 
             // 2、执行文件上传
             $StorageDriver = new StorageDriver($config);
@@ -174,10 +172,8 @@ class UploadService
     public static function file($cid, int $sourceId = 0, int $source = FileEnum::SOURCE_ADMIN, string $saveDir = 'uploads/file')
     {
         try {
-            $config = [
-                'default' => ConfigService::get('storage', 'default', 'local'),
-                'engine'  => ConfigService::get('storage') ?? [ 'local' => [] ],
-            ];
+            // 租户端文件配置默认获取平台端
+            $config = self::getUploadFileConfig();
 
             // 2、执行文件上传
             $StorageDriver = new StorageDriver($config);
