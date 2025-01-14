@@ -34,7 +34,7 @@ class BaseModel extends Model
     private static bool $hasTenantId = false;
 
     // 不需要检查分表的范围
-    private static $notCheckTables = ['tenant','recharge_order','refund_record','official_account_reply','config'];
+    private static $notCheckTables = ['tenant','recharge_order','refund_record','official_account_reply','config','hot_search'];
 
     /**
      * @notes 公共处理图片，补全路径

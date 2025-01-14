@@ -563,7 +563,7 @@ DROP TABLE IF EXISTS `la_hot_search`;
 CREATE TABLE `la_hot_search`
 (
     `id`          int(10) UNSIGNED                                              NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `tentant_id`  int(11)                                                       NOT NULL COMMENT '租户ID',
+    `tenant_id`  int(11)                                                       NOT NULL COMMENT '租户ID',
     `name`        varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '关键词',
     `sort`        smallint(5) UNSIGNED                                          NOT NULL DEFAULT 0 COMMENT '排序号',
     `create_time` int(10)                                                       NULL     DEFAULT NULL COMMENT '创建时间',
