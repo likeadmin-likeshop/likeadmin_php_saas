@@ -80,8 +80,6 @@ class TenantController extends BaseAdminController
             // 创建租户基本信息
             $tenant = TenantLogic::add($params);
             // 判断用户是否采用分表模式
-            // todo 测试模式，全部采用分表模式
-            // $params['suitable'] = '1';
             if (isset($params['tactics']) && $params['tactics'] == '1') {
                 (new TenantCreatService)->createTenantTable($tenant['sn']);
                 (new TenantCreatService)->initializationTenantData($tenant['id'],$tenant['sn'],$params);

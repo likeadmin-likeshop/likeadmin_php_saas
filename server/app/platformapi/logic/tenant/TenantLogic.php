@@ -37,9 +37,9 @@ class TenantLogic extends BaseLogic
     public static function add(array $params)
     {
         $domain_alias = preg_replace('/^https?:\/\/|\/$/', '', $params['domain_alias']);
-        $sn = $params['host_name'] ?: Tenant::createUserSn();
+        $sn = $params['host_name'] ?? Tenant::createUserSn();
         $exists = (new Tenant())->where('sn', $sn)->find();
-        if(!empty($exists)) {
+        if (!empty($exists)) {
             throw new Exception('主机名已被占用，请更换');
         }
         return Tenant::create([
