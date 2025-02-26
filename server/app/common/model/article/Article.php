@@ -109,4 +109,20 @@ class Article extends BaseModel
             ->toArray();
     }
 
+
+    /**
+     * @notes 分表情况下软删除重写方法
+     * @param $data
+     * @param bool $force
+     * @return bool
+     * @throws \think\db\exception\DbException
+     * @author yfdong
+     * @date 2025/02/26 23:24
+     */
+    public static function destroy($data, bool $force = false): bool
+    {
+        return Article::query()->where('id', $data)->update(['delete_time' => time()]) > 0;
+    }
+
+
 }
