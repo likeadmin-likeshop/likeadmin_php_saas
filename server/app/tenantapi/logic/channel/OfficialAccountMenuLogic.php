@@ -72,8 +72,8 @@ class OfficialAccountMenuLogic extends BaseLogic
                 throw new \Exception('请输入一级菜单名称');
             }
 
-            if (mb_strlen($item['name']) > 4) {
-                throw new \Exception("一级菜单名称字数不能超过4个字符");
+            if (mb_strwidth($item['name']) > 8) {
+                throw new \Exception("一级菜单名称字数不能超过4个汉字或8个字母");
             }
 
             if (false == $item['has_menu']) {
