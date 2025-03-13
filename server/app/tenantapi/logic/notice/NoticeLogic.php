@@ -44,7 +44,7 @@ class NoticeLogic extends BaseLogic
         foreach ($NoticeSettingRecord as $item) {
             $item['tenant_id'] = $tenant_id;
             $item['system_notice'] = json_encode($item['system_notice'], JSON_UNESCAPED_UNICODE);
-            $item['sms_notice'] = json_encode($item['system_notice'], JSON_UNESCAPED_UNICODE);
+            $item['sms_notice'] = json_encode($item['sms_notice'], JSON_UNESCAPED_UNICODE);
             $item['oa_notice'] = json_encode($item['oa_notice'], JSON_UNESCAPED_UNICODE);
             $item['mnp_notice'] = json_encode($item['mnp_notice'], JSON_UNESCAPED_UNICODE);
             TenantNoticeSetting::create($item);
