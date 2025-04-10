@@ -1,6 +1,5 @@
-<a href="https://www.likeshop.cn">![likeshop全开源商城](/server/public/readme/likeshop.png)</a><br>
-
-<a href="https://www.chatmoney.cn">![likeshop全开源商城](/server/public/readme/chatmoney.png)</a><br>
+ <a href="https://www.likeshop.cn">![likeshop全开源商城](https://server.likeshop.cn/uploads/gitad/likeshop.png)</a><br>
+<a href="https://www.mddai.cn">![码多多AI](https://server.likeshop.cn/uploads/gitad/mdd.png)</a><br>
 
  <h1 align="center">likeadmin-SaaS（PHP）
  通用管理后台</h1>
