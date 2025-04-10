@@ -133,7 +133,6 @@ trait SoftDelete
             return false;
         }
         $model = (new static());
-
         $query = $model->db(false);
 
         // 仅当强制删除时包含软删除数据
@@ -150,7 +149,6 @@ trait SoftDelete
         }
 
         $resultSet = $query->select((array) $data);
-
         foreach ($resultSet as $result) {
             /** @var Model $result */
             $result->force($force)->delete();

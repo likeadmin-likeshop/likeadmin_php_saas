@@ -34,7 +34,7 @@ class BaseModel extends Model
     private static bool $hasTenantId = false;
 
     // 不需要检查分表的范围
-    private static $notCheckTables = ['tenant','recharge_order','refund_record','official_account_reply','config','hot_search'];
+    private static $notCheckTables = ['tenant', 'recharge_order', 'refund_record', 'official_account_reply', 'config', 'hot_search', 'operation_log'];
 
     /**
      * @notes 公共处理图片，补全路径
@@ -70,29 +70,26 @@ class BaseModel extends Model
     public static function scopeTenantId($query): void
     {
         $tenantId = self::checkTenant() ?: self::checkUser();
+        // 获取当前查询模型表名
+        $table = $query->getTable();
+        //去除表前缀
+        $tableNoPrefix = str_replace(env('database.prefix', 'la_'), '', $table);
         if ($tenantId) {
-            // 获取当前查询模型表名
-            $table = $query->getTable();
-            //去除表前缀
-            $tableNoPrefix = str_replace(env('database.prefix', 'la_'), '', $table);
             // 分表全局控制
             if (!in_array($tableNoPrefix, self::$notCheckTables)) {
                 // 根据租户唯一标识获取对应表是否存在
-                $tenantId = self::checkTenant() ?: self::checkUser();
-                if ($tenantId) {
-                    $tenantInfo = Tenant::where('id', $tenantId)->find()->toArray();
-                    // 租户分表策略
-                    if ($tenantInfo['tactics'] == 1) {
-                        $table = $table . '_' . $tenantInfo['sn'];
-                        //判断对应表是否存在
-                        $newQuery = $query->getConnection()->getTableInfo($table);
-                        if ($newQuery) {
-                            // 分表存在
-                            $query->table($table);
-                        }else{
-                            // 表不存在
-                            echo "表 " .$table ." 不存在";
-                        }
+                $tenantInfo = Tenant::where('id', $tenantId)->find()->toArray();
+                // 租户分表策略
+                if ($tenantInfo['tactics'] == 1) {
+                    $table = $table . '_' . $tenantInfo['sn'];
+                    //判断对应表是否存在
+                    $newQuery = $query->getConnection()->getTableInfo($table);
+                    if ($newQuery) {
+                        // 分表存在
+                        $query->table($table);
+                    } else {
+                        // 表不存在
+                        echo "表 " . $table . " 不存在";
                     }
                 }
             }

@@ -18,6 +18,7 @@ use app\platformapi\controller\BaseAdminController;
 use app\platformapi\lists\tenant\TenantAdminLists;
 use app\platformapi\logic\tenant\TenantAdminLogic;
 use app\platformapi\validate\tenant\TenantAdminValidate;
+use think\response\Json;
 
 /**
  * 租户账号用户控制器
@@ -29,7 +30,7 @@ class TenantAdminController extends BaseAdminController
 
     /**
      * @notes 获取租户管理员账号 租户查询参数必传防止越权查看
-     * @return \think\response\Json
+     * @return Json
      * @author yfdong
      * @date 2024/09/04 22:11
      */
@@ -41,7 +42,7 @@ class TenantAdminController extends BaseAdminController
 
     /**
      * @notes 获取租户管理员账号 租户id以及主键id查询参数必传 防止越权查看
-     * @return \think\response\Json
+     * @return Json
      * @author yfdong
      * @date 2024/09/04 22:14
      */
@@ -57,7 +58,7 @@ class TenantAdminController extends BaseAdminController
 
     /**
      * @notes 创建租户管理员账号
-     * @return \think\response\Json
+     * @return Json
      * @author yfdong
      * @date 2024/09/04 22:58
      */
@@ -73,7 +74,7 @@ class TenantAdminController extends BaseAdminController
 
     /**
      * @notes 编辑租户管理员账号
-     * @return \think\response\Json
+     * @return Json
      * @author yfdong
      * @date 2024/09/04 22:58
      */
@@ -89,7 +90,7 @@ class TenantAdminController extends BaseAdminController
 
     /**
      * @notes 删除租户管理员账号
-     * @return \think\response\Json
+     * @return Json
      * @author yfdong
      * @date 2024/09/04 22:59
      */

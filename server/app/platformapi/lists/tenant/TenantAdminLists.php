@@ -13,6 +13,7 @@
 // +----------------------------------------------------------------------
 namespace app\platformapi\lists\tenant;
 
+use app\common\model\auth\SystemMenu;
 use app\common\model\auth\TenantAdmin;
 use app\tenantapi\lists\BaseAdminDataLists;
 use app\common\enum\user\UserTerminalEnum;
@@ -55,18 +56,24 @@ class TenantAdminLists extends BaseAdminDataLists implements ListsExcelInterface
         //进行参数校验 租户标识必填
         if(!isset($this->params['tenant_id'])){
             return [];
+        }else{
+            // 获取租户信息
+            $tenantInfo = Tenant::query()->where('id',$this->params['tenant_id'])->findOrFail()->toArray();
+            $field = "id,root,name,avatar,account,multipoint_login,disable,create_time";
+            // 是否开启分表
+            if('1' == $tenantInfo['tactics']){
+                $tenantAdminQuery = new TenantAdmin();
+            }else{
+                // todo 考虑新增分表模型
+                $tenantAdminQuery = new TenantAdmin();
+            }
+            $lists = TenantAdmin::query()->withSearch($this->setSearch(), $this->params)
+                ->limit($this->limitOffset, $this->limitLength)
+                ->field($field)
+                ->order('create_time desc')
+                ->select()->toArray();
+            return $lists;
         }
-
-        $field = "id,root,name,avatar,account,multipoint_login,disable,create_time";
-
-        $lists = TenantAdmin::withSearch($this->setSearch(), $this->params)
-            ->limit($this->limitOffset, $this->limitLength)
-            ->field($field)
-            ->order('create_time desc')
-            ->select()->toArray();
-
-
-        return $lists;
     }
 
 
