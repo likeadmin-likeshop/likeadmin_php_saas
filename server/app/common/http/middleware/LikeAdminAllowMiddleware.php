@@ -35,7 +35,7 @@ class LikeAdminAllowMiddleware
         'Authorization', 'Sec-Fetch-Mode', 'DNT', 'X-Mx-ReqToken', 'Keep-Alive', 'User-Agent',
         'If-Match', 'If-None-Match', 'If-Unmodified-Since', 'X-Requested-With', 'If-Modified-Since',
         'Cache-Control', 'Content-Type', 'Accept-Language', 'Origin', 'Accept-Encoding', 'Access-Token',
-        'token', 'version'
+        'token', 'version',
     ];
 
     /**
@@ -68,11 +68,17 @@ class LikeAdminAllowMiddleware
         $domain = preg_replace('/^https?:\/\/|\/$/', '', $request->domain());
         $pathSegments = explode('/', $request->pathinfo());
         $firstSegment = $pathSegments[0];
-
         // 处理API请求
         if (str_contains($firstSegment, 'api')) {
             if ($firstSegment !== 'platformapi') {
                 return $this->handleTenantAccess($tenantModel, $domain, $request, $next);
+            }else{
+                // 统一捕获请求中的租户id查询参数
+                $params = $request->param();
+                if (isset($params['tenant_id']) || isset($params['tenantId'])) {
+                    $request->tenantId = $params['tenant_id'] ?? $params['tenantId'];
+                }
+                return $next($request);
             }
         } else {
             // 处理页面请求
@@ -81,6 +87,13 @@ class LikeAdminAllowMiddleware
             } else {
                 if ($domain !== Config::get('project.http_host')) {
                     return view(app()->getRootPath() . 'public/error/platform/404.html');
+                }else{
+                    // 统一捕获请求中的租户id查询参数
+                    $params = $request->param();
+                    if (isset($params['tenant_id']) || isset($params['tenantId'])) {
+                        $request->tenantId = $params['tenant_id'] ?? $params['tenantId'];
+                    }
+                    return $next($request);
                 }
             }
         }
@@ -98,7 +111,7 @@ class LikeAdminAllowMiddleware
             'Access-Control-Allow-Headers'     => implode(', ', self::ALLOWED_HEADERS),
             'Access-Control-Allow-Methods'     => 'GET, POST, PATCH, PUT, DELETE, post',
             'Access-Control-Max-Age'           => '1728000',
-            'Access-Control-Allow-Credentials' => 'true'
+            'Access-Control-Allow-Credentials' => 'true',
         ];
 
         foreach ($headers as $key => $value) {

@@ -72,13 +72,21 @@ class BaseModel extends Model
         $tenantId = self::checkTenant() ?: self::checkUser();
         // 获取当前查询模型表名
         $table = $query->getTable();
+        // 获取对应表字段
+        $fields = $query->getConnection()->getTableInfo($table, 'fields');
+        // 判断是否存在 tenant_id 字段
+        $hasTenantId = in_array('tenant_id', $fields);
         //去除表前缀
         $tableNoPrefix = str_replace(env('database.prefix', 'la_'), '', $table);
-        if ($tenantId) {
+        // 来自租户端或者用户端，平台端查询租户就需要进行全局租户信息替换
+        if ($tenantId || ($hasTenantId && isset(\request()->tenantId))) {
+            if(!$tenantId){
+                $tenantId = \request()->tenantId;
+            }
             // 分表全局控制
             if (!in_array($tableNoPrefix, self::$notCheckTables)) {
                 // 根据租户唯一标识获取对应表是否存在
-                $tenantInfo = Tenant::where('id', $tenantId)->find()->toArray();
+                $tenantInfo = Tenant::query()->where('id', $tenantId)->find()->toArray();
                 // 租户分表策略
                 if ($tenantInfo['tactics'] == 1) {
                     $table = $table . '_' . $tenantInfo['sn'];
@@ -93,10 +101,8 @@ class BaseModel extends Model
                     }
                 }
             }
-            // 获取对应表字段
-            $fields = $query->getConnection()->getTableInfo($table, 'fields');
             // 判断是否存在 tenant_id 字段
-            if (in_array('tenant_id', $fields)) {
+            if ($hasTenantId) {
                 self::$hasTenantId = true;
                 $query->where($table . '.tenant_id', $tenantId);
             }
