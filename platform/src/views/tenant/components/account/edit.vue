@@ -31,7 +31,7 @@
             <el-form-item label="名称" prop="name">
                 <el-input v-model="formData.name" placeholder="请输入名称" clearable />
             </el-form-item>
-            <el-form-item label="归属部门" prop="dept_id">
+            <!-- <el-form-item label="归属部门" prop="dept_id">
                 <el-tree-select
                     class="flex-1"
                     v-model="formData.dept_id"
@@ -50,8 +50,8 @@
                     :default-expand-all="true"
                     placeholder="请选择上级部门"
                 />
-            </el-form-item>
-            <el-form-item label="岗位" prop="jobs_id">
+            </el-form-item> -->
+            <!-- <el-form-item label="岗位" prop="jobs_id">
                 <el-select
                     class="flex-1"
                     v-model="formData.jobs_id"
@@ -66,10 +66,10 @@
                         :value="item.id"
                     />
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
 
             <!-- 角色选择框 -->
-            <el-form-item label="角色" prop="role_id" v-if="formData.root != 1">
+            <!-- <el-form-item label="角色" prop="role_id" v-if="formData.root != 1">
                 <el-select
                     v-model="formData.role_id"
                     :disabled="formData.root == 1"
@@ -85,7 +85,7 @@
                         :value="item.id"
                     />
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
 
             <!-- 密码输入框 -->
             <el-form-item label="密码" prop="password">
@@ -108,9 +108,9 @@
             </el-form-item>
 
             <!-- 管理员状态 -->
-            <el-form-item label="管理员状态" v-if="formData.root != 1" prop="disable">
+            <!-- <el-form-item label="管理员状态" v-if="formData.root != 1" prop="disable">
                 <el-switch v-model="formData.disable" :active-value="0" :inactive-value="1" />
-            </el-form-item>
+            </el-form-item> -->
 
             <!-- 多处登录 -->
             <el-form-item label="多处登录" prop="multipoint_login">
@@ -130,11 +130,11 @@
 import { ElForm } from 'element-plus'
 
 import { getTenantAccountDetail, userAccountAdd, userAccountEdit } from '@/api/consumer'
-import { deptAll } from '@/api/org/department'
-import { jobsAll } from '@/api/org/post'
-import { roleAll } from '@/api/perms/role'
+// import { deptAll } from '@/api/org/department'
+// import { jobsAll } from '@/api/org/post'
+// import { roleAll } from '@/api/perms/role'
 import Popup from '@/components/popup/index.vue'
-import { useDictOptions } from '@/hooks/useDictOptions'
+// import { useDictOptions } from '@/hooks/useDictOptions'
 import { useComponentRef } from '@/utils/getExposeType'
 const props = defineProps({
     tenant_id: {
@@ -221,30 +221,30 @@ const formRules = reactive({
         }
     ]
 })
-const { optionsData } = useDictOptions<{
-    role: any[]
-    jobs: any[]
-    dept: any[]
-}>({
-    role: {
-        api: roleAll,
-        params: {
-            tenant_id: props.tenant_id
-        }
-    },
-    jobs: {
-        api: jobsAll,
-        params: {
-            tenant_id: props.tenant_id
-        }
-    },
-    dept: {
-        api: deptAll,
-        params: {
-            tenant_id: props.tenant_id
-        }
-    }
-})
+// const { optionsData } = useDictOptions<{
+//     role: any[]
+//     jobs: any[]
+//     dept: any[]
+// }>({
+//     role: {
+//         api: roleAll,
+//         params: {
+//             tenant_id: props.tenant_id
+//         }
+//     },
+//     jobs: {
+//         api: jobsAll,
+//         params: {
+//             tenant_id: props.tenant_id
+//         }
+//     },
+//     dept: {
+//         api: deptAll,
+//         params: {
+//             tenant_id: props.tenant_id
+//         }
+//     }
+// })
 
 const handleSubmit = async () => {
     await editFormRef.value?.validate()

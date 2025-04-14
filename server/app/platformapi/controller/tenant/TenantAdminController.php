@@ -62,7 +62,7 @@ class TenantAdminController extends BaseAdminController
      * @author yfdong
      * @date 2024/09/04 22:58
      */
-    public function add()
+ /*   public function add()
     {
         $params = (new TenantAdminValidate())->post()->goCheck('add');
         $result = TenantAdminLogic::add($params);
@@ -70,7 +70,7 @@ class TenantAdminController extends BaseAdminController
             return $this->success('操作成功', [], 1, 1);
         }
         return $this->fail(TenantAdminLogic::getError());
-    }
+    }*/
 
     /**
      * @notes 编辑租户管理员账号

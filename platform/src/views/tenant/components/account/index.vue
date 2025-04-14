@@ -23,7 +23,7 @@
             <el-form-item class="!mr-0">
                 <el-button type="primary" @click="resetPage">查询</el-button>
                 <el-button @click="resetParams">重置</el-button>
-                <el-button @click="handleShow('add')">新增</el-button>
+                <!-- <el-button @click="handleShow('add')">新增</el-button> -->
                 <export-data
                     class="ml-2.5"
                     :fetch-fun="getTenantAccountList"
@@ -59,7 +59,7 @@
                     >
                         编辑
                     </el-button>
-                    <el-button
+                    <!-- <el-button
                         v-perms="['user.user/delete']"
                         class="!ml-0"
                         type="danger"
@@ -67,7 +67,7 @@
                         @click="handleDelete(row.id)"
                     >
                         删除
-                    </el-button>
+                    </el-button> -->
                 </template>
             </el-table-column>
         </el-table>
@@ -85,9 +85,12 @@
 </template>
 
 <script lang="ts" setup>
-import { getTenantAccountList, userAccountDelete } from '@/api/consumer'
+import {
+    getTenantAccountList
+    //  userAccountDelete
+} from '@/api/consumer'
 import { usePaging } from '@/hooks/usePaging'
-import feedback from '@/utils/feedback'
+// import feedback from '@/utils/feedback'
 import { useComponentRef } from '@/utils/getExposeType'
 
 import Edit from './edit.vue'
@@ -123,11 +126,11 @@ const handleShow = async (type: 'add' | 'edit', id?: number) => {
     editRef.value?.open(type, id)
 }
 
-const handleDelete = async (id: number) => {
-    await feedback.confirm('确定要删除？')
-    await userAccountDelete({ id })
-    getLists()
-}
+// const handleDelete = async (id: number) => {
+//     await feedback.confirm('确定要删除？')
+//     await userAccountDelete({ id })
+//     getLists()
+// }
 
 onMounted(() => {
     getLists()

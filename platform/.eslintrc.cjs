@@ -13,21 +13,8 @@ module.exports = {
     ],
     plugins: ['simple-import-sort'],
     rules: {
+        'prettier/prettier': 'off',
         'simple-import-sort/imports': 'error', // 强制导入语句排序
-        'prettier/prettier': [
-            'warn',
-            {
-                semi: false,
-                singleQuote: true,
-                printWidth: 100,
-                proseWrap: 'preserve',
-                bracketSameLine: false,
-                endOfLine: 'lf',
-                tabWidth: 4,
-                useTabs: false,
-                trailingComma: 'none'
-            }
-        ],
         'vue/multi-word-component-names': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
